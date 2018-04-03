@@ -1,0 +1,57 @@
+@media (max-width:900px) {
+
+    .content-box {
+        padding:1em 2em;
+    }
+
+    /* PROJECT LIST MOVILE STYLES */
+    .project-list .project {
+        padding:0.5em 1em;
+        flex-wrap: wrap;
+        /* flex-flow: row; */
+        text-align: center;
+        justify-content: space-around;
+        min-width:200px;
+    }
+    .project-list .project .details {
+        margin:0 0 0 1em;
+    }
+    .project-list .project .menu {
+        margin:1em 0;
+    }
+    .project-list .project .milestones {
+        min-width:auto;
+        width:60px;
+        height:60px;
+        line-height: 60px;
+        font-size:0.8em;
+
+    }
+    .project-list .project .milestones::before,
+    .project-list .project .milestones::after {
+        border-width: 30px;
+    }
+
+    /* MILESTONE LIST */
+    .milestone-list {
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: space-around;
+    }
+    .milestone-list .milestone p {
+        display:none;
+    }
+
+}
+
+@media (max-width:600px) {
+    nav ul li a {
+      float:none;
+      padding:0.5em 0;
+      margin:0;
+      /* height:30px; */
+  
+    }
+  
+  }
+  
