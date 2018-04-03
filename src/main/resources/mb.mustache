@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{name}}</title>
+
+</head>
+<body>
+<h1>{{name}}</h1>
+<p>Welcome!</p>
+<div>
+
+    <span>Browse Topics</span>
+    {{#topics}}
+        <ol id='topics'>
+            <li>{{topic}}</li>
+
+
+        </ol>
+    {{/topics}}
+</div>
+
+<div><p>Add a new topic </p>
+
+    New topic: <input type="text" name="newTpc"><br>
+    <input id="addBtn" type="button" value="Add Topic">
+
+</div>
+
+
+</body>
+<script type="text/javascript" src="../styles/mb.js"></script>
+</html>
+
