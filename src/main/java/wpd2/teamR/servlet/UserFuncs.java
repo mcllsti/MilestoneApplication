@@ -30,8 +30,8 @@ class UserFuncs {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(UserFuncs.class);
 
-    final static String USERNAME_PARAMETER = "userName";
-    private final static String USER_NAME_KEY = "userName";
+    final static String USERNAME_PARAMETER = "email";
+    private final static String USER_NAME_KEY = "email";
     private final static String LOGIN_REDIRECT_KEY = "redirectURL";
     final static String DEFAULT_LOGIN_REDIRECT = "/index.html";
 
