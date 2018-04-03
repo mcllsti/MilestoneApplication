@@ -1,9 +1,9 @@
 
-package wpd2.lect9.servlet;
+package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.lect9.util.MustacheRenderer;
+import wpd2.teamR.util.MustacheRenderer;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

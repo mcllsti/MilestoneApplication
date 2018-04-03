@@ -1,6 +1,6 @@
 // Copyright (c) 2018 Cilogi. All Rights Reserved.
 //
-// File:        PrivatePageServlet.java
+// File:        LogoutServlet.java
 //
 // Copyright in the whole and every part of this source file belongs to
 // Cilogi (the Author) and may not be used, sold, licenced, 
@@ -17,7 +17,7 @@
 //
 
 
-package wpd2.lect9.servlet;
+package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,24 +28,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class PrivatePageServlet extends BaseServlet {
+public class LogoutServlet extends BaseServlet {
     @SuppressWarnings("unused")
-    static final Logger LOG = LoggerFactory.getLogger(PrivatePageServlet.class);
+    static final Logger LOG = LoggerFactory.getLogger(LogoutServlet.class);
 
-    private static final String PRIVATE_PAGE_TEMPLATE = "private.mustache";
-
-    public PrivatePageServlet() {
+    public LogoutServlet() {
 
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (!authOK(request, response)) {
-            return;
-        }
-        String userName = UserFuncs.getCurrentUser(request);
-        showView(response, PRIVATE_PAGE_TEMPLATE, userName);
+        UserFuncs.clearCurrentUser(request);
+        response.sendRedirect(response.encodeRedirectURL(UserFuncs.DEFAULT_LOGIN_REDIRECT));
     }
-
 }

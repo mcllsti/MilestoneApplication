@@ -1,4 +1,4 @@
-package wpd2.lect9;
+package wpd2.teamR;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -6,7 +6,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.lect9.servlet.*;
+import wpd2.teamR.servlet.*;
 
 public class Runner {
     @SuppressWarnings("unused")

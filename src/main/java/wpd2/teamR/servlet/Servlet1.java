@@ -1,4 +1,4 @@
-package wpd2.lect9.servlet;
+package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

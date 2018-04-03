@@ -1,4 +1,4 @@
-package wpd2.lect9.util;
+package wpd2.teamR.util;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;

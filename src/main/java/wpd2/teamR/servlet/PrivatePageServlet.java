@@ -1,6 +1,6 @@
 // Copyright (c) 2018 Cilogi. All Rights Reserved.
 //
-// File:        LoginServlet.java
+// File:        PrivatePageServlet.java
 //
 // Copyright in the whole and every part of this source file belongs to
 // Cilogi (the Author) and may not be used, sold, licenced, 
@@ -17,7 +17,7 @@
 //
 
 
-package wpd2.lect9.servlet;
+package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,35 +28,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class LoginServlet extends BaseServlet {
+public class PrivatePageServlet extends BaseServlet {
     @SuppressWarnings("unused")
-    static final Logger LOG = LoggerFactory.getLogger(LoginServlet.class);
+    static final Logger LOG = LoggerFactory.getLogger(PrivatePageServlet.class);
 
-    private final String LOGIN_TEMPLATE = "login.mustache";
+    private static final String PRIVATE_PAGE_TEMPLATE = "private.mustache";
 
-
-    public LoginServlet() {
+    public PrivatePageServlet() {
 
     }
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!authOK(request, response)) {
+            return;
+        }
         String userName = UserFuncs.getCurrentUser(request);
-        showView(response, LOGIN_TEMPLATE, userName);
+        showView(response, PRIVATE_PAGE_TEMPLATE, userName);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String name = request.getParameter(UserFuncs.USERNAME_PARAMETER);
-        if (name != null && name.length() > 0) {
-            UserFuncs.setCurrentUser(request, name);
-            String targetURL = UserFuncs.getLoginRedirect(request);
-            response.sendRedirect(response.encodeRedirectURL(targetURL));
-        }
-        // do nothing, we stay on the page,
-        // could also display a warning message by passing parameter to /login on redirect
-    }
 }

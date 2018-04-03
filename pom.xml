@@ -63,7 +63,7 @@
                 </executions>
                 <configuration>
                     <killAfter>-1</killAfter>
-                    <mainClass>wpd2.lect9.Runner</mainClass>
+                    <mainClass>wpd2.teamR.Runner</mainClass>
                     <arguments>
                         <argument>Session Demo</argument>
                     </arguments>

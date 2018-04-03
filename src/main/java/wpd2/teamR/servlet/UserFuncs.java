@@ -17,7 +17,7 @@
 //
 
 
-package wpd2.lect9.servlet;
+package wpd2.teamR.servlet;
 
 import lombok.NonNull;
 import org.slf4j.Logger;

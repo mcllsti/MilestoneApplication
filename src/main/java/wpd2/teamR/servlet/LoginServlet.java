@@ -1,6 +1,6 @@
 // Copyright (c) 2018 Cilogi. All Rights Reserved.
 //
-// File:        LogoutServlet.java
+// File:        LoginServlet.java
 //
 // Copyright in the whole and every part of this source file belongs to
 // Cilogi (the Author) and may not be used, sold, licenced, 
@@ -17,7 +17,7 @@
 //
 
 
-package wpd2.lect9.servlet;
+package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,18 +28,35 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class LogoutServlet extends BaseServlet {
+public class LoginServlet extends BaseServlet {
     @SuppressWarnings("unused")
-    static final Logger LOG = LoggerFactory.getLogger(LogoutServlet.class);
+    static final Logger LOG = LoggerFactory.getLogger(LoginServlet.class);
 
-    public LogoutServlet() {
+    private final String LOGIN_TEMPLATE = "login.mustache";
 
+
+    public LoginServlet() {
+
+    }
+
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String userName = UserFuncs.getCurrentUser(request);
+        showView(response, LOGIN_TEMPLATE, userName);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserFuncs.clearCurrentUser(request);
-        response.sendRedirect(response.encodeRedirectURL(UserFuncs.DEFAULT_LOGIN_REDIRECT));
+        String name = request.getParameter(UserFuncs.USERNAME_PARAMETER);
+        if (name != null && name.length() > 0) {
+            UserFuncs.setCurrentUser(request, name);
+            String targetURL = UserFuncs.getLoginRedirect(request);
+            response.sendRedirect(response.encodeRedirectURL(targetURL));
+        }
+        // do nothing, we stay on the page,
+        // could also display a warning message by passing parameter to /login on redirect
     }
 }
