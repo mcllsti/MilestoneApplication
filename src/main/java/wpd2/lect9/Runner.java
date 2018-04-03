@@ -18,26 +18,39 @@ public class Runner {
     private Runner() {
     }
 
+    /**
+     * Start server
+     * @throws Exception
+     */
     private void start() throws Exception {
+
+        // SETUP THE SERVER AND PASS THE PORT NUMBER
         Server server = new Server(PORT);
 
+        // SETUP SESSIONS, BASE PATH AND RESOURCE PATH
         ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
         handler.setContextPath("/");
         handler.setInitParameter("org.eclipse.jetty.servlet.Default." + "resourceBase", "src/main/resources/webapp");
 
+        // SETUP DEFAULT SERVLET AND ADD DEFAULT SERVLET HOLDER
         DefaultServlet ds = new DefaultServlet();
         handler.addServlet(new ServletHolder(ds), "/");
 
+        // SETUP AND POINT A URL FOR SERVLET 1
         Servlet1 servlet1 = new Servlet1();
         handler.addServlet(new ServletHolder(servlet1), "/servlet1");
 
+        // SETUP AND POINT A URL FOR SERVLET 2
         Servlet2 servlet2 = new Servlet2();
         handler.addServlet(new ServletHolder(servlet2), "/servlet2");
 
+        // SETUP AND POINT A URL FOR THE PRIVATE AND PUBLIC SERVLETS AS WELL AS LOGIN
         handler.addServlet(new ServletHolder(new PublicPageServlet()), "/public");
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
+
+        // START THE SERVER
         server.start();
         LOG.info("Server started, will run until terminated");
         server.join();
@@ -46,10 +59,16 @@ public class Runner {
 
     public static void main(String[] args) {
         try {
+
+            // START THE SERVER ABOVE
             LOG.info("starting...");
             new Runner().start();
+
         } catch (Exception e) {
+
+            // SOMETHING WENT WRONG
             LOG.error("Unexpected error running: " + e.getMessage());
+
         }
     }
 }
