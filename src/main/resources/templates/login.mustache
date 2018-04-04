@@ -7,10 +7,10 @@
 
 <div class="login-form">
 
-    <input type="radio" class="login-button" id="login" name="buttons" checked>
+    <input type="radio" class="login-button" id="login" name="buttons">
     <label for="login">Login</label>
 
-    <input type="radio" class="signup-button" id="signup" name="buttons">
+    <input type="radio" class="signup-button" id="signup" name="buttons" checked>
     <label for="signup">Signup</label>
 
     <form action="/login" method="post" class="form-box">
@@ -18,7 +18,7 @@
         <div class="signup">
 
             <label for="fname">First Name</label>
-            <input type="text" name="fname">
+            <input type="text" name="fname" value="">
 
             <label for="lname">Last Name</label>
             <input type="text" name="fname">
@@ -28,7 +28,7 @@
         <div class="login">
 
             <label for="email">Email</label>
-            <input type="email" name="email">
+            <input type="email" name="email" value="{{.}}">
 
             <label for="password">Password</label>
             <input type="password" name="password">
