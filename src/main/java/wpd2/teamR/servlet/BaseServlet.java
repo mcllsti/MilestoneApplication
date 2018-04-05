@@ -24,6 +24,7 @@ class BaseServlet extends HttpServlet {
     // SET THE CHARACTER SET AND FORMATTING
     static final String HTML_UTF_8 = "text/html; charset=UTF-8";
     static final String PLAIN_TEXT_UTF_8 = "text/plain; charset=UTF-8";
+    static final String JSON = "application/javascript; charset=UTF-8";
     static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
     // PROTECTED PAGEES LIST AND LOGIN PAGE ROUTE
