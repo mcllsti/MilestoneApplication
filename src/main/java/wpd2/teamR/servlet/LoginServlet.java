@@ -59,4 +59,5 @@ public class LoginServlet extends BaseServlet {
         // do nothing, we stay on the page,
         // could also display a warning message by passing parameter to /login on redirect
     }
+
 }
