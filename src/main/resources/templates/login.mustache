@@ -13,7 +13,7 @@
     <input type="radio" class="signup-button" id="signup" name="buttons" checked>
     <label for="signup">Signup</label>
 
-    <form action="/login" method="post" class="form-box">
+    <form action="/login" method="post" id="login-form" class="form-box">
 
         <div class="signup">
 
@@ -40,7 +40,30 @@
     </form>
 
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#login-form").submit(function(e){
+            e.preventDefault();
+            console.log("THIS FORM TRIED TO SUBMIT");
 
+            var url = "/login"; // the script where you handle the form input.
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $(this).serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    console.log(data);
+                    alert("This worked...Try going to password proteted page now...");
+                    $('<div><h1>Logged in</h1><p>Try going to <a href="/private">private</a> now</p></div>').appendTo(".login-form");
+
+                }
+            });
+
+        });
+    });
+</script>
 <!--KATRIN CODE-->
 <!--<h1>Login</h1>-->
 <!--<form action="/login" method="POST">-->
