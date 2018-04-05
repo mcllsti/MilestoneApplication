@@ -59,6 +59,13 @@ class BaseServlet extends HttpServlet {
         issue(HTML_UTF_8, HttpServletResponse.SC_OK, html.getBytes(CHARSET_UTF8), response);
     }
 
+    // TODO: returnJSON method
+    void returnJSON(HttpServletResponse response, Object model) throws IOException {
+//        String html = mustache.render(templateName, model);
+        // TODO: CONVERT THE MODEL TO JSON USING JACKSON
+        issue(HTML_UTF_8, HttpServletResponse.SC_OK, model.toString().getBytes(CHARSET_UTF8), response);
+    }
+
     /**
      * Check to see if the user is authenticated already
      * @param request The http servlet request
