@@ -49,7 +49,7 @@
             var url = "/login"; // the script where you handle the form input.
 
             $.ajax({
-                type: "POST",
+                type: "PUT",
                 url: url,
                 data: $(this).serialize(), // serializes the form's elements.
                 success: function(data)
