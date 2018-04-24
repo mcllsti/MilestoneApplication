@@ -73,7 +73,29 @@ public class ProjectDAO extends DAOBase {
         } }
 
 
+    public List<Project> findByUserId(String email) throws SQLException
+    {
 
+        final String GET_USERS_PROJECTS = "SELECT * FROM projects WHERE userID = (SELECT id FROM users WHERE email = ?)";
+
+        try (PreparedStatement ps = connection.prepareStatement(GET_USERS_PROJECTS)) {
+
+            // PASS THROUGH THE EMAIL INTO THE PREPARED STATEMENT
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            // LOOP THROUGH RESULTS
+            List<Project> usersProjects = new ArrayList<Project>();
+            while (rs.next()) {
+                usersProjects.add(new Project(rs.getInt("id"),rs.getString("name"),
+                        rs.getString("description"),rs.getTimestamp("dateCreated"),rs.getTimestamp("dateModified")));
+            }
+
+            return usersProjects;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } }
 }
 
 
