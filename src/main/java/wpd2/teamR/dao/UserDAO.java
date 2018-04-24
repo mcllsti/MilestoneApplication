@@ -11,13 +11,12 @@ import java.sql.SQLException;
 
 public class UserDAO extends DAOBase {
 
-    private Connection connection;
     private static final Logger LOG = LoggerFactory.getLogger(UserDAO.class);
 
-
     public UserDAO(){
-        ConnectionSupplier cs = new ConnectionSupplier();
-        this.connection = cs.provide();
+        // CALL THE DAO BASE TO INITIALISE THE DB CONNCTION
+        super();
+
     }
 
     // TODO: create user

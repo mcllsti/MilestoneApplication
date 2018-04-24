@@ -23,23 +23,23 @@ public class DAOBase implements AutoCloseable {
 
     }
 
-    public List<Object> getAllUsers() throws SQLException {
-
-        final String LIST_PERSONS = "SELECT email FROM users";
-        List<Object> results = new ArrayList<>();
-
-        try (PreparedStatement ps = connection.prepareStatement(LIST_PERSONS)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                results.add(rs.getString(1));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return results;
-
-    }
+//    public List<Object> getAllUsers() throws SQLException {
+//
+//        final String LIST_PERSONS = "SELECT email FROM users";
+//        List<Object> results = new ArrayList<>();
+//
+//        try (PreparedStatement ps = connection.prepareStatement(LIST_PERSONS)) {
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                results.add(rs.getString(1));
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return results;
+//
+//    }
 
     protected Connection getConnection() {
 
