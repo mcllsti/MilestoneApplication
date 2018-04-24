@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.models.User;
 import wpd2.teamR.util.Password;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,15 +19,17 @@ public class UserDAO extends DAOBase {
 
     }
 
-    public String checkIsValidUser(String Email) throws SQLException
+    public String checkIsValidUser(String Email, String password) throws SQLException
     {
 
-        final String CHECK_USER = "SELECT email FROM users WHERE email=?";
+        String hash = Password.createHash(password);
+        final String CHECK_USER = "SELECT email FROM users WHERE email=? AND password=?";
         String result = "";
 
         try (PreparedStatement ps = connection.prepareStatement(CHECK_USER)) {
 
             ps.setString(1, Email);
+            ps.setString(2, hash);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
