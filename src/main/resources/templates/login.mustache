@@ -5,6 +5,8 @@
     <p>Please login to continue</p>
 </div>
 
+{{>_partials/flash-message}}
+
 <div class="login-form">
 
     <form action="/login" method="post" id="login-form">
@@ -51,55 +53,10 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
+        // VALIDATE THE FORM - NOT WORRYING ABOUT AJAX WITH THIS YET
+        // TODO: ADD AJAX CHECK TO SEE IF USERNAME EXISTS
         $("#login-form").validate();
-        // $("#login-form").validate({
-        //     rules: {
-        //         fname: {
-        //             required: true
-        //         },
-        //         lname: {
-        //             required: true
-        //         },
-        //         email: {
-        //             required: true,
-        //             email: true
-        //         }
-        //     },
-        //     submitHandler: function(form){
-        //         alert('valid form submitted');
-        //         return false;
-        //     }
-        // });
 
-        // $("#login-form").submit(function(e){
-        //     e.preventDefault();
-        //     console.log("THIS FORM TRIED TO SUBMIT");
-        //
-        //     var url = "/login"; // the script where you handle the form input.
-        //
-        //     console.log($(this));
-        //
-        //     // $.ajax({
-        //     //     type: "POST",
-        //     //     url: url,
-        //     //     data: $(this).serialize(), // serializes the form's elements.
-        //     //     success: function(data)
-        //     //     {
-        //     //         console.log(data);
-        //     //         alert("This worked...Try going to password proteted page now...");
-        //     //         $('<div><h1>Logged in</h1><p>Try going to <a href="/private">private</a> now</p></div>').appendTo(".login-form");
-        //     //
-        //     //     }
-        //     // });
-        //
-        // });
     });
 </script>
-<!--KATRIN CODE-->
-<!--<h1>Login</h1>-->
-<!--<form action="/login" method="POST">-->
-    <!--Name:-->
-    <!--<input type="text" name="userName" value="{{.}}"/><br/>-->
-    <!--<input type="submit" value="Login"/>-->
-<!--</form>-->
 {{>_partials/site-footer}}
