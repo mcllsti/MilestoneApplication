@@ -35,7 +35,7 @@
         <div class="login">
 
             <label for="email">Email</label>
-            <input type="email" name="email" value="{{.}}" required>
+            <input type="email" name="email" value="" required>
 
             <label for="password">Password</label>
             <input type="password" name="password" required>
@@ -55,7 +55,23 @@
 
         // VALIDATE THE FORM - NOT WORRYING ABOUT AJAX WITH THIS YET
         // TODO: ADD AJAX CHECK TO SEE IF USERNAME EXISTS
-        $("#login-form").validate();
+        $("#login-form").validate({
+            rules: {
+                fname: {
+                    required: '#signup:checked'
+                },
+                lname: {
+                    required: '#signup:checked'
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true
+                }
+            }
+        });
 
     });
 </script>
