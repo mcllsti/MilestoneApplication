@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DAOBase implements AutoCloseable {
 
-    private Connection connection;
+    protected Connection connection;
 
 
     public DAOBase() {
@@ -29,15 +29,15 @@ public class DAOBase implements AutoCloseable {
 
     }
 
-    public List<Object> getAllUsers() throws SQLException {
+    public List<String> getAllUsers() throws SQLException {
 
         final String LIST_PERSONS = "SELECT email FROM users";
-        List<Object> results = new ArrayList<>();
+        List<String> results = new ArrayList<>();
 
         try (PreparedStatement ps = connection.prepareStatement(LIST_PERSONS)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                results.add(rs.getString(1));
+                String fun = rs.getString("email");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
