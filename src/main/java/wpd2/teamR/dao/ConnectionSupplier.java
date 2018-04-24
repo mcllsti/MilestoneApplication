@@ -18,8 +18,18 @@ public class ConnectionSupplier {
         try {
             // the driver class must be loaded
             // so that DriverManager can find the loaded class
-            Class.forName("org.h2.Driver");
-            return DriverManager.getConnection(db, "sa", "");
+            Class.forName("com.mysql.jdbc.Driver");
+
+            // CONNECTION DETAILS
+            String servername = "localhost";
+            int port = 3306;
+            String user = "root";
+            String pass = "";
+            String db = "milestones";
+            String connectionString = "jdbc:mysql://" + servername + ":" + port + "/" + db;
+
+            return DriverManager.getConnection(connectionString,user, pass);
+
         } catch (SQLException | ClassNotFoundException e) {
             throw new ConnectionSupplierException(e);
         }
