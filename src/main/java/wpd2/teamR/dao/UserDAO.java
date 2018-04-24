@@ -8,11 +8,6 @@ import java.util.List;
 
 public class UserDAO extends DAOBase {
 
-    public void createUser()
-    {
-
-
-    }
 
     public String checkIsValidUser(String Email) throws SQLException
     {
