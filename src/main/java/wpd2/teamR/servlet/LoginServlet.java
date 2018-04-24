@@ -24,7 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.dao.UserDAO;
 import wpd2.teamR.models.User;
-import wpd2.teamR.util.Password;
+import wpd2.teamR.util.FlashMessage;
+
+import wpd2.teamR.util.SessionFunctions;
 
 
 import javax.servlet.ServletException;
@@ -32,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 
 public class LoginServlet extends BaseServlet {
@@ -50,20 +53,21 @@ public class LoginServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        UserDAO hello = new UserDAO();
-//        try {
-////            hello.checkIsValidUser("d.heyyyy@domain.com");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+
         String userName = UserFuncs.getCurrentUser(request);
-        showView(response, LOGIN_TEMPLATE, userName);
+
+        HashMap<String,Object> viewBag = new HashMap<String,Object>();
+
+        FlashMessage message = SessionFunctions.getFlashMessage(request);
+        viewBag.put("username",userName);
+        viewBag.put("message",message);
+
+        showView(response, LOGIN_TEMPLATE, viewBag);
+
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // CHECK WHETHER USER WISHES TO LOGIN OR REGISTER
         if(request.getParameter("buttons").equals("register")){
@@ -78,17 +82,7 @@ public class LoginServlet extends BaseServlet {
 
         }
 
-
-
-
-
-            LOG.debug("This should have saved the user in DB");
-
-
-        }
-        // do nothing, we stay on the page,
-        // could also display a warning message by passing parameter to /login on redirect
-
+    }
 
     /**
      * Login user, based on data passed from form.
@@ -110,11 +104,13 @@ public class LoginServlet extends BaseServlet {
 
                 // TRUE, SO SET SESSION AND REDIRECT TO PAGE
                 setCurrentUser(request, result);
+                SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully logged in","Welcome back :)"));
                 response.sendRedirect("/private");
 
             } else {
 
                 // LOGIN WASNT SUCCESSFUL
+                SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"There was a problem","Please check your login details"));
                 response.sendRedirect("/login");
 
             }
@@ -137,20 +133,24 @@ public class LoginServlet extends BaseServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        // CREATE NEW USER BASED ON FORM DATA
         User newUser = new User(fname, lname, email, password);
 
-
+            // WRITE THE NEW USER TO THE DATABASE
             if(users.registerUser(newUser)){
-                // WAS SUCCESS
-                // TODO: MAYBE EMAIL
 
-                // SET A SESSION, AND REDIRECT
+                // TODO: MAYBE EMAIL
+                // SET A SESSION, WRITE A SUCCESS MESSAGE, AND REDIRECT
                 setCurrentUser(request, email);
+                SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully Registered","You have been successfully registered int the ssytem. Welcome."));
                 response.sendRedirect("/private");
 
             } else {
+
                 // WASNT A SUCCESS
+                SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR,"Uh oh","Something went wrong, please try again."));
                 response.sendRedirect("/login");
+                
             }
 
             // CHECK USER EXISTS AND PASSWORD MATCHES

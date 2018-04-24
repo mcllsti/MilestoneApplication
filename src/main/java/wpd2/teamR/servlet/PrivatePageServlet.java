@@ -22,11 +22,15 @@ package wpd2.teamR.servlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.dao.UserDAO;
+import wpd2.teamR.util.FlashMessage;
+import wpd2.teamR.util.SessionFunctions;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class PrivatePageServlet extends BaseServlet {
@@ -47,12 +51,19 @@ public class PrivatePageServlet extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-//        String userName = UserFuncs.getCurrentUser(request);
+        // CHECK IF USER IS LOGGED IN - IF NOT BOUNCE TO LOGIN
         if (!authOK(request, response)) {
             return;
         }
+
         String userName = getCurrentUser(request);
-        showView(response, PRIVATE_PAGE_TEMPLATE, userName);
+        FlashMessage message = SessionFunctions.getFlashMessage(request);
+
+        HashMap<String,Object> viewBag = new HashMap<String,Object>();
+        viewBag.put("message",message);
+        viewBag.put("username",userName);
+
+        showView(response, PRIVATE_PAGE_TEMPLATE, viewBag);
     }
 
 }

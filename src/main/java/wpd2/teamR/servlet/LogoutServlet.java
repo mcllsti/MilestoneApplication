@@ -21,6 +21,8 @@ package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.teamR.util.FlashMessage;
+import wpd2.teamR.util.SessionFunctions;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +42,7 @@ public class LogoutServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        UserFuncs.clearCurrentUser(request);
+        SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully Logged Out","You have been successfully logged out of the system"));
             clearCurrentUser(request);
         response.sendRedirect(response.encodeRedirectURL(UserFuncs.DEFAULT_LOGIN_REDIRECT));
     }
