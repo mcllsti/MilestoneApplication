@@ -52,8 +52,8 @@ public class Runner {
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
 
 
-        DAOBase daoBase = new DAOBase();
-        daoBase.getAllUsers();
+//        DAOBase daoBase = new DAOBase();
+//        daoBase.getAllUsers();
 
 
 
