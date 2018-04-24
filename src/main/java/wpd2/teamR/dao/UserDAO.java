@@ -19,19 +19,26 @@ public class UserDAO extends DAOBase {
 
     }
 
-    public String checkIsValidUser(String Email, String password) throws SQLException
+    /**
+     * Check if the user is a valid user.
+     * @param email Address of user to check
+     * @param password Plain text password of user to check against Hash
+     * @return Email address if a valid user and valid password
+     * @throws SQLException
+     */
+    public String checkIsValidUser(String email, String password) throws SQLException
     {
 
-//        String hash = Password.createHash(password);
         final String CHECK_USER = "SELECT email, password FROM users WHERE email=?";
         String result = "";
 
         try (PreparedStatement ps = connection.prepareStatement(CHECK_USER)) {
 
-            ps.setString(1, Email);
-//            ps.setString(2, hash);
+            // PASS THROUGH THE EMAIL INTO THE PREPARED STATEMENT
+            ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
 
+            // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
             while (rs.next()) {
                 result = rs.getString(2);
             }
@@ -40,17 +47,22 @@ public class UserDAO extends DAOBase {
             throw new RuntimeException(e);
         }
 
-        // CHECK IF HASHES MATCHED
+        // CHECK IF HASHES MATCHED - IF SO RETURN EMAIL
         if(Password.validatePassword(password,result)){
-            return "MATCHED";
+            return email;
         } else {
-            return "DOES NOT MATCH";
+
+            // OTHERWISE RETURN BLANK
+            return "";
         }
 
-//        return result;
     }
 
-    // TODO: create user
+    /**
+     * Save user into DB
+     * @param user User to be saved into the Database
+     * @return true if registered successfully
+     */
     public boolean registerUser(User user){
 
         String query = "INSERT INTO users (fname, lname, email, password,dateCreated) VALUES(?, ?, ?, ?, NOW())";
@@ -79,10 +91,9 @@ public class UserDAO extends DAOBase {
             return false;
         }
 
-//        return true;
-//
-
     }
+
+
 
 
 
