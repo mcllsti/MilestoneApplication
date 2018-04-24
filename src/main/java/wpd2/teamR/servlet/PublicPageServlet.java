@@ -21,6 +21,7 @@ package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.teamR.dao.DAOBase;
 import wpd2.teamR.dao.ProjectDAO;
 
 import javax.servlet.ServletException;
@@ -35,15 +36,10 @@ public class PublicPageServlet extends BaseServlet {
 
     private static final String PUBLIC_PAGE_TEMPLATE = "public.mustache";
 
-
-
-
     public PublicPageServlet() {}
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-
-    private ProjectDAO project = new ProjectDAO();
 
             throws ServletException, IOException {
         if (!authOK(request, response)) {
