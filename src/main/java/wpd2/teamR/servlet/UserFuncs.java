@@ -33,7 +33,7 @@ class UserFuncs {
     final static String USERNAME_PARAMETER = "email";
     private final static String USER_NAME_KEY = "email";
     private final static String LOGIN_REDIRECT_KEY = "redirectURL";
-    final static String DEFAULT_LOGIN_REDIRECT = "/index.html";
+    final static String DEFAULT_LOGIN_REDIRECT = "/login";
 
     private UserFuncs() {}
 
