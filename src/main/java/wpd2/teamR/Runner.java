@@ -6,7 +6,6 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.teamR.dao.ConnectionSupplier;
 import wpd2.teamR.servlet.*;
 
 public class Runner {
@@ -53,7 +52,6 @@ public class Runner {
 
         // START THE SERVER
         server.start();
-
         LOG.info("Server started, will run until terminated");
         server.join();
 
