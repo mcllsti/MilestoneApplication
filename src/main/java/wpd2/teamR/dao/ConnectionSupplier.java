@@ -5,21 +5,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionSupplier {
-    public static final String MEMORY = "jdbc:h2:mem:test";
-    public static final String FILE = "jdbc:h2:~/test";
+    String myDriver = "org.gjt.mm.mysql.Driver";
+    public final String dbURL = "jdbc:mysql://localhost:3306/milestones";
+    String username = "root";
+    String password = "";
 
-    private final String db;
-
-    public ConnectionSupplier(String db) {
-        this.db = db;
-    }
 
     public Connection provide() {
         try {
             // the driver class must be loaded
             // so that DriverManager can find the loaded class
-            Class.forName("org.h2.Driver");
-            return DriverManager.getConnection(db, "sa", "");
+            Class.forName(myDriver);
+            return DriverManager.getConnection(dbURL, username, password);
         } catch (SQLException | ClassNotFoundException e) {
             throw new ConnectionSupplierException(e);
         }

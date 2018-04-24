@@ -21,6 +21,7 @@ package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.teamR.dao.ConnectionSupplier;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,9 @@ public class LoginServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter(UserFuncs.USERNAME_PARAMETER);
+
         if (name != null && name.length() > 0) {
+
             UserFuncs.setCurrentUser(request, name);
             String targetURL = UserFuncs.getLoginRedirect(request);
             response.sendRedirect(response.encodeRedirectURL(targetURL));
