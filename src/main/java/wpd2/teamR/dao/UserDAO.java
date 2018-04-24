@@ -7,6 +7,7 @@ import wpd2.teamR.util.Password;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO extends DAOBase {
@@ -17,6 +18,28 @@ public class UserDAO extends DAOBase {
         // CALL THE DAO BASE TO INITIALISE THE DB CONNCTION
         super();
 
+    }
+
+    public String checkIsValidUser(String Email) throws SQLException
+    {
+
+        final String CHECK_USER = "SELECT email FROM users WHERE email=?";
+        String result = "";
+
+        try (PreparedStatement ps = connection.prepareStatement(CHECK_USER)) {
+
+            ps.setString(1, Email);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                result = rs.getString(1);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
     }
 
     // TODO: create user
@@ -53,8 +76,6 @@ public class UserDAO extends DAOBase {
 
     }
 
-    // TODO: check user
 
-    //
 
 }

@@ -1,12 +1,18 @@
 package wpd2.teamR.dao;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DAOBase implements AutoCloseable {
 
-    private Connection connection;
+    protected Connection connection;
 
 
     public DAOBase() {
@@ -22,6 +28,7 @@ public class DAOBase implements AutoCloseable {
         }
 
     }
+
 
 //    public List<Object> getAllUsers() throws SQLException {
 //
@@ -41,10 +48,32 @@ public class DAOBase implements AutoCloseable {
 //
 //    }
 
+
     protected Connection getConnection() {
 
         return connection;
 
+    }
+
+    public Connection provide() {
+        try {
+            // the driver class must be loaded
+            // so that DriverManager can find the loaded class
+            Class.forName("com.mysql.jdbc.Driver");
+
+            // CONNECTION DETAILS
+            String servername = "localhost";
+            int port = 3306;
+            String user = "root";
+            String pass = "";
+            String db = "milestones";
+            String connectionString = "jdbc:mysql://" + servername + ":" + port + "/" + db;
+
+            return DriverManager.getConnection(connectionString,user, pass);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected static void execute(Connection connection, String cmd) {

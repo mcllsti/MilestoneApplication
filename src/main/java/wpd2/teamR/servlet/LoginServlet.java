@@ -24,10 +24,12 @@ import org.slf4j.LoggerFactory;
 import wpd2.teamR.dao.UserDAO;
 import wpd2.teamR.models.User;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class LoginServlet extends BaseServlet {
@@ -45,6 +47,12 @@ public class LoginServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        UserDAO hello = new UserDAO();
+        try {
+            hello.checkIsValidUser("d.heyyyy@domain.com");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         String userName = UserFuncs.getCurrentUser(request);
         showView(response, LOGIN_TEMPLATE, userName);
     }
@@ -52,7 +60,9 @@ public class LoginServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String name = request.getParameter(UserFuncs.USERNAME_PARAMETER);
+
         if (name != null && name.length() > 0) {
 
             String fname = request.getParameter("fname");
