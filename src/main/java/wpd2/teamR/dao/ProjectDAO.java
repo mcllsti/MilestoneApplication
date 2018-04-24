@@ -1,19 +1,66 @@
 package wpd2.teamR.dao;
 
 import lombok.NonNull;
+import net.sf.resultsetmapper.ReflectionResultSetMapper;
+import net.sf.resultsetmapper.ResultSetMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.teamR.models.Project;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectDAO extends DAOBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProjectDAO.class);
 
 
+    public ProjectDAO(){
+        // CALL THE DAO BASE TO INITIALISE THE DB CONNCTION
+        super();
+
+    }
+
+    public Project getProjectById(int id) throws SQLException
+    {
+
+        final String GET_PROJECT = "SELECT * FROM projects WHERE id=?";
+
+        try (PreparedStatement ps = connection.prepareStatement(GET_PROJECT)) {
+
+            // PASS THROUGH THE id INTO THE PREPARED STATEMENT
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
+            Project project = null;
+            while (rs.next()) {
+                project = new Project(rs.getInt("id"),rs.getString("name")
+                        ,rs.getString("description"),rs.getTimestamp("dateCreated"),rs.getTimestamp("dateModified"));
+            }
+
+            return project;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } }
+
+        
+}
+
+
+//    public Project findByUserId(String email){
+//        String query ="SELECT * FROM projects WHERE userID = (SELECT id FROM users WHERE email = \"?\");"
+//    }
+//    INSERT INTO projects (name, description, dateCreated, dateModified, userID) VALUES('DUMMY FROM CLI','DUMMY FROM CLI',NOW(),NOW(),(SELECT id FROM users WHERE email = 'chris@chrisconnor.co.uk'));
+
+
+
+/*
     public ProjectDAO(ConnectionSupplier connectionSupplier) {
 
 //        super(connectionSupplier.provide());
@@ -28,7 +75,7 @@ public class ProjectDAO extends DAOBase {
 
     private void initTable(Connection conn) throws SQLException {
         execute(conn, "CREATE TABLE IF NOT EXISTS users (name VARCHAR(255) PRIMARY KEY, hash VARCHAR(255))");
-    }
+    }*/
 
 
 //    public synchronized boolean login(@NonNull final String userName, @NonNull final String password) {
@@ -120,4 +167,4 @@ public class ProjectDAO extends DAOBase {
 //            return null;
 //        }
 //    }
-}
+

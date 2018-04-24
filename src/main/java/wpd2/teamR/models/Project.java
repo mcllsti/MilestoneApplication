@@ -17,6 +17,15 @@ public  class Project {
 
     //private List<Milestone> milestones;  <= NAV VARIABLE / UNSURE
 
+    public Project(int id, String name,String description, Timestamp dateCreated,Timestamp dateModified)
+    {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
+    }
+
     public void addMilestone(Milestone milestoneToAdd)
     {
         //TODO: ADD BODY

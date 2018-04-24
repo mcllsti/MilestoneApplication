@@ -58,11 +58,6 @@ public class UserDAO extends DAOBase {
 
     }
 
-//    public Project findByUserId(String email){
-//        String query ="SELECT * FROM projects WHERE userID = (SELECT id FROM users WHERE email = \"?\");"
-//    }
-//    INSERT INTO projects (name, description, dateCreated, dateModified, userID) VALUES('DUMMY FROM CLI','DUMMY FROM CLI',NOW(),NOW(),(SELECT id FROM users WHERE email = 'chris@chrisconnor.co.uk'));
-
     /**
      * Save user into DB
      * @param user User to be saved into the Database
