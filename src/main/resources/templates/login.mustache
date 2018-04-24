@@ -7,13 +7,15 @@
 
 <div class="login-form">
 
-    <input type="radio" class="login-button" id="login" name="buttons">
+    <form action="/login" method="post" id="login-form" class="form-box">
+
+    <input type="radio" class="login-button" id="login" value="login" name="buttons">
     <label for="login">Login</label>
 
-    <input type="radio" class="signup-button" id="signup" name="buttons" checked>
+    <input type="radio" class="signup-button" id="signup" value="register" name="buttons" checked>
     <label for="signup">Signup</label>
 
-    <form action="/login" method="post" id="login-form" class="form-box">
+
 
         <div class="signup">
 

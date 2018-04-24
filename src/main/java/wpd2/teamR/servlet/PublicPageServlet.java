@@ -25,9 +25,9 @@ public class PublicPageServlet extends BaseServlet {
 
             throws ServletException, IOException {
 
-        if (!authOK(request, response)) {
-            return;
-        }
+//        if (!authOK(request, response)) {
+//            return;
+//        }
 
         String userName = UserFuncs.getCurrentUser(request);
         showView(response, PUBLIC_PAGE_TEMPLATE, userName);

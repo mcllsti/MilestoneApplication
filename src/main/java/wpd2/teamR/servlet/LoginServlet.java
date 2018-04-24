@@ -19,6 +19,7 @@
 
 package wpd2.teamR.servlet;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.dao.UserDAO;
@@ -39,9 +40,10 @@ public class LoginServlet extends BaseServlet {
 
     private final String LOGIN_TEMPLATE = "login.mustache";
 
+    private UserDAO users;
 
     public LoginServlet() {
-
+        users = new UserDAO();
     }
 
 
@@ -62,44 +64,119 @@ public class LoginServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String name = request.getParameter(UserFuncs.USERNAME_PARAMETER);
 
-        if (name != null && name.length() > 0) {
+        // CHECK WHETHER USER WISHES TO LOGIN OR REGISTER
+        if(request.getParameter("buttons").equals("register")){
 
-//            String fname = request.getParameter("fname");
-//            String lname = request.getParameter("lname");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-//            String hash = Password.createHash(password);
+            // CARRY OUT REGISTRATION LOGIC
+            this.register(request, response);
 
-//            User newUser = new User(fname, lname, email, password);
+        } else {
 
-            UserDAO ud = new UserDAO();
+            // CARRY OUT LOGIN LOGIC
+            this.login(request,response);
 
-            try {
-                String result = ud.checkIsValidUser(email, password);
-                if(!result.isEmpty()){
-                    setCurrentUser(request, result);
-                    response.sendRedirect("/private");
-                    // REDIRECT TO PRIVATE PAGE
-                } else {
-                    // REDIERCT TO LOGIN FOR TEST
-                    response.sendRedirect("/login");
-                }
+        }
 
-            } catch (SQLException error){
-                LOG.debug(error.toString());
-            }
-//            ud.registerUser(newUser);
+
+
+
 
             LOG.debug("This should have saved the user in DB");
 
-//            UserFuncs.setCurrentUser(request, name);
-//            String targetURL = UserFuncs.getLoginRedirect(request);
-//            response.sendRedirect(response.encodeRedirectURL(targetURL));
+
         }
         // do nothing, we stay on the page,
         // could also display a warning message by passing parameter to /login on redirect
+
+
+    /**
+     * Login user, based on data passed from form.
+     * @param request HTTP Servlet Request
+     * @param response HTTP Servlet Response
+     * @throws IOException
+     */
+    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException{
+
+        // GET THE PARAMS FROM THE FORM
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        try {
+
+            // CHECK USER EXISTS AND PASSWORD MATCHES
+            String result = users.checkIsValidUser(email, password);
+            if(!result.isEmpty()){
+
+                // TRUE, SO SET SESSION AND REDIRECT TO PAGE
+                setCurrentUser(request, result);
+                response.sendRedirect("/private");
+
+            } else {
+
+                // LOGIN WASNT SUCCESSFUL
+                response.sendRedirect("/login");
+
+            }
+
+        } catch (SQLException error){
+
+            LOG.debug(error.toString());
+
+        }
+
+        LOG.debug("This should have saved the user in DB");
+
+    }
+
+    private void register(HttpServletRequest request, HttpServletResponse response) throws IOException{
+
+        // GET THE PARAMS FROM THE FORM
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        User newUser = new User(fname, lname, email, password);
+
+
+            if(users.registerUser(newUser)){
+                // WAS SUCCESS
+                // TODO: MAYBE EMAIL
+
+                // SET A SESSION, AND REDIRECT
+                setCurrentUser(request, email);
+                response.sendRedirect("/private");
+
+            } else {
+                // WASNT A SUCCESS
+                response.sendRedirect("/login");
+            }
+
+            // CHECK USER EXISTS AND PASSWORD MATCHES
+//            String result = users.checkIsValidUser(email, password);
+//            if(!result.isEmpty()){
+//
+//                // TRUE, SO SET SESSION AND REDIRECT TO PAGE
+//                setCurrentUser(request, result);
+//                response.sendRedirect("/private");
+//
+//            } else {
+//
+//                // LOGIN WASNT SUCCESSFUL
+//                response.sendRedirect("/login");
+//
+//            }
+
+
+//        catch (SQLException error){
+//
+//            LOG.debug(error.toString());
+//
+//        }
+
+        LOG.debug("This should have saved the user in DB");
+
     }
 
 }
