@@ -59,7 +59,7 @@ public class LoginServlet extends BaseServlet {
 
         ProjectDAO hello = new ProjectDAO();
         try {
-            hello.findByUserId("g.macleod@domain.com");
+            hello.getProjectsbyUserId("g.macleod@domain.com");
         } catch (SQLException e) {
             e.printStackTrace();
         }

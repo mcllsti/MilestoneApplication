@@ -73,7 +73,7 @@ public class ProjectDAO extends DAOBase {
         } }
 
 
-    public List<Project> findByUserId(String email) throws SQLException
+    public List<Project> getProjectsbyUserId(String email) throws SQLException
     {
 
         final String GET_USERS_PROJECTS = "SELECT * FROM projects WHERE userID = (SELECT id FROM users WHERE email = ?)";
