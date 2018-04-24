@@ -21,7 +21,16 @@
                 e.preventDefault();
                 console.log('This worked');
                 $('.modal').fadeIn(100);
-            })
+            });
+
+            // CLOSE OPEN FLASH MESSAGE
+            $('.close').click(function(e){
+                console.log("Closed clicked on FlashMessage");
+                $(this).parent().slideUp('slow');
+            });
+
+            // FADE FLASH MESSAGE AFTER 5 SECS
+            $(".flash").delay(5000).slideUp("slow");
 
             $('.modal .close').click(function(e){
                 $('.modal').fadeOut(100);
