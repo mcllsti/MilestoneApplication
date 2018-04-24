@@ -49,7 +49,31 @@ public class ProjectDAO extends DAOBase {
             throw new RuntimeException(e);
         } }
 
-        
+
+    public List<Project> getAllProjects() throws SQLException
+    {
+
+        final String GET_PROJECTS = "SELECT * FROM projects";
+
+        try (PreparedStatement ps = connection.prepareStatement(GET_PROJECTS)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            // LOOP THROUGH RESULTS
+            List<Project> allProjects = new ArrayList<Project>();
+            while (rs.next()) {
+                allProjects.add(new Project(rs.getInt("id"),rs.getString("name")
+                        ,rs.getString("description"),rs.getTimestamp("dateCreated"),rs.getTimestamp("dateModified")));
+            }
+
+            return allProjects;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } }
+
+
+
 }
 
 
