@@ -150,7 +150,7 @@ public class LoginServlet extends BaseServlet {
                 // WASNT A SUCCESS
                 SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR,"Uh oh","Something went wrong, please try again."));
                 response.sendRedirect("/login");
-                
+
             }
 
             // CHECK USER EXISTS AND PASSWORD MATCHES
