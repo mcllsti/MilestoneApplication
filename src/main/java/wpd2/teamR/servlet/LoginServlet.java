@@ -47,12 +47,6 @@ public class LoginServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO hello = new UserDAO();
-        try {
-            hello.checkIsValidUser("d.heyyyy@domain.com");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         String userName = UserFuncs.getCurrentUser(request);
         showView(response, LOGIN_TEMPLATE, userName);
     }
