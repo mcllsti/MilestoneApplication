@@ -21,7 +21,10 @@ public class PublicPageServlet extends BaseServlet {
     public PublicPageServlet() {}
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+            throws ServletException, IOException {
+
         if (!authOK(request, response)) {
             return;
         }

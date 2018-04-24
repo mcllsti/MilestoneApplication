@@ -17,7 +17,7 @@ public class ProjectDAO extends DAOBase {
     public ProjectDAO(ConnectionSupplier connectionSupplier) {
 
 //        super(connectionSupplier.provide());
-        super(connectionSupplier.provide());
+//        super(connectionSupplier.provide());
         try {
             initTable(getConnection());
         } catch (Exception e) {

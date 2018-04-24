@@ -1,16 +1,23 @@
 package wpd2.teamR.dao;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DAOBase {
+
+public class DAOBase implements AutoCloseable {
 
     private Connection connection;
 
-    DAOBase(Connection connection) {
-        this.connection = connection;
+
+    public DAOBase() {
+        ConnectionSupplier cs = new ConnectionSupplier();
+        this.connection = cs.provide();
     }
 
     public synchronized void close()throws SQLException {
@@ -19,6 +26,24 @@ public class DAOBase {
             connection.close();
             connection = null;
         }
+
+    }
+
+    public List<Object> getAllUsers() throws SQLException {
+
+        final String LIST_PERSONS = "SELECT email FROM users";
+        List<Object> results = new ArrayList<>();
+
+        try (PreparedStatement ps = connection.prepareStatement(LIST_PERSONS)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                results.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return results;
 
     }
 

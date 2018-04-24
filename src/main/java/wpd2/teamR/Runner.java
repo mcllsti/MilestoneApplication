@@ -6,6 +6,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.teamR.dao.DAOBase;
 import wpd2.teamR.servlet.*;
 
 public class Runner {
@@ -49,6 +50,12 @@ public class Runner {
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
+
+
+        DAOBase daoBase = new DAOBase();
+        daoBase.getAllUsers();
+
+
 
         // START THE SERVER
         server.start();
