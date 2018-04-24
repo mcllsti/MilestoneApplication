@@ -39,7 +39,8 @@ public class LogoutServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserFuncs.clearCurrentUser(request);
+//        UserFuncs.clearCurrentUser(request);
+            clearCurrentUser(request);
         response.sendRedirect(response.encodeRedirectURL(UserFuncs.DEFAULT_LOGIN_REDIRECT));
     }
 }

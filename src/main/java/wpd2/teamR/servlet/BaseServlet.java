@@ -1,6 +1,7 @@
 
 package wpd2.teamR.servlet;
 
+import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.util.MustacheRenderer;
@@ -8,6 +9,7 @@ import wpd2.teamR.util.MustacheRenderer;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -73,15 +75,58 @@ class BaseServlet extends HttpServlet {
      * @return True or false depending on state
      * @throws IOException
      */
-    boolean authOK(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String uri = request.getRequestURI();
-        String userName = UserFuncs.getCurrentUser(request);
-        if (PROTECTED_PAGES.contains(uri) && "".equals(userName)) {
-            UserFuncs.setLoginRedirect(request);
-            response.sendRedirect(response.encodeRedirectURL(LOGIN_PAGE));
+    protected boolean authOK(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        String uri = request.getRequestURI();
+//        String userName = UserFuncs.getCurrentUser(request);
+
+        if(getCurrentUser(request).equals("")){
+            // REDIRECT
+            response.sendRedirect(response.encodeRedirectURL("/login")); //TODO: HARD CODED LOGIN
             return false;
         }
         return true;
+
+
+        // TODO: remove this shiznit but keeping for reference
+//        if (PROTECTED_PAGES.contains(uri) && "".equals(userName)) {
+//            UserFuncs.setLoginRedirect(request);
+//            response.sendRedirect(response.encodeRedirectURL(LOGIN_PAGE));
+//            return false;
+//        }
+//        return true;
+    }
+
+    /**
+     * Find the current user, if any
+     * @param request  The HTTP request object, containing the session, if any
+     * @return The current user, or the empty string if none (note NOT null)
+     */
+    protected String getCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "";
+        }
+        String val = (String)session.getAttribute("email");
+        return val == null ? "" : val;
+    }
+
+    /**
+     * Write logged in used to session
+     * @param request HTTP Request
+     * @param userName Username to write to the session
+     */
+    protected void setCurrentUser(HttpServletRequest request, String userName) {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("email", userName);
+    }
+
+    /**
+     * Empty the user in the current session
+     * @param request HTTP Request
+     */
+    protected void clearCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("email"); // TODO: FIX THIS
     }
 
 }

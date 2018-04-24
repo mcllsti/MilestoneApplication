@@ -46,6 +46,7 @@ public class Runner {
         handler.addServlet(new ServletHolder(servlet2), "/servlet2");
 
         // SETUP AND POINT A URL FOR THE PRIVATE AND PUBLIC SERVLETS AS WELL AS LOGIN
+        //     //register
         handler.addServlet(new ServletHolder(new PublicPageServlet()), "/public");
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
