@@ -5,4 +5,8 @@
     --green:#71B87B;
     --red:#E97786;
     --highlight:#FFFFD8;
+
+    --flash-error:#EEDFDF;
+    --flash-success:#E3EDD9;
+    --flash-info:#DDEDF6;
   }

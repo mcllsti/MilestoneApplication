@@ -5,9 +5,11 @@
     <p>Please login to continue</p>
 </div>
 
+{{>_partials/flash-message}}
+
 <div class="login-form">
 
-    <form action="/login" method="post" id="login-form" class="form-box">
+    <form action="/login" method="post" id="login-form">
 
     <input type="radio" class="login-button" id="login" value="login" name="buttons">
     <label for="login">Login</label>
@@ -17,60 +19,60 @@
 
 
 
+
+        <div class="form-box">
+
         <div class="signup">
 
             <label for="fname">First Name</label>
-            <input type="text" name="fname" value="">
+            <input type="text" name="fname" value="" required>
 
             <label for="lname">Last Name</label>
-            <input type="text" name="lname">
+            <input type="text" name="lname" required>
 
         </div>
 
         <div class="login">
 
             <label for="email">Email</label>
-            <input type="email" name="email" value="{{.}}">
+            <input type="email" name="email" value="" required>
 
             <label for="password">Password</label>
-            <input type="password" name="password">
+            <input type="password" name="password" required>
 
         </div>
 
         <p><input type="submit" value="Login"></p>
 
+        </div>
+
     </form>
 
 </div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 <script type="text/javascript">
-    // $(document).ready(function(){
-    //     $("#login-form").submit(function(e){
-    //         e.preventDefault();
-    //         console.log("THIS FORM TRIED TO SUBMIT");
-    //
-    //         var url = "/login"; // the script where you handle the form input.
-    //
-    //         $.ajax({
-    //             type: "PUT",
-    //             url: url,
-    //             data: $(this).serialize(), // serializes the form's elements.
-    //             success: function(data)
-    //             {
-    //                 console.log(data);
-    //                 alert("This worked...Try going to password proteted page now...");
-    //                 $('<div><h1>Logged in</h1><p>Try going to <a href="/private">private</a> now</p></div>').appendTo(".login-form");
-    //
-    //             }
-    //         });
-    //
-    //     });
-    // });
+    $(document).ready(function(){
+
+        // VALIDATE THE FORM - NOT WORRYING ABOUT AJAX WITH THIS YET
+        // TODO: ADD AJAX CHECK TO SEE IF USERNAME EXISTS
+        $("#login-form").validate({
+            rules: {
+                fname: {
+                    required: '#signup:checked'
+                },
+                lname: {
+                    required: '#signup:checked'
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true
+                }
+            }
+        });
+
+    });
 </script>
-<!--KATRIN CODE-->
-<!--<h1>Login</h1>-->
-<!--<form action="/login" method="POST">-->
-    <!--Name:-->
-    <!--<input type="text" name="userName" value="{{.}}"/><br/>-->
-    <!--<input type="submit" value="Login"/>-->
-<!--</form>-->
 {{>_partials/site-footer}}
