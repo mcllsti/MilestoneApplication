@@ -53,8 +53,7 @@ public class Runner {
 
         // START THE SERVER
         server.start();
-        ConnectionSupplier hello = new ConnectionSupplier();
-        hello.provide();
+
         LOG.info("Server started, will run until terminated");
         server.join();
 

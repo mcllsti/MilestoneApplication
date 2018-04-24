@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DAOBase {
+public class DAOBase implements AutoCloseable{
 
     private Connection connection;
 
@@ -12,6 +12,7 @@ public class DAOBase {
         this.connection = connection;
     }
 
+    @Override
     public synchronized void close()throws SQLException {
 
         if (connection != null) {
