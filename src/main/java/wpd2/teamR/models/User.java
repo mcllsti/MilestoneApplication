@@ -21,6 +21,17 @@ public @Data class User {
 
     //private List<Project> projects; <= NAV VARIABLE? / UNSURE
 
+    public void createUser()
+    {
+
+    }
+
+    public String checkIsValidUser()
+    {
+
+        return null;
+    }
+
 
     public void addProject(Project projectToAdd)
     {
