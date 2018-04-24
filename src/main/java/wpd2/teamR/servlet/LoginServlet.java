@@ -70,14 +70,23 @@ public class LoginServlet extends BaseServlet {
 //            String lname = request.getParameter("lname");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            String hash = Password.createHash(password);
+//            String hash = Password.createHash(password);
 
 //            User newUser = new User(fname, lname, email, password);
 
             UserDAO ud = new UserDAO();
-//                        ud.registerUser(newUser);
+
             try {
-                ud.checkIsValidUser(email, password);
+                String result = ud.checkIsValidUser(email, password);
+                if(!result.isEmpty()){
+                    setCurrentUser(request, result);
+                    response.sendRedirect("/private");
+                    // REDIRECT TO PRIVATE PAGE
+                } else {
+                    // REDIERCT TO LOGIN FOR TEST
+                    response.sendRedirect("/login");
+                }
+
             } catch (SQLException error){
                 LOG.debug(error.toString());
             }
