@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.dao.UserDAO;
 import wpd2.teamR.models.User;
+import wpd2.teamR.util.Password;
 
 
 import javax.servlet.ServletException;
@@ -47,12 +48,12 @@ public class LoginServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO hello = new UserDAO();
-        try {
-            hello.checkIsValidUser("d.heyyyy@domain.com");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        UserDAO hello = new UserDAO();
+//        try {
+////            hello.checkIsValidUser("d.heyyyy@domain.com");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         String userName = UserFuncs.getCurrentUser(request);
         showView(response, LOGIN_TEMPLATE, userName);
     }
@@ -65,15 +66,22 @@ public class LoginServlet extends BaseServlet {
 
         if (name != null && name.length() > 0) {
 
-            String fname = request.getParameter("fname");
-            String lname = request.getParameter("lname");
+//            String fname = request.getParameter("fname");
+//            String lname = request.getParameter("lname");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
+            String hash = Password.createHash(password);
 
-            User newUser = new User(fname, lname, email, password);
+//            User newUser = new User(fname, lname, email, password);
 
             UserDAO ud = new UserDAO();
-            ud.registerUser(newUser);
+//                        ud.registerUser(newUser);
+            try {
+                ud.checkIsValidUser(email, password);
+            } catch (SQLException error){
+                LOG.debug(error.toString());
+            }
+//            ud.registerUser(newUser);
 
             LOG.debug("This should have saved the user in DB");
 

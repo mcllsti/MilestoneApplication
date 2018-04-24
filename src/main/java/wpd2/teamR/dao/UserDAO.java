@@ -22,25 +22,32 @@ public class UserDAO extends DAOBase {
     public String checkIsValidUser(String Email, String password) throws SQLException
     {
 
-        String hash = Password.createHash(password);
-        final String CHECK_USER = "SELECT email FROM users WHERE email=? AND password=?";
+//        String hash = Password.createHash(password);
+        final String CHECK_USER = "SELECT email, password FROM users WHERE email=?";
         String result = "";
 
         try (PreparedStatement ps = connection.prepareStatement(CHECK_USER)) {
 
             ps.setString(1, Email);
-            ps.setString(2, hash);
+//            ps.setString(2, hash);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                result = rs.getString(1);
+                result = rs.getString(2);
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return result;
+        // CHECK IF HASHES MATCHED
+        if(Password.validatePassword(password,result)){
+            return "MATCHED";
+        } else {
+            return "DOES NOT MATCH";
+        }
+
+//        return result;
     }
 
     // TODO: create user
