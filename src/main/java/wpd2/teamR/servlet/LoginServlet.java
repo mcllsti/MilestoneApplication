@@ -22,6 +22,8 @@ package wpd2.teamR.servlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.dao.UserDAO;
+import wpd2.teamR.models.User;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -62,10 +64,22 @@ public class LoginServlet extends BaseServlet {
         String name = request.getParameter(UserFuncs.USERNAME_PARAMETER);
 
         if (name != null && name.length() > 0) {
-            UserFuncs.setCurrentUser(request, name);
-            String targetURL = UserFuncs.getLoginRedirect(request);
-            response.sendRedirect(response.encodeRedirectURL(targetURL));
-            response.sendRedirect(response.encodeRedirectURL(targetURL));
+
+            String fname = request.getParameter("fname");
+            String lname = request.getParameter("lname");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+
+            User newUser = new User(fname, lname, email, password);
+
+            UserDAO ud = new UserDAO();
+            ud.registerUser(newUser);
+
+            LOG.debug("This should have saved the user in DB");
+
+//            UserFuncs.setCurrentUser(request, name);
+//            String targetURL = UserFuncs.getLoginRedirect(request);
+//            response.sendRedirect(response.encodeRedirectURL(targetURL));
         }
         // do nothing, we stay on the page,
         // could also display a warning message by passing parameter to /login on redirect

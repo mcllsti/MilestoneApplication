@@ -1,7 +1,9 @@
-package bullitin.model; //<= CHANGE THIS PACKAGE FOR IMPORTS!!
+
+package wpd2.teamR.models;
 
 import lombok.Data;
 import wpd2.teamR.models.Project;
+import wpd2.teamR.util.Password;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -20,6 +22,12 @@ public @Data class User {
     private List<Project> projects;
 
     //private List<Project> projects; <= NAV VARIABLE? / UNSURE
+    public User (String fname, String lname, String email, String password){
+        this.fname= fname;
+        this.lname = lname;
+        this.email = email;
+        this.password = Password.createHash(password);
+    }
 
 
 
