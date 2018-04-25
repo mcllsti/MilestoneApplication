@@ -23,9 +23,7 @@ package wpd2.teamR.servlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.dao.ProjectDAO;
-import wpd2.teamR.dao.UserDAO;
 import wpd2.teamR.models.Project;
-import wpd2.teamR.models.User;
 import wpd2.teamR.util.FlashMessage;
 import wpd2.teamR.util.SessionFunctions;
 
@@ -34,18 +32,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
-public class ProjectCreateServlet extends BaseServlet {
+public class ProjectListServlet extends BaseServlet {
     @SuppressWarnings("unused")
-    static final Logger LOG = LoggerFactory.getLogger(ProjectCreateServlet.class);
+    static final Logger LOG = LoggerFactory.getLogger(ProjectListServlet.class);
 
     private final String LOGIN_TEMPLATE = "login.mustache";
 
     private ProjectDAO projects;
 
-    public ProjectCreateServlet() {
+    public ProjectListServlet() {
         projects = new ProjectDAO();
     }
 
@@ -59,13 +59,22 @@ public class ProjectCreateServlet extends BaseServlet {
             return;
         }
 
+        List<Project> plist = new ArrayList<Project>();
+        try {
+            plist = projects.getProjectsbyUser(getCurrentUser(request));
+        } catch (SQLException error){
+
+        }
+
         HashMap<String,Object> viewBag = new HashMap<String,Object>();
 
         FlashMessage message = SessionFunctions.getFlashMessage(request);
 //        viewBag.put("username",userName);
         viewBag.put("message",message);
+        viewBag.put("total",plist.size());
+        viewBag.put("projects",plist);
 
-        showView(response, "project/project-create.mustache", viewBag);
+        showView(response, "project/project-list.mustache", viewBag);
 
     }
 
