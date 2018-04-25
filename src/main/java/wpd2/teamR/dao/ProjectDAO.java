@@ -1,8 +1,6 @@
 package wpd2.teamR.dao;
 
 import lombok.NonNull;
-import net.sf.resultsetmapper.ReflectionResultSetMapper;
-import net.sf.resultsetmapper.ResultSetMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.models.Project;
@@ -196,6 +194,8 @@ public class ProjectDAO extends DAOBase {
         }
 
     }
+
+
 }
 
 
