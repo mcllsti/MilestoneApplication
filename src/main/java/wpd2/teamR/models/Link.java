@@ -34,4 +34,13 @@ public class Link {
         this.dateLastAccessed = dateLastAccessed;
     }
 
+    public Link(String email, int projectID){
+        this.email = email;
+        this.projectID = projectID;
+    }
+
+    public Link(String email){
+        this.email = email;
+    }
+
 }
