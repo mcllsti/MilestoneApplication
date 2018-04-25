@@ -17,7 +17,7 @@ Below are the current team members
 | --- | :---: | ---: |
 |Christopher Connor	|	S1715477	|	Cconno208@caledonian.ac.uk|
 |Daryl McAllister	|	S1222204	|	Dmcall200@caledonian.ac.uk|
-|Gavin McLeod	|	S1715408	|	Gmacle204@caledonian.ac.uk|
+|Gavin Macleod	|	S1715408	|	Gmacle204@caledonian.ac.uk|
 |Niklas Olsson	|	S1434184	|	Nolsso200@caledonian.ac.uk|
 
 ******
