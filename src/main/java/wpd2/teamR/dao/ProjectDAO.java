@@ -13,22 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-//=======================================================================================
-//TODO: NONE OF THEASE METHODS RETURN A PROJECT THAT HAS THE LIST OF MILESTONES POPULATED.
-//TODO: METHODS IMPLEMENTED SO FAR ARE NOT EXAUSTIVE. MORE MAY BE REQUIRED OR LESS
-//=======================================================================================
 public class ProjectDAO extends DAOBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProjectDAO.class);
-
-
 
     public ProjectDAO(){
         // CALL THE DAO BASE TO INITIALISE THE DB CONNCTION
         super();
 
     }
+
 
     /**
      * Gets a single project with the specified id
@@ -194,42 +188,6 @@ public class ProjectDAO extends DAOBase {
         }
 
     }
-
-    /**
-     * Deletes all projects with a certain name
-     * @param name of project that is wished to be deleted
-     * @return boolean of success
-     */
-    public boolean deleteProjectByName(String name){
-
-        String query = "DELETE FROM projects WHERE name = ?";
-
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
-
-            //PASS ID TO PREPARED STATEMENT
-            ps.setString(1, name);
-
-            int count = ps.executeUpdate();
-            LOG.debug("insert count = " + count);
-
-            //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
-            if(count==1){
-
-                return true;
-
-            } else {
-
-                return false;
-
-            }
-
-        } catch(SQLException error){
-            LOG.debug(error.toString());
-            return false;
-        }
-
-    }
-
 
 }
 
