@@ -59,9 +59,8 @@ public class LoginServlet extends BaseServlet {
             throws ServletException, IOException {
 
         String userName = UserFuncs.getCurrentUser(request);
-        Project project = new Project("Test","I am testing this");
         ProjectDAO hello = new ProjectDAO();
-            hello.createProject(project,"g.macleod@domain.com");
+            hello.deleteProject(200);
 
 
         HashMap<String,Object> viewBag = new HashMap<String,Object>();
