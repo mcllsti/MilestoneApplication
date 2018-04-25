@@ -167,7 +167,7 @@ public class ProjectDAO extends DAOBase {
      * @param id of project to be deleted
      * @return boolean of sucessfull or not
      */
-    public boolean deleteProject(int id){
+    public boolean deleteProjectById(int id){
 
         String query = "DELETE FROM projects WHERE id = ?";
 
