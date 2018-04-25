@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * LinkDAO Class - Retrieves all link data from DB
+ */
 public class LinkDAO extends DAOBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkDAO.class);
@@ -21,6 +24,12 @@ public class LinkDAO extends DAOBase {
 
     }
 
+    /**
+     * Find Link from DB using ID
+     * @param id Link ID to retrieve
+     * @return Link object
+     * @throws SQLException
+     */
     public Link findById(int id) throws SQLException
     {
 
@@ -39,7 +48,13 @@ public class LinkDAO extends DAOBase {
         }
     }
 
-    public List<Link> findByProjectId(int id) throws SQLException
+    /**
+     * Retrieve links using project id
+     * @param projectID Project ID of links to retrieve
+     * @return List of links
+     * @throws SQLException
+     */
+    public List<Link> findByProjectId(int projectID) throws SQLException
     {
 
         final String query = "SELECT * FROM links WHERE projectId=?";
@@ -47,7 +62,7 @@ public class LinkDAO extends DAOBase {
         try (PreparedStatement ps = connection.prepareStatement(query)) {
 
             // PASS THROUGH THE id INTO THE PREPARED STATEMENT
-            ps.setInt(1, id);
+            ps.setInt(1, projectID);
 
             // RETURN THE LINKS
             return this.retrieveLinks(ps);
@@ -57,7 +72,12 @@ public class LinkDAO extends DAOBase {
         }
     }
 
-
+    /**
+     * Retrieve all links based on UserID
+     * @param userId ID of user from which to retrieve
+     * @return List of links
+     * @throws SQLException
+     */
     public List<Link> findByUserId(int userId) throws SQLException
     {
 
@@ -79,6 +99,11 @@ public class LinkDAO extends DAOBase {
         }
     }
 
+    /**
+     * Retrieve all links from data base. TODO: Might not be required
+     * @return List of all links in DB
+     * @throws SQLException
+     */
     public List<Link> findAll() throws SQLException
     {
 
@@ -95,8 +120,16 @@ public class LinkDAO extends DAOBase {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } }
+        }
+    }
 
+
+    /**
+     * Save a Link into the database
+     * @param link Link object to save
+     * @param projectId Id of project under which to save
+     * @return true if successful
+     */
     public boolean save(Link link, int projectId){
 
         String query = "INSERT INTO links (email, dateCreated, projectID) VALUES(?,NOW(),?)";
@@ -126,6 +159,11 @@ public class LinkDAO extends DAOBase {
 
     }
 
+    /**
+     * Delete a link from the data based.
+     * @param link Link which should be deleted (Will use the ID)
+     * @return
+     */
     public boolean delete(Link link){
 
         String query = "DELETE FROM links WHERE id = ? LIMIT 1";
@@ -156,6 +194,11 @@ public class LinkDAO extends DAOBase {
 
     }
 
+    /**
+     * Delete Link from DB based on email
+     * @param email email address related to link to delete
+     * @return True if successful
+     */
     public boolean deleteByEmail(String email){
 
         String query = "DELETE FROM links WHERE email = ? LIMIT 1";
@@ -188,6 +231,12 @@ public class LinkDAO extends DAOBase {
 
 //    PRIVATE FUNCTIONS ///////////////////////////
 
+    /**
+     * Execute the prepared statement in the DB and return the retreived links
+     * @param ps Prepared statement to execute
+     * @return List of links
+     * @throws SQLException
+     */
     private List<Link> retrieveLinks(PreparedStatement ps) throws SQLException {
 
         ResultSet rs = ps.executeQuery();
@@ -204,6 +253,12 @@ public class LinkDAO extends DAOBase {
 
     }
 
+    /**
+     * Retrieve a link based on the executred prepared statement. Should only ever return one.
+     * @param ps Prepared statement to execute.
+     * @return Link object
+     * @throws SQLException
+     */
     private Link retrieveLink(PreparedStatement ps) throws SQLException{
 
         ResultSet rs = ps.executeQuery();
