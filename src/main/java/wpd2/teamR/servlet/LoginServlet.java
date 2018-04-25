@@ -42,6 +42,7 @@ public class LoginServlet extends BaseServlet {
     static final Logger LOG = LoggerFactory.getLogger(LoginServlet.class);
 
     private final String LOGIN_TEMPLATE = "login.mustache";
+    private final String SUCCESS_REDIRECT = "/projects";
 
     private UserDAO users;
 
@@ -107,7 +108,7 @@ public class LoginServlet extends BaseServlet {
                 // TRUE, SO SET SESSION AND REDIRECT TO PAGE
                 setCurrentUser(request, result);
                 SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully logged in","Welcome back :)"));
-                response.sendRedirect("/private");
+                response.sendRedirect(SUCCESS_REDIRECT);
 
             } else {
 
@@ -151,7 +152,7 @@ public class LoginServlet extends BaseServlet {
                 // SET A SESSION, WRITE A SUCCESS MESSAGE, AND REDIRECT
                 setCurrentUser(request, email);
                 SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully Registered","You have been successfully registered int the ssytem. Welcome."));
-                response.sendRedirect("/private");
+                response.sendRedirect(SUCCESS_REDIRECT);
 
                 LOG.debug("This should have saved the user in DB");
 
