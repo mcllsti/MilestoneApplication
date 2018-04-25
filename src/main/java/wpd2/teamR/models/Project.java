@@ -26,6 +26,12 @@ public  class Project {
         this.dateModified = dateModified;
     }
 
+    public Project( String name,String description)
+    {
+        this.name = name;
+        this.description = description;
+    }
+
     public void addMilestone(Milestone milestoneToAdd)
     {
         //TODO: ADD BODY

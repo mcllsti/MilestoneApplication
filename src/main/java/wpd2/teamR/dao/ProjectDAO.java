@@ -14,9 +14,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+//=======================================================================================
+//TODO: NONE OF THEASE METHODS RETURN A PROJECT THAT HAS THE LIST OF MILESTONES POPULATED.
+//TODO: METHODS IMPLEMENTED SO FAR ARE NOT EXAUSTIVE. MORE MAY BE REQUIRED OR LESS
+//=======================================================================================
 public class ProjectDAO extends DAOBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProjectDAO.class);
+
 
 
     public ProjectDAO(){
@@ -25,6 +32,12 @@ public class ProjectDAO extends DAOBase {
 
     }
 
+    /**
+     * Gets a single project with the specified id
+     * @param id of project to get
+     * @return Project object of the recieved project
+     * @throws SQLException
+     */
     public Project getProjectById(int id) throws SQLException
     {
 
@@ -39,6 +52,7 @@ public class ProjectDAO extends DAOBase {
             // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
             Project project = null;
             while (rs.next()) {
+                //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
                 project = new Project(rs.getInt("id"),rs.getString("name")
                         ,rs.getString("description"),rs.getTimestamp("dateCreated"),rs.getTimestamp("dateModified"));
             }
@@ -50,6 +64,11 @@ public class ProjectDAO extends DAOBase {
         } }
 
 
+    /**
+     * Gets a list of all projects from the database
+     * @return List of projects that contains all database projects
+     * @throws SQLException
+     */
     public List<Project> getAllProjects() throws SQLException
     {
 
@@ -62,6 +81,7 @@ public class ProjectDAO extends DAOBase {
             // LOOP THROUGH RESULTS
             List<Project> allProjects = new ArrayList<Project>();
             while (rs.next()) {
+                //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
                 allProjects.add(new Project(rs.getInt("id"),rs.getString("name")
                         ,rs.getString("description"),rs.getTimestamp("dateCreated"),rs.getTimestamp("dateModified")));
             }
@@ -73,6 +93,12 @@ public class ProjectDAO extends DAOBase {
         } }
 
 
+    /**
+     * Gets all projects for a single user
+     * @param email address of user to recieve projects for
+     * @return List of projects that contains all of a single users projects
+     * @throws SQLException
+     */
     public List<Project> getProjectsbyUserId(String email) throws SQLException
     {
 
@@ -87,6 +113,7 @@ public class ProjectDAO extends DAOBase {
             // LOOP THROUGH RESULTS
             List<Project> usersProjects = new ArrayList<Project>();
             while (rs.next()) {
+                //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
                 usersProjects.add(new Project(rs.getInt("id"),rs.getString("name"),
                         rs.getString("description"),rs.getTimestamp("dateCreated"),rs.getTimestamp("dateModified")));
             }
@@ -96,6 +123,44 @@ public class ProjectDAO extends DAOBase {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } }
+
+
+    /**
+     * Creates a project and stores in the database
+     * @param project object containing name and description details to be written
+     * @param Email address of user to asign the project to
+     * @return boolean of successfull or not
+     */
+    public boolean createProject(Project project, String Email){
+
+        String query = "INSERT INTO projects (name, description, dateCreated, dateModified, userID) VALUES(?,?,NOW(),NOW(),(SELECT id FROM users WHERE email = ?))";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+
+            //PASS VARIABLES TO PREPARED STATEMENT
+            ps.setString(1, project.getName());
+            ps.setString(2, project.getDescription());
+            ps.setString(3, Email);
+            int count = ps.executeUpdate();
+            LOG.debug("insert count = " + count);
+
+            //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
+            if(count==1){
+
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch(SQLException error){
+            LOG.debug(error.toString());
+            return false;
+        }
+
+    }
 }
 
 

@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.dao.ProjectDAO;
 import wpd2.teamR.dao.UserDAO;
+import wpd2.teamR.models.Project;
 import wpd2.teamR.models.User;
 import wpd2.teamR.util.FlashMessage;
 
@@ -34,7 +35,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 
 
@@ -56,13 +59,10 @@ public class LoginServlet extends BaseServlet {
             throws ServletException, IOException {
 
         String userName = UserFuncs.getCurrentUser(request);
-
+        Project project = new Project("Test","I am testing this");
         ProjectDAO hello = new ProjectDAO();
-        try {
-            hello.getProjectsbyUserId("g.macleod@domain.com");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            hello.createProject(project,"g.macleod@domain.com");
+
 
         HashMap<String,Object> viewBag = new HashMap<String,Object>();
 
