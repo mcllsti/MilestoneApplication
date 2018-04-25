@@ -1,6 +1,7 @@
 package wpd2.teamR.dao;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import wpd2.teamR.models.Project;
@@ -16,9 +17,10 @@ public class ProjectDAOTest {
 
     }
 
-    @After
-    public void tearDown() throws Exception {
-
+    @AfterClass
+    public static void tearDown() throws Exception {
+        ProjectDAO testingDAO = new ProjectDAO();
+        assertTrue(testingDAO.deleteProjectByName("Test"));
     }
 
     @Test
@@ -53,9 +55,9 @@ public class ProjectDAOTest {
     }
 
     @Test
-    public void getProjectsbyUserId() throws SQLException {
+    public void getProjectsbyUser() throws SQLException {
         ProjectDAO testingDAO = new ProjectDAO();
-        assertFalse(testingDAO.getProjectsbyUserId("g.macleod@domain.com").isEmpty());
+        assertFalse(testingDAO.getProjectsbyUser("g.macleod@domain.com").isEmpty());
     }
 
 

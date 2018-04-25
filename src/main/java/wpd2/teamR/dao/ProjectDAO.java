@@ -97,7 +97,7 @@ public class ProjectDAO extends DAOBase {
      * @return List of projects that contains all of a single users projects
      * @throws SQLException
      */
-    public List<Project> getProjectsbyUserId(String email) throws SQLException
+    public List<Project> getProjectsbyUser(String email) throws SQLException
     {
 
         final String GET_USERS_PROJECTS = "SELECT * FROM projects WHERE userID = (SELECT id FROM users WHERE email = ?)";
@@ -173,6 +173,41 @@ public class ProjectDAO extends DAOBase {
 
             //PASS ID TO PREPARED STATEMENT
             ps.setInt(1, id);
+
+            int count = ps.executeUpdate();
+            LOG.debug("insert count = " + count);
+
+            //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
+            if(count==1){
+
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch(SQLException error){
+            LOG.debug(error.toString());
+            return false;
+        }
+
+    }
+
+    /**
+     * Deletes all projects with a certain name
+     * @param name of project that is wished to be deleted
+     * @return boolean of success
+     */
+    public boolean deleteProjectByName(String name){
+
+        String query = "DELETE FROM projects WHERE name = ?";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+
+            //PASS ID TO PREPARED STATEMENT
+            ps.setString(1, name);
 
             int count = ps.executeUpdate();
             LOG.debug("insert count = " + count);
