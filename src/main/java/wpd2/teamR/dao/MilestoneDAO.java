@@ -36,6 +36,7 @@ public class MilestoneDAO extends DAOBase {
 
             // PASS THROUGH THE id INTO THE PREPARED STATEMENT
             ps.setInt(1, id);
+
             ResultSet rs = ps.executeQuery();
 
             // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
@@ -76,7 +77,8 @@ public class MilestoneDAO extends DAOBase {
         try (PreparedStatement ps = connection.prepareStatement(GET_MILESTONES)) {
 
             //Pass ID's into statement
-            ps.setInt(userId, projectId);
+            ps.setInt(1, userId);
+            ps.setInt(2, projectId);
 
             ResultSet result = ps.executeQuery();
 
@@ -102,6 +104,76 @@ public class MilestoneDAO extends DAOBase {
         }
 
     }
+
+
+    /**
+     * @param milestone object with details to be written
+     * @param email     string of the user
+     * @return boolean determining success or failure
+     * @throws SQLException
+     */
+    public boolean createMilestone(Milestone milestone, String email) throws SQLException {
+
+        String CREATE_MILESTONE = "INSERT INTO milestones (name, description, dateCreated, dateModified, dueDate, dueCompleted, projectID) VALUES (?,?,NOW(),NOW(),?,? (SELECT id FROM users WHERE projectID =?))";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(CREATE_MILESTONE)) {
+
+            ps.setString(1, milestone.getName());
+            ps.setString(2, milestone.getDescription());
+            ps.setTimestamp(5, milestone.getDueDate());
+            ps.setTimestamp(6, milestone.getDueCompleted());
+            ps.setInt(7, milestone.getProjectID());
+            int count = ps.executeUpdate();
+            LOG.debug("insert count = " + count);
+
+            //Return true or false
+            if (count == 1) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    /**
+     *
+     * @param id of milestone to delete
+     * @return boolean determining success or failure
+     */
+    public boolean deleteMilestoneById(int id) {
+
+        String DELETE_MILESTONE = "DELETE FROM projects WHERE id = ?";
+
+        try(PreparedStatement ps = getConnection().prepareStatement(DELETE_MILESTONE)) {
+
+            //Pass ID into prepared statement
+            ps.setInt(1, id);
+
+            int count = ps.executeUpdate();
+            LOG.debug ("insert count=" + count);
+
+            if(count ==1) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+
+
 
 }
 
