@@ -5,12 +5,15 @@
 <p>Below are the current projects</p>
 <p><a href="#" id="new-project" class="button button-primary success"><i class="fas fa-calendar-plus"></i> Add New Project</a></p>
 
+{{>../_partials/flash-message}}
+
 <div class="project-list">
 
-    <p>Showing 4 of 100 Projects</p>
+    <p>Showing {{total}} of {{total}} Projects</p>
 
     <!--THIS WILL BE LOOPED FOR EACH PROJECT IN LIST-->
     <!--TODO: NEEDS VARIABLES ADDED-->
+    {{#projects}}
     <div class="project">
 
         <div class="milestones">
@@ -18,8 +21,8 @@
         </div>
 
         <div class="details">
-            <p class="details__name"><a href="#">Web Platform Development</a></p>
-            <p><i class="far fa-clock"></i> Created 3 hours ago</p>
+            <p class="details__name"><a href="#">{{name}}</a></p>
+            <p><i class="far fa-clock"></i> {{dateCreated}}</p>
         </div>
 
         <div class="menu">
@@ -32,6 +35,7 @@
         </div>
 
     </div>
+    {{/projects}}
 
 </div>
 

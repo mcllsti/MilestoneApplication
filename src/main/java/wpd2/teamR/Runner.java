@@ -49,23 +49,12 @@ public class Runner {
 //        Servlet2 servlet2 = new Servlet2();
 //        handler.addServlet(new ServletHolder(servlet2), "/servlet2");
 
-        // SETUP AND POINT A URL FOR THE PRIVATE AND PUBLIC SERVLETS AS WELL AS LOGIN
-        //     //register
+        handler.addServlet(new ServletHolder(new ProjectListServlet()), "/projects");
+        handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
 
-        handler.addServlet(new ServletHolder(new PublicPageServlet()), "/project");
-        handler.addServlet(new ServletHolder(new Servlet1()), "/project/*");
-
-        handler.addServlet(new ServletHolder(new Servlet2()), "/project/*/milestones");
-
-//        handler.addServlet(new ServletHolder(new PublicPageServlet()), "/public/*/");
-//        handler.addServlet(new ServletHolder(new PublicPageServlet()), "/public/*/*/");
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
-
-
-//        DAOBase daoBase = new DAOBase();
-//        daoBase.getAllUsers();
 
 
 

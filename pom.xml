@@ -32,6 +32,11 @@
             <artifactId>jetty-servlet</artifactId>
             <version>9.4.0.v20161208</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-rewrite</artifactId>
+            <version>9.4.0.v20161208</version>
+        </dependency>
 
         <!--TRYING TO GET WEBINF WORKING FOR ROUTING-->
         <!--<dependency>-->

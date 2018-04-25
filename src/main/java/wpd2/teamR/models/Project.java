@@ -17,6 +17,8 @@ public  class Project {
 
     //private List<Milestone> milestones;  <= NAV VARIABLE / UNSURE
 
+    public Project(){};
+
     public Project(int id, String name,String description, Timestamp dateCreated,Timestamp dateModified)
     {
         this.id = id;

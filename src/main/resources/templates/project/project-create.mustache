@@ -1,0 +1,33 @@
+{{>../_partials/site-header}}
+<div class="six columns offset-by-three">
+<h1>Create Project</h1>
+<form id="create-project" method="post" action="/projects/create">
+
+            <label for="name">Milestone Name</label>
+            <input class="u-full-width" type="text" id="name" placeholder="Enter Project name" name="name" required>
+
+    <label for="description">Project Description</label>
+    <textarea class="u-full-width" placeholder="Please enter your project description" id="description" name="description" required></textarea>
+    <input class="button-primary success" type="submit" value="Create Project">
+
+</form>
+</div>
+{{>../_partials/jquery-validate}}
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#create-project").validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                description: {
+                    required:true
+                }
+            }
+        });
+
+    });
+
+</script>
+{{>../_partials/site-footer}}
