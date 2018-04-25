@@ -137,7 +137,8 @@ public class LinkDAO extends DAOBase {
         try (PreparedStatement ps = getConnection().prepareStatement(query)) {
 
             ps.setString(1, link.getEmail());
-            ps.setInt(2, link.getProjectID());
+            ps.setInt(2, projectId);
+
             int count = ps.executeUpdate();
             LOG.debug("insert count = " + count);
 
