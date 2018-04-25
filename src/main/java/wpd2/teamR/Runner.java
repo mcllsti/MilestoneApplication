@@ -55,7 +55,7 @@ public class Runner {
         handler.addServlet(new ServletHolder(new PublicPageServlet()), "/project");
         handler.addServlet(new ServletHolder(new Servlet1()), "/project/*");
 
-        handler.addServlet(new ServletHolder(new Servlet2()), "/project/*/milestones");
+        //handler.addServlet(new ServletHolder(new Servlet2()), "/project/*/milestones");
 
 //        handler.addServlet(new ServletHolder(new PublicPageServlet()), "/public/*/");
 //        handler.addServlet(new ServletHolder(new PublicPageServlet()), "/public/*/*/");
