@@ -8,6 +8,8 @@ The application itself is a milestone application that allows users to have diff
 GROUP ID: R
 ```
 
+******
+
 ## Team Members
 Below are the current team members
 
@@ -18,14 +20,20 @@ Below are the current team members
 |Gavin McLeod	|	S1715408	|	Gmacle204@caledonian.ac.uk|
 |Niklas Olsson	|	S1434184	|	Nolsso200@caledonian.ac.uk|
 
+******
+
 ## Completed Progress
 The system has basic implementation and a working servlet that allows the return of a static web page. There is currently some placeholder models folder that contains skeleton initial models that will be implemented into the project. 
 There is also the start of mustache implementation but it is basic and is not intergrated with the rest of the project. 
+
+******
 
 ## Current In Progress
 
 - Finlize Project Initialization
 - Mustache intergration
+
+******
 
 # Internal Feature Help
 Below are a list of instructions for the team on how to use any of the custom implemented code.
