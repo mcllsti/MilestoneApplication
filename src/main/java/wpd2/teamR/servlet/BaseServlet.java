@@ -4,7 +4,9 @@ package wpd2.teamR.servlet;
 import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.teamR.util.FlashMessage;
 import wpd2.teamR.util.MustacheRenderer;
+import wpd2.teamR.util.SessionFunctions;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -80,7 +82,8 @@ class BaseServlet extends HttpServlet {
 //        String userName = UserFuncs.getCurrentUser(request);
 
         if(getCurrentUser(request).equals("")){
-            // REDIRECT
+            // SET A FLASH MESSAGE AND REDIRECT
+            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"Login Required","You cannot access this section without being logged in to the system."));
             response.sendRedirect(response.encodeRedirectURL("/login")); //TODO: HARD CODED LOGIN
             return false;
         }

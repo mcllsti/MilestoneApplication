@@ -2,7 +2,21 @@
 .flash {
     padding:1em;
     border-radius:10px;
-    display: inline-block;
+    display: block;
+    width:50%;
+    max-width:500px;
+    min-width:300px;
+    margin:1em auto;
+    position: relative;
+    box-shadow:0 0 10px #CCC;
+    /*z-index:5;*/
+}
+.flash .close {
+    font-size:2em;
+    position: absolute;
+    right:20px;
+    top:5px;
+    cursor: pointer;
 }
 .flash .title {
     font-size:1.5em;

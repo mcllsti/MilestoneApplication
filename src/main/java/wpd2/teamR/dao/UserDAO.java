@@ -32,29 +32,43 @@ public class UserDAO extends DAOBase {
         final String CHECK_USER = "SELECT email, password FROM users WHERE email=?";
         String result = "";
 
-        try (PreparedStatement ps = connection.prepareStatement(CHECK_USER)) {
-
+//        try () {
+            PreparedStatement ps = connection.prepareStatement(CHECK_USER);
             // PASS THROUGH THE EMAIL INTO THE PREPARED STATEMENT
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
 
-            // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
-            while (rs.next()) {
-                result = rs.getString(2);
+            // CHECK IF THERE ARE RESULTS
+            if(rs.next()){
+
+                // GET THE RESULT
+                do {
+                    result = rs.getString(2);
+                } while (rs.next());
+
+                // CHECK THE PASSWORD AGAINST THE HASH
+                if(Password.validatePassword(password,result)){
+                    return email;
+                } else {
+
+                    // OTHERWISE RETURN BLANK
+                    return "";
+                }
+
+            } else {
+                // OTHERWISE RETURN BLANK
+                return "";
             }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
+
+
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
 
         // CHECK IF HASHES MATCHED - IF SO RETURN EMAIL
-        if(Password.validatePassword(password,result)){
-            return email;
-        } else {
 
-            // OTHERWISE RETURN BLANK
-            return "";
-        }
 
     }
 
