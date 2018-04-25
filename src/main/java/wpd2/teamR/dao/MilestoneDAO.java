@@ -28,11 +28,11 @@ public class MilestoneDAO extends DAOBase {
      * @return Milestone object of the received project
      * @throws SQLException
      */
-    public Milestone getProjectById(int id) throws SQLException {
+    public Milestone getMilestoneById(int id) throws SQLException {
 
-        final String GET_PROJECT = "SELECT * FROM milestones WHERE id=?";
+        final String GET_MILESTONE = "SELECT * FROM milestones WHERE id=?";
 
-        try (PreparedStatement ps = connection.prepareStatement(GET_PROJECT)) {
+        try (PreparedStatement ps = connection.prepareStatement(GET_MILESTONE)) {
 
             // PASS THROUGH THE id INTO THE PREPARED STATEMENT
             ps.setInt(1, id);
@@ -114,15 +114,15 @@ public class MilestoneDAO extends DAOBase {
      */
     public boolean createMilestone(Milestone milestone, String email) throws SQLException {
 
-        String CREATE_MILESTONE = "INSERT INTO milestones (name, description, dateCreated, dateModified, dueDate, dueCompleted, projectID) VALUES (?,?,NOW(),NOW(),?,? (SELECT id FROM users WHERE projectID =?))";
+        String CREATE_MILESTONE = "INSERT INTO milestones (name, description, dateCreated, dateModified, dueDate, dueCompleted, projectID) VALUES (?,?,NOW(),NOW(),?,?, (SELECT id FROM projects WHERE projectID =?))";
 
         try (PreparedStatement ps = getConnection().prepareStatement(CREATE_MILESTONE)) {
 
             ps.setString(1, milestone.getName());
             ps.setString(2, milestone.getDescription());
-            ps.setTimestamp(5, milestone.getDueDate());
-            ps.setTimestamp(6, milestone.getDueCompleted());
-            ps.setInt(7, milestone.getProjectID());
+            ps.setTimestamp(3, milestone.getDueDate());
+            ps.setTimestamp(4, milestone.getDateCompleted());
+            ps.setInt(5, milestone.getProjectID());
             int count = ps.executeUpdate();
             LOG.debug("insert count = " + count);
 

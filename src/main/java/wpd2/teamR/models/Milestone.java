@@ -12,18 +12,19 @@ public class Milestone {
     private Timestamp dateCreated;
     private Timestamp dateModified;
     private Timestamp dueDate;
-    private Timestamp dueCompleted;
+    private Timestamp dateCompleted;
 
     private int projectID; // AGAIN, I DONT THINK WE NEED THIS TO BE HONEST ?
 
-    public Milestone(int id, String name, String desc, Timestamp dateCreated, Timestamp dateMod, Timestamp dateDue, Timestamp dueComplete)
+    public Milestone(int id, String name, String desc, Timestamp dateCreated, Timestamp dateMod, Timestamp dateDue, Timestamp dateComplete)
     {
         this.id = id;
         this.name = name;
+        this.description = desc;
         this.dateCreated = dateCreated;
         this.dateModified = dateMod;
         this.dueDate = dateDue;
-        this.dueCompleted = dueComplete;
+        this.dateCompleted = dateComplete;
     }
 
 }
