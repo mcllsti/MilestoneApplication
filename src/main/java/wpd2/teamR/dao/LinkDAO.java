@@ -24,49 +24,33 @@ public class LinkDAO extends DAOBase {
     public Link findById(int id) throws SQLException
     {
 
-        final String GET_PROJECT = "SELECT * FROM links WHERE id=?";
+        final String query = "SELECT * FROM links WHERE id=?";
 
-        try (PreparedStatement ps = connection.prepareStatement(GET_PROJECT)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
 
             // PASS THROUGH THE id INTO THE PREPARED STATEMENT
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
 
-            // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
-            Link link = null;
-            while (rs.next()) {
-                //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
-                link = new Link(rs.getInt("id"),rs.getString("email")
-                        ,rs.getTimestamp("dateCreated"),rs.getTimestamp("dateLastAccessed"),rs.getInt("projectID"));
-            }
-
-            return link;
+            // RETURN THE LINK - PRIVATE METHOD IN THIS CLASS
+            return this.retrieveLink(ps);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Link findByProjectId(int id) throws SQLException
+    public List<Link> findByProjectId(int id) throws SQLException
     {
 
-        final String GET_PROJECT = "SELECT * FROM links WHERE projectId=?";
+        final String query = "SELECT * FROM links WHERE projectId=?";
 
-        try (PreparedStatement ps = connection.prepareStatement(GET_PROJECT)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
 
             // PASS THROUGH THE id INTO THE PREPARED STATEMENT
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
 
-            // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
-            Link link = null;
-            while (rs.next()) {
-                //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
-                link = new Link(rs.getInt("id"),rs.getString("email")
-                        ,rs.getTimestamp("dateCreated"),rs.getTimestamp("dateLastAccessed"),rs.getInt("projectID"));
-            }
-
-            return link;
+            // RETURN THE LINKS
+            return this.retrieveLinks(ps);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -74,51 +58,40 @@ public class LinkDAO extends DAOBase {
     }
 
 
-    public Link findByUserId(int userId) throws SQLException
+    public List<Link> findByUserId(int userId) throws SQLException
     {
 
-        final String GET_PROJECT = "SELECT links.id, links.email, links.dateCreated, links.dateLastAccessed, links.projectID FROM links, projects, users WHERE links.projectID = projects.id AND projects.userID = users.id AND users.id = ?;";
+        final String query = "SELECT links.id, links.email, links.dateCreated, links.dateLastAccessed, links.projectID FROM links, projects, users WHERE links.projectID = projects.id AND projects.userID = users.id AND users.id = ?;";
 
-        try (PreparedStatement ps = connection.prepareStatement(GET_PROJECT)) {
+        try {
+
+            PreparedStatement ps = connection.prepareStatement(query);
 
             // PASS THROUGH THE id INTO THE PREPARED STATEMENT
             ps.setInt(1, userId);
-            ResultSet rs = ps.executeQuery();
 
-            // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
-            Link link = null;
-            while (rs.next()) {
-                //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
-                link = new Link(rs.getInt("id"),rs.getString("email")
-                        ,rs.getTimestamp("dateCreated"),rs.getTimestamp("dateLastAccessed"),rs.getInt("projectID"));
-            }
+            // RETRIEVE THE LINKS FROM THE DB
+            return this.retrieveLinks(ps);
 
-            return link;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     public List<Link> findAll() throws SQLException
     {
 
-        final String GET_PROJECTS = "SELECT * FROM links";
+        final String query = "SELECT * FROM links";
 
-        try (PreparedStatement ps = connection.prepareStatement(GET_PROJECTS)) {
+        try {
 
-            ResultSet rs = ps.executeQuery();
+            // CREATE PREPARED STATEMENT
+            PreparedStatement ps = connection.prepareStatement(query);
 
-            // LOOP THROUGH RESULTS
-            List<Link> links = new ArrayList<Link>();
-            while (rs.next()) {
-                //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
-                links.add(new Link(rs.getInt("id"),rs.getString("email")
-                        ,rs.getTimestamp("dateCreated"),rs.getTimestamp("dateLastAccessed"),rs.getInt("projectID")));
-            }
+            // RETURN THE LINKS
+            return this.retrieveLinks(ps);
 
-            return links;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -210,6 +183,40 @@ public class LinkDAO extends DAOBase {
             LOG.debug(error.toString());
             return false;
         }
+
+    }
+
+//    PRIVATE FUNCTIONS ///////////////////////////
+
+    private List<Link> retrieveLinks(PreparedStatement ps) throws SQLException {
+
+        ResultSet rs = ps.executeQuery();
+
+        // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
+        List<Link> links = new ArrayList<Link>();
+        while (rs.next()) {
+            //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
+            links.add(new Link(rs.getInt("id"),rs.getString("email")
+                    ,rs.getTimestamp("dateCreated"),rs.getTimestamp("dateLastAccessed"),rs.getInt("projectID")));
+        }
+
+        return links;
+
+    }
+
+    private Link retrieveLink(PreparedStatement ps) throws SQLException{
+
+        ResultSet rs = ps.executeQuery();
+
+        // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
+        Link link = null;
+        while (rs.next()) {
+            //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
+            link = new Link(rs.getInt("id"),rs.getString("email")
+                    ,rs.getTimestamp("dateCreated"),rs.getTimestamp("dateLastAccessed"),rs.getInt("projectID"));
+        }
+
+        return link;
 
     }
 
