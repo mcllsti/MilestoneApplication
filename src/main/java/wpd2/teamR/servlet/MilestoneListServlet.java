@@ -35,8 +35,9 @@ public class MilestoneListServlet extends BaseServlet {
 
         //int id = Integer.parseInt(request.getParameter("projectId")); TODO: Get this to retrive porjectId of session.
 
+        int parameter = Integer.parseInt(getUrlParamter(request.getRequestURI()));
 
-       setCurrentProject(request,10); //Only put here for testing, need to make it get the porject id from the session.
+       setCurrentProject(request,parameter); //Only put here for testing, need to make it get the porject id from the session.
 
         // TODO Make this all work. Don't think I'm approaching it correctly
 
