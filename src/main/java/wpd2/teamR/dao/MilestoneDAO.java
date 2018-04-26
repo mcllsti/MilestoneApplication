@@ -99,9 +99,7 @@ public class MilestoneDAO extends DAOBase {
                                 result.getTimestamp("dueDate"),
                                 result.getTimestamp("dateCompleted"),
                                 result.getInt("projectID")
-
-                        )
-                );
+                        ));
             }
             return allMilestones;
 
@@ -175,7 +173,6 @@ public class MilestoneDAO extends DAOBase {
             //Return true or false
             return determineTrueFalse(count);
 
-
         } catch (SQLException e) {
             LOG.debug(e.toString());
             return false;
@@ -203,6 +200,7 @@ public class MilestoneDAO extends DAOBase {
 
             //Return true or false
             return determineTrueFalse(count);
+
 
 
         } catch (SQLException e) {

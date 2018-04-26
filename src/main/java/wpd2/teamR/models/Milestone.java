@@ -1,8 +1,10 @@
 package wpd2.teamR.models;
 
 import lombok.Data;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Data
 public class Milestone {
@@ -17,21 +19,59 @@ public class Milestone {
 
     private int projectID; // AGAIN, I DONT THINK WE NEED THIS TO BE HONEST ?
 
-    public Milestone(){
-    }
 
-    public Milestone(int id, String name, String description, Timestamp dateCreated, Timestamp dateModified, Timestamp dueDate, Timestamp dateCompleted, int projectID) {
+    public Milestone(int id, String name, String desc, Timestamp dateCreated, Timestamp dateMod, Timestamp dateDue, Timestamp dateComplete)
+    {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.description = desc;
         this.dateCreated = dateCreated;
-        this.dateModified = dateModified;
-        this.dueDate = dueDate;
-        this.dateCompleted = dateCompleted;
-        this.projectID = projectID;
-        
+        this.dateModified = dateMod;
+        this.dueDate = dateDue;
+        this.dateCompleted = dateComplete;
     }
 
 
+
+    // THE BELOW GETTERS FACILITATE MUSTACHE
+    public String getPrettyDateCreated(){
+        PrettyTime p = new PrettyTime();
+        return p.format(this.getDateCreated());
+    }
+
+    public String getPrettyDateModified(){
+        PrettyTime p = new PrettyTime();
+        return p.format(this.getDateModified());
+    }
+
+
+    public String getDueDay(){
+
+        long timestamp = this.dueDate.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestamp);
+
+        return String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+
+    }
+
+    public int getDueMonth(){
+
+        long timestamp = this.dueDate.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestamp);
+
+        return cal.get(Calendar.MONTH);
+    }
+
+    public String getDueYear(){
+
+        long timestamp = this.dueDate.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestamp);
+
+        return String.valueOf(cal.get(Calendar.YEAR));
+
+    }
 
 }

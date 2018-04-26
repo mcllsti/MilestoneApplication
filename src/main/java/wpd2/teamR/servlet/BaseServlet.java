@@ -149,10 +149,10 @@ class BaseServlet extends HttpServlet {
     protected int getCurrentProject(HttpServletRequest request) {
     HttpSession session = request.getSession(false);
         if (session == null) {
-            return 0;
+            return -1;
         }
         int val = (int) session.getAttribute("projectId");
-            return val == 0 ? 0 : val;
+            return val == 0 ? -1 : val;
         }
 
     protected String getUrlParamter(String url)

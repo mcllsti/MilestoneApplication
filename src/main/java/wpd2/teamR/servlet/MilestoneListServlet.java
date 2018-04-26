@@ -32,24 +32,26 @@ public class MilestoneListServlet extends BaseServlet {
             return;
         }
 
-        //int id = Integer.parseInt(request.getParameter("projectId")); TODO: Get this to retrive porjectId of session.
+//        int parameter = Integer.parseInt(request.getParameter("Identifier"));
+//         setCurrentProject(request,parameter);
+        int projectID = getCurrentProject(request);
+        if(projectID == -1){
+            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.INFO,"Hmmm something isn't right","Something wasn't quite right there. Please try again."));
+            response.sendRedirect("/project");
+            return;
+        }
 
-
-       setCurrentProject(request,10); //Only put here for testing, need to make it get the porject id from the session.
-
-        // TODO Make this all work. Don't think I'm approaching it correctly
-
-        List<Milestone> milestoneList = new ArrayList<Milestone>();
+        List<Milestone> milestoneList = new ArrayList<>();
         try {
-            milestoneList = milestones.getAllMilestonesByProjectId(getCurrentProject(request));
+            milestoneList = milestones.getAllMilestonesByProjectId(projectID);
         }
         catch (SQLException error){}
 
         HashMap<String, Object> viewBag = new HashMap<String, Object>();
 
         FlashMessage message = SessionFunctions.getFlashMessage(request);
-//        viewBag.put("username",userName);
         viewBag.put("message", message);
+        viewBag.put("projectId",projectID);
         viewBag.put("total", milestoneList.size());
         viewBag.put("milestones", milestoneList);
 
