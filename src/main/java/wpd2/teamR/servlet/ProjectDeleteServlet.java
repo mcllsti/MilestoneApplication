@@ -60,6 +60,7 @@ public class ProjectDeleteServlet extends BaseServlet {
         if (!authOK(request, response)) {
             return;
         }
+        String email = getCurrentUser(request);
 
         //GETTING ID FROM URL
         int id = Integer.parseInt(getUrlParamter(request.getRequestURI()));
@@ -68,7 +69,7 @@ public class ProjectDeleteServlet extends BaseServlet {
 
         //GETTING PROJECT TO BE DELETED
         try {
-            projectToDelete = projects.getProjectById(id);
+            projectToDelete = projects.getProjectByIdAndUser(id,email);
         } catch (SQLException e) {
             returnNotFound(request,response);
         }
