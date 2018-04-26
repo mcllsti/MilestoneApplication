@@ -23,6 +23,7 @@ public class ProjectDAO extends DAOBase {
 
     }
 
+    //region Read
     /**
      * Gets a single project with the specified id
      *
@@ -109,6 +110,11 @@ public class ProjectDAO extends DAOBase {
         }
     }
 
+
+    //endregion
+
+    //region Create
+
     /**
      * Creates a project and stores in the database
      *
@@ -137,7 +143,9 @@ public class ProjectDAO extends DAOBase {
         }
 
     }
+    //endregion
 
+    //region Delete
     /**
      * Deletes a project from the database with the matching id
      *
@@ -164,7 +172,10 @@ public class ProjectDAO extends DAOBase {
         }
 
     }
+    //endregion
 
+    //region Update //TODO
+    //endregion
 
     //region Private Methods
 
