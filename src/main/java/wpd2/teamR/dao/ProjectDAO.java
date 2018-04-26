@@ -48,6 +48,13 @@ public class ProjectDAO extends DAOBase {
         }
     }
 
+    /**
+     * Gets a project where the Id and userId match
+     * @param id int variable of project id
+     * @param email String variable of users email address
+     * @return Project Object or Null depending if found or not
+     * @throws SQLException
+     */
     public Project getProjectByIdAndUser(int id, String email) throws SQLException {
         final String GET_PROJECT = "SELECT * FROM projects WHERE id=? AND userID = (SELECT id FROM users WHERE email = ?)";
 
