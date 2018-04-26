@@ -62,9 +62,9 @@ public class ProjectCreateServlet extends BaseServlet {
         }
 
         // SETUP VIEWBAG TO SEND TO VIEW
-        HashMap<String,Object> viewBag = new HashMap<String,Object>();
+        HashMap<String, Object> viewBag = new HashMap<String, Object>();
         FlashMessage message = SessionFunctions.getFlashMessage(request);
-        viewBag.put("message",message);
+        viewBag.put("message", message);
 
         // RENDER CREATE FORM
         showView(response, "project/project-create.mustache", viewBag);
@@ -80,17 +80,17 @@ public class ProjectCreateServlet extends BaseServlet {
         p.setDescription(request.getParameter("description"));
 
         // IF IT WAS SUCCESSFULLY CREATED
-        if(projects.createProject(p,getCurrentUser(request))){
+        if (projects.createProject(p, getCurrentUser(request))) {
 
             // SAVE A SUCCESSFUL FLASH MESSAGE AND RETURN TO PROJECT VIEW
-            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Project Added","Your project was added"));
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Project Added", "Your project was added"));
             response.sendRedirect("/projects");
             return;
 
         } else {
 
             // SOMETHING WENT WRONG - SEND THEM BACK TO FORM WITH ERROR
-            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"Uh oh...","Sorry, something went wrong"));
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR, "Uh oh...", "Sorry, something went wrong"));
             response.sendRedirect("/projects/create");
         }
 

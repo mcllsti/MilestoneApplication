@@ -62,17 +62,17 @@ public class ProjectListServlet extends BaseServlet {
         List<Project> plist = new ArrayList<Project>();
         try {
             plist = projects.getProjectsbyUser(getCurrentUser(request));
-        } catch (SQLException error){
+        } catch (SQLException error) {
 
         }
 
-        HashMap<String,Object> viewBag = new HashMap<String,Object>();
+        HashMap<String, Object> viewBag = new HashMap<String, Object>();
 
         FlashMessage message = SessionFunctions.getFlashMessage(request);
 //        viewBag.put("username",userName);
-        viewBag.put("message",message);
-        viewBag.put("total",plist.size());
-        viewBag.put("projects",plist);
+        viewBag.put("message", message);
+        viewBag.put("total", plist.size());
+        viewBag.put("projects", plist);
 
         showView(response, "project/project-list.mustache", viewBag);
 
@@ -85,9 +85,9 @@ public class ProjectListServlet extends BaseServlet {
         p.setName(request.getParameter("name"));
         p.setDescription(request.getParameter("description"));
 
-        if(projects.createProject(p,getCurrentUser(request))){
+        if (projects.createProject(p, getCurrentUser(request))) {
 
-            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Project Added","Your project was added"));
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Project Added", "Your project was added"));
             response.sendRedirect("/private");
             return;
 

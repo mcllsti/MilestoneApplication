@@ -12,6 +12,7 @@ public class SessionFunctions {
 
     /**
      * Save a flash message to the session
+     *
      * @param request The current request
      * @param message The message to write to the session
      */
@@ -22,24 +23,26 @@ public class SessionFunctions {
 
     /**
      * Retrieve a flash message from the session
+     *
      * @param request The current request
      * @return The flash message stored in the session, otherwise return a blank
      */
     public static FlashMessage getFlashMessage(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return new FlashMessage(FlashMessage.FlashType.BLANK,"","");
+            return new FlashMessage(FlashMessage.FlashType.BLANK, "", "");
         }
-        FlashMessage message = (FlashMessage)session.getAttribute(FLASH_MESSAGE_KEY);
+        FlashMessage message = (FlashMessage) session.getAttribute(FLASH_MESSAGE_KEY);
 
         // CLEAR IT BECAUSE ITS BEEN RETRIEVED
         clearFlashMessage(request);
 
-        return (message == null ? new FlashMessage(FlashMessage.FlashType.BLANK,"") : message);
+        return (message == null ? new FlashMessage(FlashMessage.FlashType.BLANK, "") : message);
     }
 
     /**
      * Clear the message currently stored in the session
+     *
      * @param request The current request
      */
     public static void clearFlashMessage(HttpServletRequest request) {

@@ -27,7 +27,7 @@ public class MustacheRenderer {
     }
 
     public String render(String templateName, Object model) {
-       //LOG.error("in render 1: template root: " + TEMPLATE_ROOT + ", template name: " + templateName);
+        //LOG.error("in render 1: template root: " + TEMPLATE_ROOT + ", template name: " + templateName);
         Mustache mustache = mustacheFactory.compile(templateName);
         //LOG.error("in render 2: template root: " + TEMPLATE_ROOT + ", template name: " + templateName);
         try (StringWriter stringWriter = new StringWriter()) {

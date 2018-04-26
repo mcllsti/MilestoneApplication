@@ -1,9 +1,6 @@
 package wpd2.teamR.dao;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import wpd2.teamR.models.Project;
 
 import java.sql.Connection;
@@ -14,9 +11,14 @@ import static org.junit.Assert.*;
 
 public class ProjectDAOTest {
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUp() throws Exception {
+        ProjectDAO testingDAO = new ProjectDAO();
+        Project testingProject = testingDAO.getProjectById(2);
+        testingProject.setName("TempTest");
+        testingProject.setDescription("TempTest");
 
+        assertTrue(testingDAO.projectUpdate(testingProject));
     }
 
     @AfterClass
@@ -34,6 +36,8 @@ public class ProjectDAOTest {
 
         ps.executeUpdate();
 
+
+
     }
 
     @Test
@@ -48,14 +52,13 @@ public class ProjectDAOTest {
     public void getProjectById() throws SQLException {
 
         ProjectDAO testingDAO = new ProjectDAO();
-        assertTrue(testingDAO.getProjectById(2).getName().equals("Web Platform Development"));
+        assertTrue(testingDAO.getProjectById(2) != null);
 
     }
 
     @Test
     public void deleteProjectById() {
         ProjectDAO testingDAO = new ProjectDAO();
-
         assertFalse(testingDAO.deleteProjectById(2000));
     }
 
@@ -74,6 +77,21 @@ public class ProjectDAOTest {
     }
 
 
+    @Test
+    public void getProjectByIdAndUser() throws SQLException {
 
+        ProjectDAO testingDAO = new ProjectDAO();
+        assertTrue(testingDAO.getProjectByIdAndUser(2,"chris@chrisconnor.co.uk") != null);
+    }
 
+    @Test
+    public void projectUpdate() throws SQLException {
+        ProjectDAO testingDAO = new ProjectDAO();
+        Project testingProject = testingDAO.getProjectById(2);
+        testingProject.setName("Web Platform Development");
+        testingProject.setDescription("This is a brilliant project...");
+
+        assertTrue(testingDAO.projectUpdate(testingProject));
+
+    }
 }

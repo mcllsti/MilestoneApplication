@@ -21,13 +21,13 @@ public class Servlet1 extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String n=request.getParameter("userName");
-        String output = "<p>Welcome "+n+"</p>";
-        
+        String n = request.getParameter("userName");
+        String output = "<p>Welcome " + n + "</p>";
 
-        HttpSession session=request.getSession(true);
-        session.setAttribute("uname",n);
-         output += "<a href='/servlet2'>Visit again!</a>"    ;
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("uname", n);
+        output += "<a href='/servlet2'>Visit again!</a>";
         issue(HTML_UTF_8, HttpServletResponse.SC_OK, output.getBytes(CHARSET_UTF8), response);
     }
 }

@@ -35,7 +35,8 @@ class UserFuncs {
     private final static String LOGIN_REDIRECT_KEY = "redirectURL";
     final static String DEFAULT_LOGIN_REDIRECT = "/login";
 
-    private UserFuncs() {}
+    private UserFuncs() {
+    }
 
     static void setCurrentUser(HttpServletRequest request, @NonNull String userName) {
         HttpSession session = request.getSession(true);
@@ -50,7 +51,8 @@ class UserFuncs {
 
     /**
      * Find the current user, if any
-     * @param request  The HTTP request object, containing the session, if any
+     *
+     * @param request The HTTP request object, containing the session, if any
      * @return The current user, or the empty string if none (note NOT null)
      */
     static String getCurrentUser(HttpServletRequest request) {
@@ -58,7 +60,7 @@ class UserFuncs {
         if (session == null) {
             return "";
         }
-        String val = (String)session.getAttribute(USER_NAME_KEY);
+        String val = (String) session.getAttribute(USER_NAME_KEY);
         return val == null ? "" : val;
     }
 
@@ -67,7 +69,7 @@ class UserFuncs {
         if (session == null) {
             return DEFAULT_LOGIN_REDIRECT;
         }
-        String redirectURL = (String)session.getAttribute(LOGIN_REDIRECT_KEY);
+        String redirectURL = (String) session.getAttribute(LOGIN_REDIRECT_KEY);
         session.removeAttribute(LOGIN_REDIRECT_KEY);
         return redirectURL == null ? DEFAULT_LOGIN_REDIRECT : redirectURL;
     }
