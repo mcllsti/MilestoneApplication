@@ -13,7 +13,7 @@ public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
-    private static final int PORT = 9002;
+    private static final int PORT = 9001;
 
 
     private Runner() {
@@ -41,7 +41,7 @@ public class Runner {
 
         // OUR ROUTES
         handler.addServlet(new ServletHolder(new ProjectListServlet()), "/projects");
-        handler.addServlet(new ServletHolder(new MilestoneListServlet()), "/projects/milestones");
+        handler.addServlet(new ServletHolder(new MilestoneListServlet()), "/projects/milestones/*");
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDeleteServlet()), "/projects/delete/*");
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
