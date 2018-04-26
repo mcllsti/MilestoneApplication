@@ -127,11 +127,7 @@ public class MilestoneDAO extends DAOBase {
             LOG.debug("insert count = " + count);
 
             //Return true or false
-            if (count == 1) {
-                return true;
-            } else {
-                return false;
-            }
+            return determineTrueFalse(count);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -157,11 +153,8 @@ public class MilestoneDAO extends DAOBase {
             int count = ps.executeUpdate();
             LOG.debug ("insert count=" + count);
 
-            if(count ==1) {
-                return true;
-            } else {
-                return false;
-            }
+            //Return true or false
+            return determineTrueFalse(count);
 
 
         } catch (SQLException e) {
@@ -169,6 +162,59 @@ public class MilestoneDAO extends DAOBase {
         }
 
 
+    }
+
+
+    /**
+     * Updates a project that is stored in the database
+     *
+     * @param milestone object containing the updated name and description details to be written
+     * @return boolean of successfull or not
+     */
+    public boolean updateMilestone(Milestone milestone) {
+
+        String UPDATE_MILESTONE = "UPDATE milestones SET name=?, description=?, dateModified=NOW(),dueDate=?,dateCompleted=? WHERE id = ?";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(UPDATE_MILESTONE)) {
+
+            //PASS VARIABLES TO PREPARED STATEMENT
+            ps.setString(1, milestone.getName());
+            ps.setString(2, milestone.getDescription());
+            ps.setTimestamp(3, milestone.getDueDate());
+            ps.setTimestamp(4, milestone.getDateCompleted());
+            ps.setInt(5, milestone.getId());
+            int count = ps.executeUpdate();
+            LOG.debug("insert count = " + count);
+
+            return determineTrueFalse(count);
+
+        } catch (SQLException error) {
+            LOG.debug(error.toString());
+            return false;
+        }
+
+    }
+
+
+
+    /**
+     * Private method that returns true of false depending on int value
+     * Used to cut down repetitive code
+     *
+     * @param count Integer variable to be used to determine true or false
+     * @return Boolean depending on count value
+     */
+    private boolean determineTrueFalse(int count) {
+        //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
+        if (count == 1) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
     }
 
 
