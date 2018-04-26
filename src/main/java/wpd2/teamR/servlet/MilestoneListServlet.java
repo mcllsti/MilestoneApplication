@@ -33,9 +33,7 @@ public class MilestoneListServlet extends BaseServlet {
         }
 
         int parameter = Integer.parseInt(request.getParameter("Identifier"));
-         setCurrentProject(request,parameter); //Only put here for testing, need to make it get the porject id from the session.
-
-        // TODO Make this all work. Don't think I'm approaching it correctly
+         setCurrentProject(request,parameter);
 
         List<Milestone> milestoneList = new ArrayList<Milestone>();
         try {
@@ -46,7 +44,6 @@ public class MilestoneListServlet extends BaseServlet {
         HashMap<String, Object> viewBag = new HashMap<String, Object>();
 
         FlashMessage message = SessionFunctions.getFlashMessage(request);
-//        viewBag.put("username",userName);
         viewBag.put("message", message);
         viewBag.put("projectId",parameter);
         viewBag.put("total", milestoneList.size());
