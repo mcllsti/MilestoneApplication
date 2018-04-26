@@ -20,7 +20,7 @@ public class LinkDAO extends DAOBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(LinkDAO.class);
 
-    public LinkDAO(){
+    public LinkDAO() {
         // CALL THE DAO BASE TO INITIALISE THE DB CONNCTION
         super();
 
@@ -28,12 +28,12 @@ public class LinkDAO extends DAOBase {
 
     /**
      * Find Link from DB using ID
+     *
      * @param id Link ID to retrieve
      * @return Link object
      * @throws SQLException
      */
-    public Link findById(int id) throws SQLException
-    {
+    public Link findById(int id) throws SQLException {
 
         final String query = "SELECT * FROM links WHERE id=?";
 
@@ -52,12 +52,12 @@ public class LinkDAO extends DAOBase {
 
     /**
      * Retrieve links using project id
+     *
      * @param projectID Project ID of links to retrieve
      * @return List of links
      * @throws SQLException
      */
-    public List<Link> findByProjectId(int projectID) throws SQLException
-    {
+    public List<Link> findByProjectId(int projectID) throws SQLException {
 
         final String query = "SELECT * FROM links WHERE projectId=?";
 
@@ -76,12 +76,12 @@ public class LinkDAO extends DAOBase {
 
     /**
      * Retrieve all links based on UserID
+     *
      * @param userId ID of user from which to retrieve
      * @return List of links
      * @throws SQLException
      */
-    public List<Link> findByUserId(int userId) throws SQLException
-    {
+    public List<Link> findByUserId(int userId) throws SQLException {
 
         final String query = "SELECT links.* FROM links JOIN projects ON links.projectID = projects.id WHERE projects.userID = ?;";
 
@@ -103,11 +103,11 @@ public class LinkDAO extends DAOBase {
 
     /**
      * Retrieve all links from data base. TODO: Might not be required
+     *
      * @return List of all links in DB
      * @throws SQLException
      */
-    public List<Link> findAll() throws SQLException
-    {
+    public List<Link> findAll() throws SQLException {
 
         final String query = "SELECT * FROM links";
 
@@ -128,11 +128,12 @@ public class LinkDAO extends DAOBase {
 
     /**
      * Save a Link into the database
-     * @param link Link object to save
+     *
+     * @param link      Link object to save
      * @param projectId Id of project under which to save
      * @return true if successful
      */
-    public boolean save(Link link, int projectId) throws SQLException{
+    public boolean save(Link link, int projectId) throws SQLException {
 
         String query = "INSERT INTO links (email, dateCreated, projectID) VALUES(?,NOW(),?)";
 
@@ -146,7 +147,7 @@ public class LinkDAO extends DAOBase {
 
 
             //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
-            if(count==1){
+            if (count == 1) {
 
                 // IF WE NEED IT - THIS WILL GET THE ID OF THE NEW OBJECT
 //                ResultSet keys = ps.getGeneratedKeys();
@@ -161,7 +162,7 @@ public class LinkDAO extends DAOBase {
 
             }
 
-        } catch(SQLException error){
+        } catch (SQLException error) {
             LOG.debug(error.toString());
             return false;
         }
@@ -170,10 +171,11 @@ public class LinkDAO extends DAOBase {
 
     /**
      * Delete a link from the data based.
+     *
      * @param link Link which should be deleted (Will use the ID)
      * @return
      */
-    public boolean delete(Link link){
+    public boolean delete(Link link) {
 
         String query = "DELETE FROM links WHERE id = ? LIMIT 1";
 
@@ -186,7 +188,7 @@ public class LinkDAO extends DAOBase {
             LOG.debug("insert count = " + count);
 
             //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
-            if(count==1){
+            if (count == 1) {
 
                 return true;
 
@@ -196,7 +198,7 @@ public class LinkDAO extends DAOBase {
 
             }
 
-        } catch(SQLException error){
+        } catch (SQLException error) {
             LOG.debug(error.toString());
             return false;
         }
@@ -205,10 +207,11 @@ public class LinkDAO extends DAOBase {
 
     /**
      * Delete Link from DB based on email
+     *
      * @param email email address related to link to delete
      * @return True if successful
      */
-    public boolean deleteByEmail(String email){
+    public boolean deleteByEmail(String email) {
 
         String query = "DELETE FROM links WHERE email = ? LIMIT 1";
 
@@ -221,7 +224,7 @@ public class LinkDAO extends DAOBase {
             LOG.debug("insert count = " + count);
 
             //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
-            if(count==1){
+            if (count == 1) {
 
                 return true;
 
@@ -231,7 +234,7 @@ public class LinkDAO extends DAOBase {
 
             }
 
-        } catch(SQLException error){
+        } catch (SQLException error) {
             LOG.debug(error.toString());
             return false;
         }
@@ -242,6 +245,7 @@ public class LinkDAO extends DAOBase {
 
     /**
      * Execute the prepared statement in the DB and return the retreived links
+     *
      * @param ps Prepared statement to execute
      * @return List of links
      * @throws SQLException
@@ -254,8 +258,8 @@ public class LinkDAO extends DAOBase {
         List<Link> links = new ArrayList<Link>();
         while (rs.next()) {
             //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
-            links.add(new Link(rs.getInt("id"),rs.getString("email")
-                    ,rs.getTimestamp("dateCreated"),rs.getTimestamp("dateLastAccessed"),rs.getInt("projectID")));
+            links.add(new Link(rs.getInt("id"), rs.getString("email")
+                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID")));
         }
 
         return links;
@@ -264,11 +268,12 @@ public class LinkDAO extends DAOBase {
 
     /**
      * Retrieve a link based on the executred prepared statement. Should only ever return one.
+     *
      * @param ps Prepared statement to execute.
      * @return Link object
      * @throws SQLException
      */
-    private Link retrieveLink(PreparedStatement ps) throws SQLException{
+    private Link retrieveLink(PreparedStatement ps) throws SQLException {
 
         ResultSet rs = ps.executeQuery();
 
@@ -276,8 +281,8 @@ public class LinkDAO extends DAOBase {
         Link link = null;
         while (rs.next()) {
             //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
-            link = new Link(rs.getInt("id"),rs.getString("email")
-                    ,rs.getTimestamp("dateCreated"),rs.getTimestamp("dateLastAccessed"),rs.getInt("projectID"));
+            link = new Link(rs.getInt("id"), rs.getString("email")
+                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID"));
         }
 
         return link;

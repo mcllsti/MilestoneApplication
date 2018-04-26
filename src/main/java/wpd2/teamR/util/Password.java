@@ -29,7 +29,8 @@ public class Password {
     private static final int SALT_INDEX = 1;
     private static final int PBKDF2_INDEX = 2;
 
-    private Password() {}
+    private Password() {
+    }
 
     /**
      * Create a password hash

@@ -24,6 +24,7 @@ public class ProjectDAO extends DAOBase {
     }
 
     //region Read
+
     /**
      * Gets a single project with the specified id
      *
@@ -50,7 +51,8 @@ public class ProjectDAO extends DAOBase {
 
     /**
      * Gets a project where the Id and userId match
-     * @param id int variable of project id
+     *
+     * @param id    int variable of project id
      * @param email String variable of users email address
      * @return Project Object or Null depending if found or not
      * @throws SQLException
@@ -153,6 +155,7 @@ public class ProjectDAO extends DAOBase {
     //endregion
 
     //region Delete
+
     /**
      * Deletes a project from the database with the matching id
      *
@@ -185,6 +188,7 @@ public class ProjectDAO extends DAOBase {
 
     /**
      * Updates a project that is stored in the database
+     *
      * @param project object containing the updated name and description details to be written
      * @return boolean of successfull or not
      */
@@ -218,6 +222,7 @@ public class ProjectDAO extends DAOBase {
 
     /**
      * Private method that creates a list of projects from a passed in ResultSet
+     *
      * @param rs Resultset containg raw projects
      * @return List<Project> variable containing a list of projects
      * @throws SQLException
@@ -238,11 +243,11 @@ public class ProjectDAO extends DAOBase {
     /**
      * Private method that returns true of false depending on int value
      * Used to cut down repetitive code
+     *
      * @param count Integer variable to be used to determine true or false
      * @return Boolean depending on count value
      */
-    private boolean determineTrueFalse(int count)
-    {
+    private boolean determineTrueFalse(int count) {
         //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
         if (count == 1) {
 
@@ -257,6 +262,7 @@ public class ProjectDAO extends DAOBase {
 
     /**
      * Creates a single Project object and returns it
+     *
      * @param rs Resultset containg raw project
      * @return Project object constructed from the resultset
      * @throws SQLException

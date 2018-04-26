@@ -22,7 +22,8 @@ public class Servlet2 extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         String n = (String) session.getAttribute("uname");
-        String out = "Hello " + n;   ;
+        String out = "Hello " + n;
+        ;
         issue(HTML_UTF_8, HttpServletResponse.SC_OK, out.getBytes(CHARSET_UTF8), response);
     }
 }
