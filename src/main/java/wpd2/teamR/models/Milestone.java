@@ -17,6 +17,9 @@ public class Milestone {
 
     private int projectID; // AGAIN, I DONT THINK WE NEED THIS TO BE HONEST ?
 
+    public Milestone(){
+    }
+
     public Milestone(int id, String name, String description, Timestamp dateCreated, Timestamp dateModified, Timestamp dueDate, Timestamp dateCompleted, int projectID) {
         this.id = id;
         this.name = name;
