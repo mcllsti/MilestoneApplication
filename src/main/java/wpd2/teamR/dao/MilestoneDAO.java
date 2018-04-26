@@ -158,7 +158,7 @@ public class MilestoneDAO extends DAOBase {
      * @return boolean determining success or failure
      * @throws SQLException
      */
-    public boolean createMilestone(Milestone milestone, int projectId) throws SQLException {
+    public boolean createMilestone(Milestone milestone, int projectId) {
 
         String CREATE_MILESTONE = "INSERT INTO milestones (name, description, dateCreated, dateModified, dueDate, dateCompleted, projectID) VALUES (?,?,NOW(),NOW(),?,?,?)";
 
