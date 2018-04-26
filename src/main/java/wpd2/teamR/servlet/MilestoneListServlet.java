@@ -29,7 +29,7 @@ public class MilestoneListServlet extends BaseServlet {
             return;
         }
         // TODO Make this all work. Don't think I'm approaching it correctly
-        
+
         List<Milestone> milestoneList = new ArrayList<Milestone>();
         try {
             milestoneList = milestones.getAllMilestones(getCurrentProject(request), getCurrentUser(request));

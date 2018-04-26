@@ -20,14 +20,14 @@
 package wpd2.teamR.servlet;
 
 
-import com.sun.jndi.toolkit.url.Uri;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.teamR.dao.DAOBase;
+
 import wpd2.teamR.dao.ProjectDAO;
-import wpd2.teamR.dao.UserDAO;
+
 import wpd2.teamR.models.Project;
-import wpd2.teamR.models.User;
+
 import wpd2.teamR.util.FlashMessage;
 import wpd2.teamR.util.SessionFunctions;
 
@@ -36,7 +36,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 
@@ -61,6 +60,7 @@ public class ProjectDeleteServlet extends BaseServlet {
         if (!authOK(request, response)) {
             return;
         }
+        String email = getCurrentUser(request);
 
         //GETTING ID FROM URL
         int id = Integer.parseInt(getUrlParamter(request.getRequestURI()));
@@ -69,7 +69,7 @@ public class ProjectDeleteServlet extends BaseServlet {
 
         //GETTING PROJECT TO BE DELETED
         try {
-            projectToDelete = projects.getProjectById(id);
+            projectToDelete = projects.getProjectByIdAndUser(id,email);
         } catch (SQLException e) {
             returnNotFound(request,response);
         }

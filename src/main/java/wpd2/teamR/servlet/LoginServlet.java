@@ -151,7 +151,7 @@ public class LoginServlet extends BaseServlet {
                 // TODO: MAYBE EMAIL
                 // SET A SESSION, WRITE A SUCCESS MESSAGE, AND REDIRECT
                 setCurrentUser(request, email);
-                SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully Registered","You have been successfully registered int the ssytem. Welcome."));
+                SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully Registered","You have been successfully registered in the sytem. Welcome."));
                 response.sendRedirect(SUCCESS_REDIRECT);
 
                 LOG.debug("This should have saved the user in DB");

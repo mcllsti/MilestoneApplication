@@ -227,7 +227,7 @@ input[type="button"].button-primary:focus {
 
 .button-primary.success, .button.success {background:var(--green)!important;border: none;}
   /* .button.success:hover {background: inherit;} */
-  .button.danger {background: var(--red);border:none;}
+  .button.danger {background: var(--red);border:none;color:#FFF;}
   /* .button.danger:hover {background: inherit;} */
 
 
