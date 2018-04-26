@@ -160,7 +160,7 @@ public class MilestoneDAO extends DAOBase {
      */
     public boolean createMilestone(Milestone milestone, int projectId) throws SQLException {
 
-        String CREATE_MILESTONE = "INSERT INTO milestones (name, description, dateCreated, dateModified, dueDate, dueCompleted, projectID) VALUES (?,?,NOW(),NOW(),?,?,?))";
+        String CREATE_MILESTONE = "INSERT INTO milestones (name, description, dateCreated, dateModified, dueDate, dateCompleted, projectID) VALUES (?,?,NOW(),NOW(),?,?,?)";
 
         try (PreparedStatement ps = getConnection().prepareStatement(CREATE_MILESTONE)) {
 
@@ -177,7 +177,8 @@ public class MilestoneDAO extends DAOBase {
 
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOG.debug(e.toString());
+            return false;
         }
 
     }
