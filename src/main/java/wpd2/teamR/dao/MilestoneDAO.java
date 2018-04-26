@@ -53,7 +53,9 @@ public class MilestoneDAO extends DAOBase {
                         rs.getTimestamp("dateCreated"),
                         rs.getTimestamp("dateModified"),
                         rs.getTimestamp("dueDate"),
-                        rs.getTimestamp("dateCompleted"));
+                        rs.getTimestamp("dateCompleted"),
+                        rs.getInt("projectID")
+                );
             }
 
             return milestone;
@@ -95,7 +97,8 @@ public class MilestoneDAO extends DAOBase {
                                 result.getTimestamp("dateCreated"),
                                 result.getTimestamp("dateModified"),
                                 result.getTimestamp("dueDate"),
-                                result.getTimestamp("dateCompleted")
+                                result.getTimestamp("dateCompleted"),
+                                result.getInt("projectID")
 
                         )
                 );
@@ -133,7 +136,8 @@ public class MilestoneDAO extends DAOBase {
                                 result.getTimestamp("dateCreated"),
                                 result.getTimestamp("dateModified"),
                                 result.getTimestamp("dueDate"),
-                                result.getTimestamp("dateCompleted")
+                                result.getTimestamp("dateCompleted"),
+                                result.getInt("projectID")
                         )
                 );
             }
