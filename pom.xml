@@ -6,8 +6,8 @@
     <packaging>jar</packaging>
     <version>1.0</version>
 
-    <groupId>wpd2.lab1</groupId>
-    <artifactId>session-example</artifactId>
+    <groupId>wpd2.teamR</groupId>
+    <artifactId>Milestones Management Application</artifactId>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
