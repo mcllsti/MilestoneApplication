@@ -144,4 +144,27 @@ class BaseServlet extends HttpServlet {
         return parameter;
     }
 
+    protected void setCurrentProject(HttpServletRequest request, int projectId) {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("projectId", projectId);
+    }
+
+    protected void clearCurrentProject(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("projectId"); // TODO: FIX THIS
+    }
+
+    protected int getCurrentProject(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return 0;
+        }
+        int val = (int) session.getAttribute("projectId");
+        return val == 0 ? 0 : val;
+    }
+
+
+
+
+
 }
