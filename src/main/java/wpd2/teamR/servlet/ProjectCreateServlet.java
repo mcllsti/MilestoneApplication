@@ -41,11 +41,12 @@ public class ProjectCreateServlet extends BaseServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(ProjectCreateServlet.class);
 
-    private final String LOGIN_TEMPLATE = "login.mustache";
-
+    // CONNECTION TO DAO
     private ProjectDAO projects;
 
-
+    /**
+     * Initialise servlet and get a copy of all projects
+     */
     public ProjectCreateServlet() {
         projects = new ProjectDAO();
     }
@@ -60,12 +61,12 @@ public class ProjectCreateServlet extends BaseServlet {
             return;
         }
 
+        // SETUP VIEWBAG TO SEND TO VIEW
         HashMap<String,Object> viewBag = new HashMap<String,Object>();
-
         FlashMessage message = SessionFunctions.getFlashMessage(request);
-//        viewBag.put("username",userName);
         viewBag.put("message",message);
 
+        // RENDER CREATE FORM
         showView(response, "project/project-create.mustache", viewBag);
 
     }
@@ -73,16 +74,24 @@ public class ProjectCreateServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // BUILD THE NEW PROJECT - TODO: SERVER SIDE VALIDATION - jQuery / html catching for now.
         Project p = new Project();
         p.setName(request.getParameter("name"));
         p.setDescription(request.getParameter("description"));
 
+        // IF IT WAS SUCCESSFULLY CREATED
         if(projects.createProject(p,getCurrentUser(request))){
 
+            // SAVE A SUCCESSFUL FLASH MESSAGE AND RETURN TO PROJECT VIEW
             SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Project Added","Your project was added"));
             response.sendRedirect("/projects");
             return;
 
+        } else {
+
+            // SOMETHING WENT WRONG - SEND THEM BACK TO FORM WITH ERROR
+            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"Uh oh...","Sorry, something went wrong"));
+            response.sendRedirect("/projects/create");
         }
 
     }
