@@ -13,7 +13,7 @@ public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
-    private static final int PORT = 9001;
+    private static final int PORT = 9002;
 
 
     private Runner() {
