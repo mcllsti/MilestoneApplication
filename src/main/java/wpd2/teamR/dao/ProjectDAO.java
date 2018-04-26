@@ -182,6 +182,36 @@ public class ProjectDAO extends DAOBase {
     //endregion
 
     //region Update //TODO
+
+    /**
+     * Creates a project and stores in the database
+     *
+     * @param project object containing name and description details to be written
+     * @return boolean of successfull or not
+     */
+    public boolean projectUpdate(Project project) {
+
+        String query = "UPDATE projects SET name=?, description=?, dateModified=NOW() WHERE id = ?";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+
+            //PASS VARIABLES TO PREPARED STATEMENT
+            ps.setString(1, project.getName());
+            ps.setString(2, project.getDescription());
+            ps.setInt(3, project.getId());
+            int count = ps.executeUpdate();
+            LOG.debug("insert count = " + count);
+
+            return determineTrueFalse(count);
+
+        } catch (SQLException error) {
+            LOG.debug(error.toString());
+            return false;
+        }
+
+    }
+
+
     //endregion
 
     //region Private Methods
