@@ -5,10 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.models.Project;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -233,6 +230,8 @@ public class ProjectDAO extends DAOBase {
         List<Project> projectList = new ArrayList<Project>();
         while (rs.next()) {
             //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
+
+            System.out.println(rs.getString("dateCreated"));
             projectList.add(new Project(rs.getInt("id"), rs.getString("name")
                     , rs.getString("description"), rs.getTimestamp("dateCreated"), rs.getTimestamp("dateModified")));
         }
