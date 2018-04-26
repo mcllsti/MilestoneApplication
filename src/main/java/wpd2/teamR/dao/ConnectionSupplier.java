@@ -29,7 +29,7 @@ public class ConnectionSupplier {
             // LOAD THE MYSQL DRIVER
             Class.forName("com.mysql.jdbc.Driver");
 
-            return DriverManager.getConnection(connectionString,user, pass);
+            return DriverManager.getConnection(connectionString, user, pass);
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new ConnectionSupplierException(e);

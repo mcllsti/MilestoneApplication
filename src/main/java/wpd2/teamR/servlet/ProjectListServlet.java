@@ -1,6 +1,6 @@
 // Copyright (c) 2018 Cilogi. All Rights Reserved.
 //
-// File:        PrivatePageServlet.java
+// File:        LoginServlet.java
 //
 // Copyright in the whole and every part of this source file belongs to
 // Cilogi (the Author) and may not be used, sold, licenced, 
@@ -19,9 +19,11 @@
 
 package wpd2.teamR.servlet;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.teamR.dao.UserDAO;
+import wpd2.teamR.dao.ProjectDAO;
+import wpd2.teamR.models.Project;
 import wpd2.teamR.util.FlashMessage;
 import wpd2.teamR.util.SessionFunctions;
 
@@ -29,19 +31,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class PrivatePageServlet extends BaseServlet {
+public class ProjectListServlet extends BaseServlet {
     @SuppressWarnings("unused")
-    static final Logger LOG = LoggerFactory.getLogger(PrivatePageServlet.class);
+    static final Logger LOG = LoggerFactory.getLogger(ProjectListServlet.class);
 
+    private final String LOGIN_TEMPLATE = "login.mustache";
 
-    private static final String PRIVATE_PAGE_TEMPLATE = "private.mustache";
+    private ProjectDAO projects;
 
-    public PrivatePageServlet() {
-
+    public ProjectListServlet() {
+        projects = new ProjectDAO();
     }
 
 
@@ -54,14 +59,41 @@ public class PrivatePageServlet extends BaseServlet {
             return;
         }
 
-        String userName = getCurrentUser(request);
-        FlashMessage message = SessionFunctions.getFlashMessage(request);
+        List<Project> plist = new ArrayList<Project>();
+        try {
+            plist = projects.getProjectsbyUser(getCurrentUser(request));
+        } catch (SQLException error) {
+
+        }
 
         HashMap<String, Object> viewBag = new HashMap<String, Object>();
-        viewBag.put("message", message);
-        viewBag.put("username", userName);
 
-        showView(response, PRIVATE_PAGE_TEMPLATE, viewBag);
+        FlashMessage message = SessionFunctions.getFlashMessage(request);
+//        viewBag.put("username",userName);
+        viewBag.put("message", message);
+        viewBag.put("total", plist.size());
+        viewBag.put("projects", plist);
+
+        showView(response, "project/project-list.mustache", viewBag);
+
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Project p = new Project();
+        p.setName(request.getParameter("name"));
+        p.setDescription(request.getParameter("description"));
+
+        if (projects.createProject(p, getCurrentUser(request))) {
+
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Project Added", "Your project was added"));
+            response.sendRedirect("/private");
+            return;
+
+        }
+
+    }
+
 
 }

@@ -1,0 +1,44 @@
+{{>../_partials/site-header}}
+
+
+<h1>Projects</h1>
+<p>Below are the current projects</p>
+<p><a href="#" id="new-project" class="button button-primary success"><i class="fas fa-calendar-plus"></i> Add New Project</a></p>
+
+{{>../_partials/flash-message}}
+
+<div class="project-list">
+
+    <p>Showing {{total}} of {{total}} Projects</p>
+
+    <!--THIS WILL BE LOOPED FOR EACH PROJECT IN LIST-->
+    <!--TODO: NEEDS VARIABLES ADDED-->
+    {{#projects}}
+    <div class="project">
+
+        <div class="milestones">
+            <span>15</span>
+        </div>
+
+        <div class="details">
+            <p class="details__name"><a href="#">{{name}}</a></p>
+            <p><i class="far fa-clock"></i> {{dateCreated}}</p>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li><a href="#"><i class="fas fa-link"></i><span>View</span></a></li>
+                <li><a href="#"><i class="fas fa-eye"></i><span>View</span></a></li>
+                <li><a href="#"><i class="fas fa-edit"></i><span>Edit</span></a></li>
+                <li><a href="/projects/delete/{{id}}"><i class="fas fa-trash-alt"></i><span>Delete</span></a></li>
+            </ul>
+        </div>
+
+    </div>
+    {{/projects}}
+
+</div>
+
+
+
+{{>../_partials/site-footer}}

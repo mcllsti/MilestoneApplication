@@ -18,7 +18,8 @@ public class PublicPageServlet extends BaseServlet {
 
     private static final String PUBLIC_PAGE_TEMPLATE = "public.mustache";
 
-    public PublicPageServlet() {}
+    public PublicPageServlet() {
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,6 +31,6 @@ public class PublicPageServlet extends BaseServlet {
 //        }
 
         String userName = UserFuncs.getCurrentUser(request);
-        showView(response, PUBLIC_PAGE_TEMPLATE, userName);
+        showView(response, "milestone/project-create.mustache", request.getRequestURI());
     }
 }
