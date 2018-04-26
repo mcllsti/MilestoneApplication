@@ -32,17 +32,14 @@ public class MilestoneListServlet extends BaseServlet {
             return;
         }
 
-        //int id = Integer.parseInt(request.getParameter("projectId")); TODO: Get this to retrive porjectId of session.
-
-        int parameter = Integer.parseInt(getUrlParamter(request.getRequestURI()));
-
-       setCurrentProject(request,parameter); //Only put here for testing, need to make it get the porject id from the session.
+        int parameter = Integer.parseInt(request.getParameter("Identifier"));
+         setCurrentProject(request,parameter); //Only put here for testing, need to make it get the porject id from the session.
 
         // TODO Make this all work. Don't think I'm approaching it correctly
 
         List<Milestone> milestoneList = new ArrayList<Milestone>();
         try {
-            milestoneList = milestones.getAllMilestonesByProjectId(getCurrentProject(request));
+            milestoneList = milestones.getAllMilestonesByProjectId(parameter);
         }
         catch (SQLException error){}
 
@@ -51,6 +48,7 @@ public class MilestoneListServlet extends BaseServlet {
         FlashMessage message = SessionFunctions.getFlashMessage(request);
 //        viewBag.put("username",userName);
         viewBag.put("message", message);
+        viewBag.put("projectId",parameter);
         viewBag.put("total", milestoneList.size());
         viewBag.put("milestones", milestoneList);
 

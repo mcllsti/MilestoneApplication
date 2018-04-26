@@ -5,27 +5,28 @@
 <p>Below are the current milestones</p>
 <p><a href="#" id="new-project" class="button button-primary success"><i class="fas fa-calendar-plus"></i> New Milestone</a></p>
 <p>{{.}}</p>
-<p><strong>THE PROJECT ID IS</strong> {{projectID}}</p>
+<p><strong>THE PROJECT ID IS</strong> {{projectId}}</p>
 <!-- MILESTONE LIST-->
 <div class="milestone-list">
 
     <!--THIS WILL BE LOOPED FOR EACH MILESTONE IN PROJECT-->
     <!--TODO: ADD VARIABLES FOR MUSTACHE-->
+{{#milestones}}
     <div class="milestone">
 
         <div class="header">
 
             <div class="due-date">
                 <ul>
-                    <li>25</li>
+                    <li></li>
                     <li>OCT</li>
                     <li>2018</li>
                 </ul>
             </div>
 
             <div class="details">
-                <h3>Milestone Name</h3>
-                <p><i class="far fa-clock"></i> Created 3 hours ago</p>
+                <h3>{{name}}</h3>
+                <p><i class="far fa-clock"></i>{{dateCreated}}</p>
 
             </div>
 
@@ -39,10 +40,10 @@
 
         </div>
 
-        <p>In publishing and graphic design, lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document without relying on meaningful content. Replacing the actual content with placeholder text allows designers to design the form of the content before the content itself has been produced. <a href="#">Read more...</a></p>
+        <p>{{description}}<a href="#">Read more...</a></p>
 
     </div>
-
+{{/milestones}}
 </div>
 
 
