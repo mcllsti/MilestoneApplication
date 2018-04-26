@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Milestone Application</title>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
@@ -24,7 +24,7 @@
             });
 
             // CLOSE OPEN FLASH MESSAGE
-            $('.close').click(function(e){
+            $('.flash .close').click(function(e){
                 console.log("Closed clicked on FlashMessage");
                 $(this).parent().slideUp('slow');
             });
@@ -50,29 +50,7 @@
         <h2>Create New Project</h2>
         <p>Please enter the details below</p>
         <hr>
-        <form>
-            <div class="row">
-                <div class="six columns">
-                    <label for="exampleEmailInput">Your email</label>
-                    <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="exampleEmailInput">
-                </div>
-                <div class="six columns">
-                    <label for="exampleRecipientInput">Reason for contacting</label>
-                    <select class="u-full-width" id="exampleRecipientInput">
-                        <option value="Option 1">Questions</option>
-                        <option value="Option 2">Admiration</option>
-                        <option value="Option 3">Can I get your number?</option>
-                    </select>
-                </div>
-            </div>
-            <label for="exampleMessage">Message</label>
-            <textarea class="u-full-width" placeholder="Hi Dave …" id="exampleMessage"></textarea>
-            <label class="example-send-yourself-copy">
-                <input type="checkbox">
-                <span class="label-body">Send a copy to yourself</span>
-            </label>
-            <input class="button-primary success" type="submit" value="Create">
-        </form>
+
 
     </div>
 </div>
@@ -82,7 +60,7 @@
     <nav>
 
         <div class="container">
-            <img src="img/MilestoneLogo.svg" alt="Milestone Logo">
+            <img src="/img/MilestoneLogo.svg" alt="Milestone Logo">
             <ul>
                 <li>
                     <a href="/">Dashboard</a>

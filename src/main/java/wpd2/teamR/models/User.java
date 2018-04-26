@@ -11,7 +11,7 @@ import java.util.List;
 
 public @Data class User {
 
-    private String id;
+    private int id;
     private String fname;
     private String lname;
     private String email;
@@ -27,6 +27,14 @@ public @Data class User {
         this.lname = lname;
         this.email = email;
         this.password = Password.createHash(password);
+    }
+
+    public User (int id, String fname, String lname, String email, Timestamp dateCreated){
+        this.id = id;
+        this.fname= fname;
+        this.lname = lname;
+        this.email = email;
+        this.dateCreated = dateCreated;
     }
 
 

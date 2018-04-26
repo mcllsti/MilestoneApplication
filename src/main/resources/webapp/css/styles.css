@@ -1,9 +1,9 @@
 
-@import "variables.css";
-@import "skeleton.css";
-@import "custom.css";
+@import "/css/variables.css";
+@import "/css/skeleton.css";
+@import "/css/custom.css";
 @import "https://use.fontawesome.com/releases/v5.0.8/css/all.css";
-@import "mobile.css";
-@import "login.css";
-@import "errors.css";
-@import "flash.css";
+@import "/css/mobile.css";
+@import "/css/login.css";
+@import "/css/errors.css";
+@import "/css/flash.css";

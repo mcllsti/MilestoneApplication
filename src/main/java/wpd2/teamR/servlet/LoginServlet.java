@@ -22,9 +22,7 @@ package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.teamR.dao.ProjectDAO;
 import wpd2.teamR.dao.UserDAO;
-import wpd2.teamR.models.Project;
 import wpd2.teamR.models.User;
 import wpd2.teamR.util.FlashMessage;
 
@@ -35,9 +33,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.HashMap;
 
 
@@ -46,6 +42,7 @@ public class LoginServlet extends BaseServlet {
     static final Logger LOG = LoggerFactory.getLogger(LoginServlet.class);
 
     private final String LOGIN_TEMPLATE = "login.mustache";
+    private final String SUCCESS_REDIRECT = "/projects";
 
     private UserDAO users;
 
@@ -111,7 +108,7 @@ public class LoginServlet extends BaseServlet {
                 // TRUE, SO SET SESSION AND REDIRECT TO PAGE
                 setCurrentUser(request, result);
                 SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully logged in","Welcome back :)"));
-                response.sendRedirect("/private");
+                response.sendRedirect(SUCCESS_REDIRECT);
 
             } else {
 
@@ -131,6 +128,12 @@ public class LoginServlet extends BaseServlet {
 
     }
 
+    /**
+     * Register the user in the DB
+     * @param request Http Request
+     * @param response Http Response
+     * @throws IOException
+     */
     private void register(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
         // GET THE PARAMS FROM THE FORM
@@ -149,7 +152,9 @@ public class LoginServlet extends BaseServlet {
                 // SET A SESSION, WRITE A SUCCESS MESSAGE, AND REDIRECT
                 setCurrentUser(request, email);
                 SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully Registered","You have been successfully registered int the ssytem. Welcome."));
-                response.sendRedirect("/private");
+                response.sendRedirect(SUCCESS_REDIRECT);
+
+                LOG.debug("This should have saved the user in DB");
 
             } else {
 
@@ -157,31 +162,11 @@ public class LoginServlet extends BaseServlet {
                 SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR,"Uh oh","Something went wrong, please try again."));
                 response.sendRedirect("/login");
 
+                LOG.debug("This did not save in the DB");
+
             }
 
-            // CHECK USER EXISTS AND PASSWORD MATCHES
-//            String result = users.checkIsValidUser(email, password);
-//            if(!result.isEmpty()){
-//
-//                // TRUE, SO SET SESSION AND REDIRECT TO PAGE
-//                setCurrentUser(request, result);
-//                response.sendRedirect("/private");
-//
-//            } else {
-//
-//                // LOGIN WASNT SUCCESSFUL
-//                response.sendRedirect("/login");
-//
-//            }
 
-
-//        catch (SQLException error){
-//
-//            LOG.debug(error.toString());
-//
-//        }
-
-        LOG.debug("This should have saved the user in DB");
 
     }
 

@@ -2,6 +2,7 @@ package wpd2.teamR.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.teamR.models.Project;
 import wpd2.teamR.models.User;
 import wpd2.teamR.util.Password;
 import java.sql.Connection;
@@ -106,6 +107,31 @@ public class UserDAO extends DAOBase {
         }
 
     }
+
+    public User findByEmail(String email) throws SQLException
+    {
+
+        final String query = "SELECT * FROM users WHERE email=? LIMIT 1";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+
+            // PASS THROUGH THE id INTO THE PREPARED STATEMENT
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
+            User user = null;
+            while (rs.next()) {
+                //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
+                user = new User(rs.getInt("id"),rs.getString("fname"),rs.getString("lname"),rs.getString("email"),rs.getTimestamp("dateCreated"));
+
+            }
+
+            return user;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } }
 
 
 
