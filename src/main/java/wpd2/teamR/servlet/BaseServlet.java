@@ -137,34 +137,30 @@ class BaseServlet extends HttpServlet {
         session.removeAttribute("email"); // TODO: FIX THIS
     }
 
-    protected String getUrlParamter(String url) {
-        String[] urlComponents = url.split("/");
-        String parameter = urlComponents[urlComponents.length - 1];
-
-        return parameter;
-    }
-
     protected void setCurrentProject(HttpServletRequest request, int projectId) {
         HttpSession session = request.getSession(true);
         session.setAttribute("projectId", projectId);
     }
-
     protected void clearCurrentProject(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
         session.removeAttribute("projectId"); // TODO: FIX THIS
     }
 
     protected int getCurrentProject(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+    HttpSession session = request.getSession(false);
         if (session == null) {
-            return 0;
+            return -1;
         }
         int val = (int) session.getAttribute("projectId");
-        return val == 0 ? 0 : val;
+            return val == 0 ? -1 : val;
+        }
+
+    protected String getUrlParamter(String url)
+    {
+        String[] urlComponents = url.split("/");
+        String parameter = urlComponents[urlComponents.length-1];
+
+        return parameter;
     }
-
-
-
-
 
 }

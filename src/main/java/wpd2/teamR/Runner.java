@@ -39,11 +39,20 @@ public class Runner {
         handler.addServlet(new ServletHolder(ds), "/");
 
 
-        // OUR ROUTES
+        // PROJECT ROUTES
         handler.addServlet(new ServletHolder(new ProjectListServlet()), "/projects");
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDeleteServlet()), "/projects/delete/*");
         handler.addServlet(new ServletHolder(new ProjectEditServlet()), "/projects/edit/*");
+
+        // MILESTONE ROUTES
+        handler.addServlet(new ServletHolder(new MilestoneDispatcherServlet()), "/milestones/project/*");
+        handler.addServlet(new ServletHolder(new MilestoneListServlet()), "/milestones");
+
+        // COMING SOON, TO A SERVLET NEAR YOU
+        //handler.addServlet(new ServletHolder(new MilestoneListServlet()), "/milestones/create");
+        //handler.addServlet(new ServletHolder(new MilestoneListServlet()), "/milestones/edit/*");
+        //handler.addServlet(new ServletHolder(new MilestoneListServlet()), "/milestones/delete/*");
 
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
