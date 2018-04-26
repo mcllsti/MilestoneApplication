@@ -1,6 +1,7 @@
 package wpd2.teamR.models;
 
 import lombok.Data;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -21,8 +22,6 @@ public class Project {
     public Project() {
     }
 
-    ;
-
     public Project(int id, String name, String description, Timestamp dateCreated, Timestamp dateModified) {
         this.id = id;
         this.name = name;
@@ -39,6 +38,24 @@ public class Project {
     public void addMilestone(Milestone milestoneToAdd) {
         //TODO: ADD BODY
         this.milestones.add(milestoneToAdd);
+    }
+
+    /**
+     * Return human readable Datetime Created
+     * @return Human readable datetime string
+     */
+    public String getPrettyDateCreated(){
+        PrettyTime p = new PrettyTime();
+        return p.format(this.getDateCreated());
+    }
+
+    /**
+     * Return human readable Datetime Modified
+     * @return Human readable datetime string
+     */
+    public String getPrettyDateModified(){
+        PrettyTime p = new PrettyTime();
+        return p.format(this.getDateModified());
     }
 
 
