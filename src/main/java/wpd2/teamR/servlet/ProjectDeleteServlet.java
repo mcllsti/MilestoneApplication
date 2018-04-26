@@ -71,9 +71,8 @@ public class ProjectDeleteServlet extends BaseServlet {
         try {
             projectToDelete = projects.getProjectById(id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            returnNotFound(request,response);
         }
-
 
         if(projectToDelete != null)
         {
@@ -86,15 +85,8 @@ public class ProjectDeleteServlet extends BaseServlet {
         }
         else
         {
-            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"Project Could Not Be Found","The project was not found, please refresh system!"));
-            response.sendRedirect("/projects");
-            return;
+            returnNotFound(request,response);
         }
-
-
-
-
-
     }
 
     @Override
@@ -123,6 +115,13 @@ public class ProjectDeleteServlet extends BaseServlet {
         return;
 
         }
+
+
+    private void returnNotFound(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"Project Could Not Be Found","The project was not found, please refresh system!"));
+        response.sendRedirect("/projects");
+        return;
+    }
 
     }
 
