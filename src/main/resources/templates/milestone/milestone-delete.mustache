@@ -5,9 +5,9 @@
     <div class="panel-content">
         <p>Are you sure you wish to permanently delete the milestone "{{milestone.name}}"?</p>
 
-        <form action = "/projects/delete/{{milestone.id}}" method = "POST">
+        <form action = "/milestones/delete/{{milestone.id}}" method = "POST">
             <p class="button-row">
-                <a href="/projects" class="button">Cancel</a>
+                <a href="/projects/milestones" class="button">Cancel</a>
                 <button class="button danger" type="submit"><i class="fas fa-trash-alt"></i> Confirm</button>
             </p>
         </form>
