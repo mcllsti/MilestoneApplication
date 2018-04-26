@@ -42,8 +42,8 @@ public class LogoutServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        UserFuncs.clearCurrentUser(request);
-        SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully Logged Out","You have been successfully logged out of the system"));
-            clearCurrentUser(request);
+        SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Successfully Logged Out", "You have been successfully logged out of the system"));
+        clearCurrentUser(request);
         response.sendRedirect(response.encodeRedirectURL(UserFuncs.DEFAULT_LOGIN_REDIRECT));
     }
 }

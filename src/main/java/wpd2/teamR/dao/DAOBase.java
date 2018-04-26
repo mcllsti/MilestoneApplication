@@ -20,7 +20,7 @@ public class DAOBase implements AutoCloseable {
         this.connection = cs.provide();
     }
 
-    public synchronized void close()throws SQLException {
+    public synchronized void close() throws SQLException {
 
         if (connection != null) {
             connection.close();

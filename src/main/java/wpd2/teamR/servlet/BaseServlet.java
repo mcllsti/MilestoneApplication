@@ -53,9 +53,10 @@ class BaseServlet extends HttpServlet {
 
     /**
      * Display a view to the user
-     * @param response The http servlet response
+     *
+     * @param response     The http servlet response
      * @param templateName The name of the mustache template to render
-     * @param model The data model you wish to pass to the mustache renderer
+     * @param model        The data model you wish to pass to the mustache renderer
      * @throws IOException
      */
     void showView(HttpServletResponse response, String templateName, Object model) throws IOException {
@@ -72,7 +73,8 @@ class BaseServlet extends HttpServlet {
 
     /**
      * Check to see if the user is authenticated already
-     * @param request The http servlet request
+     *
+     * @param request  The http servlet request
      * @param response The http servlet response
      * @return True or false depending on state
      * @throws IOException
@@ -81,9 +83,9 @@ class BaseServlet extends HttpServlet {
 //        String uri = request.getRequestURI();
 //        String userName = UserFuncs.getCurrentUser(request);
 
-        if(getCurrentUser(request).equals("")){
+        if (getCurrentUser(request).equals("")) {
             // SET A FLASH MESSAGE AND REDIRECT
-            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"Login Required","You cannot access this section without being logged in to the system."));
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR, "Login Required", "You cannot access this section without being logged in to the system."));
             response.sendRedirect(response.encodeRedirectURL("/login")); //TODO: HARD CODED LOGIN
             return false;
         }
@@ -101,7 +103,8 @@ class BaseServlet extends HttpServlet {
 
     /**
      * Find the current user, if any
-     * @param request  The HTTP request object, containing the session, if any
+     *
+     * @param request The HTTP request object, containing the session, if any
      * @return The current user, or the empty string if none (note NOT null)
      */
     protected String getCurrentUser(HttpServletRequest request) {
@@ -109,13 +112,14 @@ class BaseServlet extends HttpServlet {
         if (session == null) {
             return "";
         }
-        String val = (String)session.getAttribute("email");
+        String val = (String) session.getAttribute("email");
         return val == null ? "" : val;
     }
 
     /**
      * Write logged in used to session
-     * @param request HTTP Request
+     *
+     * @param request  HTTP Request
      * @param userName Username to write to the session
      */
     protected void setCurrentUser(HttpServletRequest request, String userName) {
@@ -125,6 +129,7 @@ class BaseServlet extends HttpServlet {
 
     /**
      * Empty the user in the current session
+     *
      * @param request HTTP Request
      */
     protected void clearCurrentUser(HttpServletRequest request) {
@@ -132,12 +137,34 @@ class BaseServlet extends HttpServlet {
         session.removeAttribute("email"); // TODO: FIX THIS
     }
 
-    protected String getUrlParamter(String url)
-    {
+    protected String getUrlParamter(String url) {
         String[] urlComponents = url.split("/");
-        String parameter = urlComponents[urlComponents.length-1];
+        String parameter = urlComponents[urlComponents.length - 1];
 
         return parameter;
     }
+
+    protected void setCurrentProject(HttpServletRequest request, int projectId) {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("projectId", projectId);
+    }
+
+    protected void clearCurrentProject(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("projectId"); // TODO: FIX THIS
+    }
+
+    protected int getCurrentProject(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return 0;
+        }
+        int val = (int) session.getAttribute("projectId");
+        return val == 0 ? 0 : val;
+    }
+
+
+
+
 
 }

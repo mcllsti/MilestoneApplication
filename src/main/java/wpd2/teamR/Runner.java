@@ -21,6 +21,7 @@ public class Runner {
 
     /**
      * Start server
+     *
      * @throws Exception
      */
     private void start() throws Exception {
@@ -45,7 +46,6 @@ public class Runner {
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
-
 
 
         // START THE SERVER

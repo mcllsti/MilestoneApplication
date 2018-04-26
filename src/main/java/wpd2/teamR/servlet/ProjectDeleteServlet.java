@@ -20,7 +20,6 @@
 package wpd2.teamR.servlet;
 
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +45,7 @@ public class ProjectDeleteServlet extends BaseServlet {
     private final String LOGIN_TEMPLATE = "login.mustache";
 
     private ProjectDAO projects;
+
     public ProjectDeleteServlet() {
         projects = new ProjectDAO();
     }
@@ -69,23 +69,20 @@ public class ProjectDeleteServlet extends BaseServlet {
 
         //GETTING PROJECT TO BE DELETED
         try {
-            projectToDelete = projects.getProjectByIdAndUser(id,email);
+            projectToDelete = projects.getProjectByIdAndUser(id, email);
         } catch (SQLException e) {
-            returnNotFound(request,response);
+            returnNotFound(request, response);
         }
 
-        if(projectToDelete != null)
-        {
-            HashMap<String,Object> viewBag = new HashMap<String,Object>();
+        if (projectToDelete != null) {
+            HashMap<String, Object> viewBag = new HashMap<String, Object>();
 
             FlashMessage message = SessionFunctions.getFlashMessage(request);
-            viewBag.put("project",projectToDelete);
+            viewBag.put("project", projectToDelete);
 
             showView(response, "project/project-delete.mustache", viewBag);
-        }
-        else
-        {
-            returnNotFound(request,response);
+        } else {
+            returnNotFound(request, response);
         }
     }
 
@@ -102,28 +99,25 @@ public class ProjectDeleteServlet extends BaseServlet {
         int parameter = Integer.parseInt(getUrlParamter(request.getRequestURI()));
 
         //CHECKS IF DELETED OR NOT AND RETURNS CORRECT RESPONSE
-        if(projects.deleteProjectById(parameter))
-        {
-            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Project Deleted","The project was deleted"));
-        }
-        else
-        {
-            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"Project Could Not Be Deleted","The project was not deleted!"));
+        if (projects.deleteProjectById(parameter)) {
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Project Deleted", "The project was deleted"));
+        } else {
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR, "Project Could Not Be Deleted", "The project was not deleted!"));
         }
 
         response.sendRedirect("/projects");
         return;
 
-        }
+    }
 
 
     private void returnNotFound(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"Project Could Not Be Found","The project was not found, please refresh system!"));
+        SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR, "Project Could Not Be Found", "The project was not found, please refresh system!"));
         response.sendRedirect("/projects");
         return;
     }
 
-    }
+}
 
 
 

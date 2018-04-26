@@ -1,12 +1,13 @@
 package wpd2.teamR.models;
 
 import lombok.Data;
+
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
 @Data
-public  class Project {
+public class Project {
 
     private int id;
     private String name;
@@ -17,10 +18,12 @@ public  class Project {
 
     //private List<Milestone> milestones;  <= NAV VARIABLE / UNSURE
 
-    public Project(){};
+    public Project() {
+    }
 
-    public Project(int id, String name,String description, Timestamp dateCreated,Timestamp dateModified)
-    {
+    ;
+
+    public Project(int id, String name, String description, Timestamp dateCreated, Timestamp dateModified) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,28 +31,24 @@ public  class Project {
         this.dateModified = dateModified;
     }
 
-    public Project( String name,String description)
-    {
+    public Project(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public void addMilestone(Milestone milestoneToAdd)
-    {
+    public void addMilestone(Milestone milestoneToAdd) {
         //TODO: ADD BODY
         this.milestones.add(milestoneToAdd);
     }
 
 
-    public Milestone getMilestone(int milestoneToGetId)
-    {
+    public Milestone getMilestone(int milestoneToGetId) {
         //TODO: ADD BODY
         //gets a milestone using the requested Id?
         return null; // <= THIS WILL CHANGE OBVIOUSLY
     }
 
-    public void deleteMilestone(int milestoneToDeleteId)
-    {
+    public void deleteMilestone(int milestoneToDeleteId) {
         //TODO: ADD BODY
         //Deletes a Milestone from a Project
     }

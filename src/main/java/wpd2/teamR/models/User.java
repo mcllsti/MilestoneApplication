@@ -9,7 +9,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-public @Data class User {
+public @Data
+class User {
 
     private int id;
     private String fname;
@@ -22,40 +23,36 @@ public @Data class User {
     private List<Project> projects;
 
     //private List<Project> projects; <= NAV VARIABLE? / UNSURE
-    public User (String fname, String lname, String email, String password){
-        this.fname= fname;
+    public User(String fname, String lname, String email, String password) {
+        this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.password = Password.createHash(password);
     }
 
-    public User (int id, String fname, String lname, String email, Timestamp dateCreated){
+    public User(int id, String fname, String lname, String email, Timestamp dateCreated) {
         this.id = id;
-        this.fname= fname;
+        this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.dateCreated = dateCreated;
     }
 
 
-
-    public void addProject(Project projectToAdd)
-    {
+    public void addProject(Project projectToAdd) {
         //TODO: ADD BODY
         //Function will add a project object to a user
         this.projects.add(projectToAdd);
     }
 
 
-    public Project getProject(int projectToGetId)
-    {
+    public Project getProject(int projectToGetId) {
         //TODO: ADD BODY
         //gets a project using the requested Id?
         return null; // <= THIS WILL CHANGE OBVIOUSLY
     }
 
-    public void deleteProject(int projectToDeleteId)
-    {
+    public void deleteProject(int projectToDeleteId) {
         //TODO: ADD BODY
         //Deletes a project from a user
     }

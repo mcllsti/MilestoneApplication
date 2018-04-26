@@ -58,12 +58,11 @@ public class LoginServlet extends BaseServlet {
         String userName = UserFuncs.getCurrentUser(request);
 
 
-
-        HashMap<String,Object> viewBag = new HashMap<String,Object>();
+        HashMap<String, Object> viewBag = new HashMap<String, Object>();
 
         FlashMessage message = SessionFunctions.getFlashMessage(request);
-        viewBag.put("username",userName);
-        viewBag.put("message",message);
+        viewBag.put("username", userName);
+        viewBag.put("message", message);
 
         showView(response, LOGIN_TEMPLATE, viewBag);
 
@@ -73,7 +72,7 @@ public class LoginServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // CHECK WHETHER USER WISHES TO LOGIN OR REGISTER
-        if(request.getParameter("buttons").equals("register")){
+        if (request.getParameter("buttons").equals("register")) {
 
             // CARRY OUT REGISTRATION LOGIC
             this.register(request, response);
@@ -81,7 +80,7 @@ public class LoginServlet extends BaseServlet {
         } else {
 
             // CARRY OUT LOGIN LOGIC
-            this.login(request,response);
+            this.login(request, response);
 
         }
 
@@ -89,11 +88,12 @@ public class LoginServlet extends BaseServlet {
 
     /**
      * Login user, based on data passed from form.
-     * @param request HTTP Servlet Request
+     *
+     * @param request  HTTP Servlet Request
      * @param response HTTP Servlet Response
      * @throws IOException
      */
-    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         // GET THE PARAMS FROM THE FORM
         String email = request.getParameter("email");
@@ -103,22 +103,22 @@ public class LoginServlet extends BaseServlet {
 
             // CHECK USER EXISTS AND PASSWORD MATCHES
             String result = users.checkIsValidUser(email, password);
-            if(!result.isEmpty()){
+            if (!result.isEmpty()) {
 
                 // TRUE, SO SET SESSION AND REDIRECT TO PAGE
                 setCurrentUser(request, result);
-                SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully logged in","Welcome back :)"));
+                SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Successfully logged in", "Welcome back :)"));
                 response.sendRedirect(SUCCESS_REDIRECT);
 
             } else {
 
                 // LOGIN WASNT SUCCESSFUL
-                SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"There was a problem","Please check your login details"));
+                SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR, "There was a problem", "Please check your login details"));
                 response.sendRedirect("/login");
 
             }
 
-        } catch (SQLException error){
+        } catch (SQLException error) {
 
             LOG.debug(error.toString());
 
@@ -130,11 +130,12 @@ public class LoginServlet extends BaseServlet {
 
     /**
      * Register the user in the DB
-     * @param request Http Request
+     *
+     * @param request  Http Request
      * @param response Http Response
      * @throws IOException
      */
-    private void register(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    private void register(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         // GET THE PARAMS FROM THE FORM
         String fname = request.getParameter("fname");
@@ -145,27 +146,26 @@ public class LoginServlet extends BaseServlet {
         // CREATE NEW USER BASED ON FORM DATA
         User newUser = new User(fname, lname, email, password);
 
-            // WRITE THE NEW USER TO THE DATABASE
-            if(users.registerUser(newUser)){
+        // WRITE THE NEW USER TO THE DATABASE
+        if (users.registerUser(newUser)) {
 
-                // TODO: MAYBE EMAIL
-                // SET A SESSION, WRITE A SUCCESS MESSAGE, AND REDIRECT
-                setCurrentUser(request, email);
-                SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS,"Successfully Registered","You have been successfully registered in the sytem. Welcome."));
-                response.sendRedirect(SUCCESS_REDIRECT);
+            // TODO: MAYBE EMAIL
+            // SET A SESSION, WRITE A SUCCESS MESSAGE, AND REDIRECT
+            setCurrentUser(request, email);
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Successfully Registered", "You have been successfully registered in the sytem. Welcome."));
+            response.sendRedirect(SUCCESS_REDIRECT);
 
-                LOG.debug("This should have saved the user in DB");
+            LOG.debug("This should have saved the user in DB");
 
-            } else {
+        } else {
 
-                // WASNT A SUCCESS
-                SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR,"Uh oh","Something went wrong, please try again."));
-                response.sendRedirect("/login");
+            // WASNT A SUCCESS
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR, "Uh oh", "Something went wrong, please try again."));
+            response.sendRedirect("/login");
 
-                LOG.debug("This did not save in the DB");
+            LOG.debug("This did not save in the DB");
 
-            }
-
+        }
 
 
     }

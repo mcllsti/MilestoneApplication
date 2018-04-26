@@ -38,13 +38,11 @@ public class PrivatePageServlet extends BaseServlet {
     static final Logger LOG = LoggerFactory.getLogger(PrivatePageServlet.class);
 
 
-
     private static final String PRIVATE_PAGE_TEMPLATE = "private.mustache";
 
     public PrivatePageServlet() {
 
     }
-
 
 
     @Override
@@ -59,9 +57,9 @@ public class PrivatePageServlet extends BaseServlet {
         String userName = getCurrentUser(request);
         FlashMessage message = SessionFunctions.getFlashMessage(request);
 
-        HashMap<String,Object> viewBag = new HashMap<String,Object>();
-        viewBag.put("message",message);
-        viewBag.put("username",userName);
+        HashMap<String, Object> viewBag = new HashMap<String, Object>();
+        viewBag.put("message", message);
+        viewBag.put("username", userName);
 
         showView(response, PRIVATE_PAGE_TEMPLATE, viewBag);
     }
