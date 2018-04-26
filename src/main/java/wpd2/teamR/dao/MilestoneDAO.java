@@ -28,7 +28,7 @@ public class MilestoneDAO extends DAOBase {
      * @return Milestone object of the received project
      * @throws SQLException
      */
-    public Milestone getMilestoneById(int id) throws SQLException {
+    public Milestone getMilestonesById(int id) throws SQLException {
 
         final String GET_MILESTONE = "SELECT * FROM milestones WHERE id=?";
 
@@ -36,22 +36,17 @@ public class MilestoneDAO extends DAOBase {
 
             // PASS THROUGH THE id INTO THE PREPARED STATEMENT
             ps.setInt(1, id);
-
             ResultSet rs = ps.executeQuery();
 
             // LOOP THROUGH RESULTS - SHOULD ONLY BE ONE
             Milestone milestone = null;
             while (rs.next()) {
                 //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
-                milestone = new Milestone(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("desc"),
+                milestone = new Milestone(rs.getInt("id"), rs.getString("name"), rs.getString("description"),
                         rs.getTimestamp("dateCreated"),
-                        rs.getTimestamp("dateMod"),
-                        rs.getTimestamp("dateDue"),
-                        rs.getTimestamp("dueComplete")
-                );
+                        rs.getTimestamp("dateModified"),
+                        rs.getTimestamp("dueDate"),
+                        rs.getTimestamp("dateCompleted"));
             }
 
             return milestone;
@@ -70,14 +65,14 @@ public class MilestoneDAO extends DAOBase {
      * @return List of all milestones in a project
      * @throws SQLException
      */
-    public List<Milestone> getAllMilestones(int projectId, int userId) throws SQLException {
+    public List<Milestone> getAllMilestonesByProjectAndUser(int projectId, String email) throws SQLException {
 
         final String GET_MILESTONES = "SELECT milestones.* FROM milestones JOIN projects ON milestones.projectID = projects.id WHERE projects.userID =? AND milestones.projectID =?";
 
         try (PreparedStatement ps = connection.prepareStatement(GET_MILESTONES)) {
 
             //Pass ID's into statement
-            ps.setInt(1, userId);
+            ps.setString(1, email);
             ps.setInt(2, projectId);
 
             ResultSet result = ps.executeQuery();
@@ -88,14 +83,52 @@ public class MilestoneDAO extends DAOBase {
                         new Milestone(
                                 result.getInt("id"),
                                 result.getString("name"),
-                                result.getString("desc"),
+                                result.getString("description"),
                                 result.getTimestamp("dateCreated"),
-                                result.getTimestamp("dateMod"),
-                                result.getTimestamp("dateDue"),
-                                result.getTimestamp("dueComplete")
+                                result.getTimestamp("dateModified"),
+                                result.getTimestamp("dueDate"),
+                                result.getTimestamp("dateCompleted")
                         )
                 );
             }
+            return allMilestones;
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    //Method to try and get milestones of a project.
+    //This is one I wrote myself, not Gavin's, think the mySQL query isnt correct
+
+
+    public List<Milestone> getAllMilestonesByProjectId(int id) throws SQLException{
+
+        final String GET_MILESTONES = "SELECT * FROM milestones WHERE projectID = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(GET_MILESTONES)) {
+
+            //Pass ID's into statement
+            ps.setInt(1, id);
+
+            ResultSet result = ps.executeQuery();
+
+            List<Milestone> allMilestones = new ArrayList<Milestone>();
+            while (result.next()) {
+                allMilestones.add(
+                        new Milestone(
+                                result.getInt("id"),
+                                result.getString("name"),
+                                result.getString("description"),
+                                result.getTimestamp("dateCreated"),
+                                result.getTimestamp("dateModified"),
+                                result.getTimestamp("dueDate"),
+                                result.getTimestamp("dateCompleted")
+                        )
+                );
+            }
+            System.out.print(allMilestones); // Just put here to test SQL statement.
             return allMilestones;
 
 
@@ -127,7 +160,11 @@ public class MilestoneDAO extends DAOBase {
             LOG.debug("insert count = " + count);
 
             //Return true or false
-            return determineTrueFalse(count);
+            if (count == 1) {
+                return true;
+            } else {
+                return false;
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -153,8 +190,11 @@ public class MilestoneDAO extends DAOBase {
             int count = ps.executeUpdate();
             LOG.debug ("insert count=" + count);
 
-            //Return true or false
-            return determineTrueFalse(count);
+            if(count ==1) {
+                return true;
+            } else {
+                return false;
+            }
 
 
         } catch (SQLException e) {
@@ -162,59 +202,6 @@ public class MilestoneDAO extends DAOBase {
         }
 
 
-    }
-
-
-    /**
-     * Updates a project that is stored in the database
-     *
-     * @param milestone object containing the updated name and description details to be written
-     * @return boolean of successfull or not
-     */
-    public boolean updateMilestone(Milestone milestone) {
-
-        String UPDATE_MILESTONE = "UPDATE milestones SET name=?, description=?, dateModified=NOW(),dueDate=?,dateCompleted=? WHERE id = ?";
-
-        try (PreparedStatement ps = getConnection().prepareStatement(UPDATE_MILESTONE)) {
-
-            //PASS VARIABLES TO PREPARED STATEMENT
-            ps.setString(1, milestone.getName());
-            ps.setString(2, milestone.getDescription());
-            ps.setTimestamp(3, milestone.getDueDate());
-            ps.setTimestamp(4, milestone.getDateCompleted());
-            ps.setInt(5, milestone.getId());
-            int count = ps.executeUpdate();
-            LOG.debug("insert count = " + count);
-
-            return determineTrueFalse(count);
-
-        } catch (SQLException error) {
-            LOG.debug(error.toString());
-            return false;
-        }
-
-    }
-
-
-
-    /**
-     * Private method that returns true of false depending on int value
-     * Used to cut down repetitive code
-     *
-     * @param count Integer variable to be used to determine true or false
-     * @return Boolean depending on count value
-     */
-    private boolean determineTrueFalse(int count) {
-        //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
-        if (count == 1) {
-
-            return true;
-
-        } else {
-
-            return false;
-
-        }
     }
 
 
