@@ -229,9 +229,8 @@ public class ProjectDAO extends DAOBase {
         // LOOP THROUGH RESULTS
         List<Project> projectList = new ArrayList<Project>();
         while (rs.next()) {
+            
             //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
-
-            System.out.println(rs.getString("dateCreated"));
             projectList.add(new Project(rs.getInt("id"), rs.getString("name")
                     , rs.getString("description"), rs.getTimestamp("dateCreated"), rs.getTimestamp("dateModified")));
         }
