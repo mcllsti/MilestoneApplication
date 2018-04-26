@@ -184,9 +184,8 @@ public class ProjectDAO extends DAOBase {
     //region Update //TODO
 
     /**
-     * Creates a project and stores in the database
-     *
-     * @param project object containing name and description details to be written
+     * Updates a project that is stored in the database
+     * @param project object containing the updated name and description details to be written
      * @return boolean of successfull or not
      */
     public boolean projectUpdate(Project project) {
