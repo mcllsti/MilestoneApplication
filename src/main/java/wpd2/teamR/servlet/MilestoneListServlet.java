@@ -32,12 +32,18 @@ public class MilestoneListServlet extends BaseServlet {
             return;
         }
 
-        int parameter = Integer.parseInt(request.getParameter("Identifier"));
-         setCurrentProject(request,parameter);
+//        int parameter = Integer.parseInt(request.getParameter("Identifier"));
+//         setCurrentProject(request,parameter);
+        int projectID = getCurrentProject(request);
+        if(projectID == -1){
+            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.INFO,"Hmmm something isn't right","Something wasn't quite right there. Please try again."));
+            response.sendRedirect("/project");
+            return;
+        }
 
-        List<Milestone> milestoneList = new ArrayList<Milestone>();
+        List<Milestone> milestoneList = new ArrayList<>();
         try {
-            milestoneList = milestones.getAllMilestonesByProjectId(parameter);
+            milestoneList = milestones.getAllMilestonesByProjectId(projectID);
         }
         catch (SQLException error){}
 
@@ -45,7 +51,7 @@ public class MilestoneListServlet extends BaseServlet {
 
         FlashMessage message = SessionFunctions.getFlashMessage(request);
         viewBag.put("message", message);
-        viewBag.put("projectId",parameter);
+        viewBag.put("projectId",projectID);
         viewBag.put("total", milestoneList.size());
         viewBag.put("milestones", milestoneList);
 
