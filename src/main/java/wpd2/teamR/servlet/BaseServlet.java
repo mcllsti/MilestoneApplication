@@ -1,7 +1,6 @@
 
 package wpd2.teamR.servlet;
 
-import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.util.FlashMessage;
@@ -131,6 +130,24 @@ class BaseServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.removeAttribute("email"); // TODO: FIX THIS
     }
+
+    protected void setCurrentProject(HttpServletRequest request, int projectId) {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("projectId", projectId);
+    }
+    protected void clearCurrentProject(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("projectId"); // TODO: FIX THIS
+    }
+
+    protected int getCurrentProject(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+        if (session == null) {
+            return 0;
+        }
+        int val = (int) session.getAttribute("projectId");
+            return val == 0 ? 0 : val;
+        }
 
     protected String getUrlParamter(String url)
     {

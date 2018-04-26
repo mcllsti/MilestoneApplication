@@ -65,14 +65,14 @@ public class MilestoneDAO extends DAOBase {
      * @return List of all milestones in a project
      * @throws SQLException
      */
-    public List<Milestone> getAllMilestones(int projectId, int userId) throws SQLException {
+    public List<Milestone> getAllMilestones(int projectId, String email) throws SQLException {
 
         final String GET_MILESTONES = "SELECT milestones.* FROM milestones JOIN projects ON milestones.projectID = projects.id WHERE projects.userID =? AND milestones.projectID =?";
 
         try (PreparedStatement ps = connection.prepareStatement(GET_MILESTONES)) {
 
             //Pass ID's into statement
-            ps.setInt(1, userId);
+            ps.setString(1, email);
             ps.setInt(2, projectId);
 
             ResultSet result = ps.executeQuery();
