@@ -30,6 +30,6 @@ public class PublicPageServlet extends BaseServlet {
 //        }
 
         String userName = UserFuncs.getCurrentUser(request);
-        showView(response, "milestone/milestone-list.mustache", userName);
+        showView(response, "milestone/project-create.mustache", request.getRequestURI());
     }
 }

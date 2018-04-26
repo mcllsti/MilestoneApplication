@@ -132,4 +132,12 @@ class BaseServlet extends HttpServlet {
         session.removeAttribute("email"); // TODO: FIX THIS
     }
 
+    protected String getUrlParamter(String url)
+    {
+        String[] urlComponents = url.split("/");
+        String parameter = urlComponents[urlComponents.length-1];
+
+        return parameter;
+    }
+
 }

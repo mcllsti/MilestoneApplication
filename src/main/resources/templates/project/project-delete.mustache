@@ -1,0 +1,11 @@
+{{>../_partials/site-header}}
+<div class="six columns offset-by-three">
+<h1>Warning!</h1>
+
+    <h3>Are you sure you wish to permanently delete the project "{{project.name}}"?</h3>
+        <form action = "/projects/delete/{{project.id}}" method = "POST">
+        <input type = "submit" value = "Confirm" />
+        </form>
+</div>
+
+

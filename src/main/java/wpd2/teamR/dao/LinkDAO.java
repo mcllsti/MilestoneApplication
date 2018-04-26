@@ -1,5 +1,6 @@
 package wpd2.teamR.dao;
 
+import com.mysql.cj.api.jdbc.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.models.Link;
@@ -8,6 +9,7 @@ import wpd2.teamR.models.Project;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +83,7 @@ public class LinkDAO extends DAOBase {
     public List<Link> findByUserId(int userId) throws SQLException
     {
 
-        final String query = "SELECT links.id, links.email, links.dateCreated, links.dateLastAccessed, links.projectID FROM links, projects, users WHERE links.projectID = projects.id AND projects.userID = users.id AND users.id = ?;";
+        final String query = "SELECT links.* FROM links JOIN projects ON links.projectID = projects.id WHERE projects.userID = ?;";
 
         try {
 
@@ -130,19 +132,26 @@ public class LinkDAO extends DAOBase {
      * @param projectId Id of project under which to save
      * @return true if successful
      */
-    public boolean save(Link link, int projectId){
+    public boolean save(Link link, int projectId) throws SQLException{
 
         String query = "INSERT INTO links (email, dateCreated, projectID) VALUES(?,NOW(),?)";
 
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, link.getEmail());
-            ps.setInt(2, link.getProjectID());
+            ps.setInt(2, projectId);
+
             int count = ps.executeUpdate();
             LOG.debug("insert count = " + count);
 
+
             //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
             if(count==1){
+
+                // IF WE NEED IT - THIS WILL GET THE ID OF THE NEW OBJECT
+//                ResultSet keys = ps.getGeneratedKeys();
+//                keys.next();
+//                int id = keys.getInt(1);
 
                 return true;
 

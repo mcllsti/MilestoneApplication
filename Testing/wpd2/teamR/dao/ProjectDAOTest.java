@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import wpd2.teamR.models.Project;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static org.junit.Assert.*;
@@ -19,8 +21,19 @@ public class ProjectDAOTest {
 
     @AfterClass
     public static void tearDown() throws Exception {
-        ProjectDAO testingDAO = new ProjectDAO();
-        assertTrue(testingDAO.deleteProjectByName("Test"));
+
+        ConnectionSupplier cs = new ConnectionSupplier();
+        Connection connection = cs.provide();
+
+        String query = "DELETE FROM projects WHERE name = ?";
+
+        PreparedStatement ps = connection.prepareStatement(query);
+
+        //PASS ID TO PREPARED STATEMENT
+        ps.setString(1, "Test");
+
+        ps.executeUpdate();
+
     }
 
     @Test
