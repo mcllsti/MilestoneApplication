@@ -43,6 +43,8 @@ public class Runner {
         handler.addServlet(new ServletHolder(new ProjectListServlet()), "/projects");
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDeleteServlet()), "/projects/delete/*");
+        handler.addServlet(new ServletHolder(new ProjectEditServlet()), "/projects/edit/*");
+
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
