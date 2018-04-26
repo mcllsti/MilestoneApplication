@@ -28,10 +28,6 @@ public class Runner {
         // SETUP THE SERVER AND PASS THE PORT NUMBER
         Server server = new Server(PORT);
 
-//        WebAppContext webapp = new WebAppContext();
-//        webapp.setContextPath("/");
-//        webapp.getWebInf("/WEB-INF/web.xml");
-
         // SETUP SESSIONS, BASE PATH AND RESOURCE PATH
         ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
         handler.setContextPath("/");
@@ -41,14 +37,8 @@ public class Runner {
         DefaultServlet ds = new DefaultServlet();
         handler.addServlet(new ServletHolder(ds), "/");
 
-        // SETUP AND POINT A URL FOR SERVLET 1
-//        Servlet1 servlet1 = new Servlet1();
-//        handler.addServlet(new ServletHolder(servlet1), "/servlet1");
 
-        // SETUP AND POINT A URL FOR SERVLET 2
-//        Servlet2 servlet2 = new Servlet2();
-//        handler.addServlet(new ServletHolder(servlet2), "/servlet2");
-
+        // OUR ROUTES
         handler.addServlet(new ServletHolder(new ProjectListServlet()), "/projects");
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
 
