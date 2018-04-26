@@ -86,7 +86,8 @@ public class ProjectDeleteServlet extends BaseServlet {
         }
         else
         {
-            //ERROR PAGE WILL GO HERE??!?!
+            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"Project Could Not Be Found","The project was not found, please refresh system!"));
+            response.sendRedirect("/projects");
             return;
         }
 
@@ -98,6 +99,12 @@ public class ProjectDeleteServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //IS THIS NEEDED HERE?????
+        // CHECK IF USER IS LOGGED IN - IF NOT BOUNCE TO LOGIN
+        if (!authOK(request, response)) {
+            return;
+        }
 
         //GETTING ID FROM URL
         int parameter = Integer.parseInt(getUrlParamter(request.getRequestURI()));
