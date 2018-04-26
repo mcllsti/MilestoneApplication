@@ -54,7 +54,7 @@ public class MilestoneCreateServlet extends BaseServlet {
         m.setDescription(request.getParameter("description"));
 
         // IF IT WAS SUCCESSFULLY CREATED
-        if (milestones.createMilestone(m, getCurrentUser(request))) {
+        if (milestones.createMilestone(m, getCurrentProject(request))) {
 
             // SAVE A SUCCESSFUL FLASH MESSAGE AND RETURN TO PROJECT VIEW
             SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Milestone Added", "Your milestone was added to the project"));

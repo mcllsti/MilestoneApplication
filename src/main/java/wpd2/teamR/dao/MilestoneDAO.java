@@ -3,6 +3,7 @@ package wpd2.teamR.dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.models.Milestone;
+import wpd2.teamR.models.Project;
 import wpd2.teamR.util.Password;
 
 import javax.servlet.http.HttpServletRequest;
@@ -149,13 +150,13 @@ public class MilestoneDAO extends DAOBase {
 
     /**
      * @param milestone object with details to be written
-     * @param email     string of the user
+     * @param projectId     the project to add the milestone to
      * @return boolean determining success or failure
      * @throws SQLException
      */
-    public boolean createMilestone(Milestone milestone, String email) throws SQLException {
+    public boolean createMilestone(Milestone milestone, int projectId) throws SQLException {
 
-        String CREATE_MILESTONE = "INSERT INTO milestones (name, description, dateCreated, dateModified, dueDate, dueCompleted, projectID) VALUES (?,?,NOW(),NOW(),?,?, (SELECT id FROM projects WHERE projectID =?))";
+        String CREATE_MILESTONE = "INSERT INTO milestones (name, description, dateCreated, dateModified, dueDate, dueCompleted, projectID) VALUES (?,?,NOW(),NOW(),?,?,?))";
 
         try (PreparedStatement ps = getConnection().prepareStatement(CREATE_MILESTONE)) {
 
@@ -163,12 +164,11 @@ public class MilestoneDAO extends DAOBase {
             ps.setString(2, milestone.getDescription());
             ps.setTimestamp(3, milestone.getDueDate());
             ps.setTimestamp(4, milestone.getDateCompleted());
-            ps.setInt(5, milestone.getProjectID());
+            ps.setInt(5, projectId);
             int count = ps.executeUpdate();
             LOG.debug("insert count = " + count);
 
             //Return true or false
-
             return determineTrueFalse(count);
 
 
