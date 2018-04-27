@@ -60,8 +60,7 @@ public class MilestoneCreateServlet extends BaseServlet {
         Milestone m = new Milestone();
         m.setName(request.getParameter("name"));
         m.setDescription(request.getParameter("description"));
-        m.setDueDate(new Timestamp(LocalDateTime.parse(request.getParameter("dueDate")).getLong()));
-        m.setDateCompleted(Timestamp.valueOf(request.getParameter("dateCompleted")));
+        m.setDueDate(new Timestamp(LocalDateTime.parse(request.getParameter("dueDate")).getLong())); //TODO: FIX THIS SHIT!!!
         m.setProjectID(Integer.parseInt(request.getParameter("projectID")));
 
         // IF IT WAS SUCCESSFULLY CREATED
