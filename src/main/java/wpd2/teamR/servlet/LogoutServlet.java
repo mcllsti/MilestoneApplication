@@ -39,7 +39,7 @@ public class LogoutServlet extends BaseServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        UserFuncs.clearCurrentUser(request);
         SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Successfully Logged Out", "You have been successfully logged out of the system"));
