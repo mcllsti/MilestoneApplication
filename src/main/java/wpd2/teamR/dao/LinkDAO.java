@@ -162,14 +162,17 @@ public class LinkDAO extends DAOBase {
      * @param projectId Id of project under which to save
      * @return true if successful
      */
-    public boolean save(Link link, int projectId) throws SQLException {
+    public boolean save(Link link, int projectId) {
 
-        String query = "INSERT INTO links (email, dateCreated, projectID) VALUES(?,NOW(),?)";
+        // GET HASH
+        String uriHash = this.generateUriHash(link);
+        String query = "INSERT INTO links (email, urlHash, dateCreated, projectID) VALUES(?,?,NOW(),?)";
 
         try (PreparedStatement ps = getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, link.getEmail());
-            ps.setInt(2, projectId);
+            ps.setString(2, uriHash);
+            ps.setInt(3, projectId);
 
             int count = ps.executeUpdate();
             LOG.debug("insert count = " + count);
@@ -288,7 +291,7 @@ public class LinkDAO extends DAOBase {
         while (rs.next()) {
             //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
             links.add(new Link(rs.getInt("id"), rs.getString("email")
-                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID")));
+                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID"),rs.getString("urlHash")));
         }
 
         return links;
@@ -311,23 +314,27 @@ public class LinkDAO extends DAOBase {
         while (rs.next()) {
             //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
             link = new Link(rs.getInt("id"), rs.getString("email")
-                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID"));
+                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID"),rs.getString("urlHash"));
         }
 
         return link;
 
     }
 
-    private long generateUriHash(String hashString){
+    /**
+     * Generate a short hash - like TinyURL or similar
+     * @param link
+     * @return
+     */
+    private String generateUriHash(Link link){
 
-        String string = "Adler32 Checksum For Byte Array";
         // Convert string to bytes
-        byte bytes[] = string.getBytes();
+        byte bytes[] = link.toString().getBytes();
         Checksum checksum = new Adler32();
         checksum.update(bytes, 0, bytes.length);
         long lngChecksum = checksum.getValue();
 
-        return lngChecksum;
+        return Long.toHexString(lngChecksum);
 
     }
 

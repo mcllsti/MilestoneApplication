@@ -24,13 +24,12 @@
             });
 
             // CLOSE OPEN FLASH MESSAGE
-            $('.flash .close').click(function(e){
-                console.log("Closed clicked on FlashMessage");
-                $(this).parent().slideUp('slow');
+            $('.flash').find('.close').click(function(e){
+                $(this).parent().slideUp('fast');
             });
 
             // FADE FLASH MESSAGE AFTER 5 SECS
-            $(".flash").delay(5000).slideUp("slow");
+            // $(".flash").delay(5000).slideUp("slow");
 
             $('.modal .close').click(function(e){
                 $('.modal').fadeOut(100);

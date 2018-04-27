@@ -56,6 +56,7 @@ public class Runner {
 
         // LINK ROUTES
         handler.addServlet(new ServletHolder(new LinkListServlet()), "/links");
+        handler.addServlet(new ServletHolder(new LinkCreateServlet()), "/links/create");
 
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");

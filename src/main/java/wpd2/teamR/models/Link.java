@@ -30,6 +30,15 @@ public class Link {
         this.projectID = projectID;
     }
 
+    public Link(int id, String email, Timestamp dateCreated, Timestamp dateLastAccessed, int projectID, String urlHash) {
+        this.id = id;
+        this.email = email;
+        this.dateCreated = dateCreated;
+        this.dateLastAccessed = dateLastAccessed;
+        this.projectID = projectID;
+        this.urlHash = urlHash;
+    }
+
     public Link(String email, Timestamp dateCreated, Timestamp dateLastAccessed) {
         this.email = email;
         this.dateCreated = dateCreated;
