@@ -19,7 +19,7 @@ public class Milestone {
 
     private int projectID; // AGAIN, I DONT THINK WE NEED THIS TO BE HONEST ?
 
-    public Milestone(int id, String name, String desc, Timestamp dateCreated, Timestamp dateMod, Timestamp dateDue, Timestamp dateComplete)
+    public Milestone(int id, String name, String desc, Timestamp dateCreated, Timestamp dateMod, Timestamp dateDue, Timestamp dateComplete, int projectID)
     {
         this.id = id;
         this.name = name;
@@ -30,6 +30,9 @@ public class Milestone {
         this.dateCompleted = dateComplete;
     }
 
+    public Milestone() {
+
+    }
 
 
     // THE BELOW GETTERS FACILITATE MUSTACHE
