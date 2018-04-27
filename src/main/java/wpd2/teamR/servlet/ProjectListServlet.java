@@ -22,6 +22,7 @@ package wpd2.teamR.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.teamR.dao.MilestoneDAO;
 import wpd2.teamR.dao.ProjectDAO;
 import wpd2.teamR.models.Project;
 import wpd2.teamR.util.FlashMessage;
@@ -44,9 +45,12 @@ public class ProjectListServlet extends BaseServlet {
     private final String LOGIN_TEMPLATE = "login.mustache";
 
     private ProjectDAO projects;
+    private MilestoneDAO milestones;
 
-    public ProjectListServlet() {
-        projects = new ProjectDAO();
+
+    public ProjectListServlet(){
+    projects = new ProjectDAO();
+    milestones = new MilestoneDAO();
     }
 
 
@@ -62,8 +66,13 @@ public class ProjectListServlet extends BaseServlet {
         List<Project> plist = new ArrayList<Project>();
         try {
             plist = projects.getProjectsbyUser(getCurrentUser(request));
-        } catch (SQLException error) {
 
+            plist.forEach((v)->{
+                v.setMilestones(milestones.getAllMilestonesByProjectId(v.getId()));
+            });
+
+        } catch (SQLException error) {
+            // TODO: SOMETHING WENT WRONG - GENERATE ERROR
         }
 
         HashMap<String, Object> viewBag = new HashMap<String, Object>();

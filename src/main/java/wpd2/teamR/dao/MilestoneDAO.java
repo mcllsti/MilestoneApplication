@@ -103,7 +103,7 @@ public class MilestoneDAO extends DAOBase {
     //This is one I wrote myself, not Gavin's, think the mySQL query isnt correct
 
 
-    public List<Milestone> getAllMilestonesByProjectId(int id) throws SQLException{
+    public List<Milestone> getAllMilestonesByProjectId(int id) {
 
         final String GET_MILESTONES = "SELECT * FROM milestones WHERE projectID = ?";
 
