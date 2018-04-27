@@ -6,9 +6,22 @@
 <textarea class="u-full-width" placeholder="Please enter your project description" id="description" name="description" required>{{milestone.description}}</textarea>
 
 <label for="dueDate">Due Date</label>
-<input class="u-full-width" type="text" id="datepicker" placeholder="Enter Milestone Due Date" name="dueDate" required>
+<input class="u-full-width" type="text" id="datepicker" placeholder="Enter Milestone Due Date" name="dueDate" value="{{milestone.dueDate}}" required>
 
-<input class="button-primary success" type="submit" value="Submit">
+<a class="button" href="/milestones"><i class="fas fa-arrow-left"></i> Return to Milestones</a>
+<button class="button-primary success" type="submit">Save</button>
 
-<script src="/js/zebra_datepicker.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // ENABLE DATE PICKER
+        $('#datepicker').Zebra_DatePicker({
+            format: 'd-m-Y H:i',
+            show_icon: false,
+            open_on_focus: true,
+            direction: true
+        });
+        
+    });
+</script>
 
