@@ -61,6 +61,7 @@ public class LoginServlet extends BaseServlet {
         HashMap<String, Object> viewBag = new HashMap<String, Object>();
 
         FlashMessage message = SessionFunctions.getFlashMessage(request);
+        viewBag.put("hidenav",true); // HIDE THE NAVBAR
         viewBag.put("username", userName);
         viewBag.put("message", message);
 

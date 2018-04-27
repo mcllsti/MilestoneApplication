@@ -148,6 +148,43 @@ public class MilestoneDAO extends DAOBase {
 
     }
 
+    public List<Milestone> getGuestMilestones(String email, String urlHash) throws SQLException {
+
+        final String GET_MILESTONES = "SELECT milestones.* from milestones JOIN projects ON projects.id = milestones.projectID WHERE milestones.projectID = (SELECT projectID FROM links WHERE urlHash = ? AND email = ? LIMIT 1);";
+
+        try (PreparedStatement ps = connection.prepareStatement(GET_MILESTONES)) {
+
+            //Pass ID's into statement
+            ps.setString(1, urlHash);
+            ps.setString(2, email);
+
+            ResultSet result = ps.executeQuery();
+
+            List<Milestone> allMilestones = new ArrayList<Milestone>();
+            while (result.next()) {
+                allMilestones.add(
+                        new Milestone(
+                                result.getInt("id"),
+                                result.getString("name"),
+                                result.getString("description"),
+                                result.getTimestamp("dateCreated"),
+                                result.getTimestamp("dateModified"),
+                                result.getTimestamp("dueDate"),
+                                result.getTimestamp("dateCompleted"),
+                                result.getInt("projectID")
+
+                        )
+                );
+            }
+            return allMilestones;
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     //Method to try and get milestones of a project.
     //This is one I wrote myself, not Gavin's, think the mySQL query isnt correct
 
