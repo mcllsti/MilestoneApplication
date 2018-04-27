@@ -407,6 +407,61 @@ footer ul li a:hover {
   opacity: 0;
 }
 
+
+.link-list p {
+  margin:0;
+  padding:0;
+}
+.link-list > p {
+  font-size: 0.8em;
+  padding: 0;
+  margin: 0 1em 2em 0;
+  text-align: right;
+  color: var(--blue);
+}
+.link-list .link {
+  border-radius:10px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  padding:1em;
+  margin:0 0 1em 0;
+  box-shadow: 0 0 10px #CCC;
+  transition:0.25s;
+}
+.link-list .link:hover {
+  background: var(--highlight);
+}
+
+.link-list .link .link-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background: var(--blue);
+  box-shadow: inset 0 0 10px rgb(156, 156, 156);
+  border-radius:50px;
+  color:#FFF;
+  transition:0.3s ease-in-out;
+}
+
+.link-list .link:hover .link-icon {
+  background: var(--red);
+  transform:scale(1.1) rotate(180deg);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.link-list .link .details {
+  padding:0 1em;
+  flex:1;
+}
+.link-list .link .details .details__email {
+  font-weight: bold;
+  font-size:1.2em;
+}
+
+
 /* .milestone-list .milestone .header .menu ul {
 list-style:none;
 }

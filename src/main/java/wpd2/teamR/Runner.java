@@ -54,6 +54,10 @@ public class Runner {
         handler.addServlet(new ServletHolder(new MilestoneEditServlet()), "/milestones/edit/*");
         handler.addServlet(new ServletHolder(new MilestoneDeleteServlet()), "/milestones/delete/*");
 
+        // LINK ROUTES
+        handler.addServlet(new ServletHolder(new LinkListServlet()), "/links");
+        handler.addServlet(new ServletHolder(new LinkCreateServlet()), "/links/create");
+
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
