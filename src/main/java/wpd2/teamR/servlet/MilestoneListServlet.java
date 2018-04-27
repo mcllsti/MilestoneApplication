@@ -42,10 +42,10 @@ public class MilestoneListServlet extends BaseServlet {
         }
 
         List<Milestone> milestoneList = new ArrayList<>();
-        try {
+//        try {
             milestoneList = milestones.getAllMilestonesByProjectId(projectID);
-        }
-        catch (SQLException error){}
+//        }
+//        catch (SQLException error){}
 
         HashMap<String, Object> viewBag = new HashMap<String, Object>();
 
