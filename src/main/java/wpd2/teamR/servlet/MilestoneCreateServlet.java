@@ -46,6 +46,7 @@ public class MilestoneCreateServlet extends BaseServlet {
         // SETUP VIEWBAG TO SEND TO VIEW
         HashMap<String, Object> viewBag = new HashMap<String, Object>();
         FlashMessage message = SessionFunctions.getFlashMessage(request);
+        viewBag.put("mode","Create");
         viewBag.put("message", message);
 
         // RENDER CREATE FORM
@@ -59,14 +60,23 @@ public class MilestoneCreateServlet extends BaseServlet {
         // BUILD THE NEW MILESTONE - TODO: SERVER SIDE VALIDATION - jQuery / html catching for now.
 
 
-        Instant instant = Instant.parse( request.getParameter("dueDate") );
-        Timestamp timestamp = Timestamp.from(instant);
+        int projectId = getCurrentProject(request);
+
+        String datetimeString =  request.getParameter("dueDate");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date date = null;
+        try {
+            date = sdf.parse(datetimeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         Milestone m = new Milestone();
         m.setName(request.getParameter("name"));
         m.setDescription(request.getParameter("description"));
-        //m.setDueDate(new Timestamp(LocalDateTime.parse(request.getParameter("dueDate"))); //TODO: FIX THIS SHIT!!!
-        m.setProjectID(Integer.parseInt(request.getParameter("projectID")));
+        m.setDueDate(new Timestamp(date.getTime())); //TODO: FIX THIS SHIT!!!
+        m.setProjectID(projectId);
 
         // IF IT WAS SUCCESSFULLY CREATED
         if (milestones.createMilestone(m, m.getProjectID())) {

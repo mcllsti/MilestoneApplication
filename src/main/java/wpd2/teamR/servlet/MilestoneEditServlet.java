@@ -103,19 +103,16 @@ public class MilestoneEditServlet extends BaseServlet {
         if(milestoneID == checkParameter){
 
             //=====================UGLY TIMESTAMP PARSEING - SOMEONE REFACTOR=============================
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-            Date parsedDueDate = null;
-            Date parsedDateCompleted = null;
 
+            String datetimeString =  request.getParameter("dueDate");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            Date date = null;
             try {
-                parsedDueDate = dateFormat.parse(request.getParameter("dueDate"));
-                parsedDateCompleted = dateFormat.parse(request.getParameter("dateCompleted"));
+                date = sdf.parse(datetimeString);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            Timestamp updatedDueDate = new java.sql.Timestamp(parsedDueDate.getTime());
-            Timestamp updatedDateCompleted= new java.sql.Timestamp(parsedDateCompleted.getTime());
 
             //==================================================
 
@@ -123,8 +120,7 @@ public class MilestoneEditServlet extends BaseServlet {
             updatedMilestone.setId(milestoneID);
             updatedMilestone.setName(request.getParameter("name"));
             updatedMilestone.setDescription(request.getParameter("description"));
-            updatedMilestone.setDueDate(updatedDueDate);
-            updatedMilestone.setDateCompleted(updatedDateCompleted);
+            updatedMilestone.setDueDate(new Timestamp(date.getTime()));
             updatedMilestone.setDescription(request.getParameter("description"));
 
             // UPDATE
