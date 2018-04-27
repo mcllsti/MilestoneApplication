@@ -29,7 +29,6 @@ public class MilestoneDAO extends DAOBase {
      * @return Milestone object of the received project
      * @throws SQLException
      */
-
     public Milestone getMilestonesById(int id) throws SQLException {
 
         final String GET_MILESTONE = "SELECT * FROM milestones WHERE id=?";
@@ -74,7 +73,6 @@ public class MilestoneDAO extends DAOBase {
      * @return List of all milestones in a project
      * @throws SQLException
      */
-
     public List<Milestone> getAllMilestonesByProjectAndUser(int projectId, String email) throws SQLException {
 
         final String GET_MILESTONES = "SELECT milestones.* FROM milestones JOIN projects ON milestones.projectID = projects.id WHERE projects.userID =? AND milestones.projectID =?";
@@ -112,7 +110,6 @@ public class MilestoneDAO extends DAOBase {
 
     //Method to try and get milestones of a project.
     //This is one I wrote myself, not Gavin's, think the mySQL query isnt correct
-
     public List<Milestone> getAllMilestonesByProjectId(int id) throws SQLException{
 
         final String GET_MILESTONES = "SELECT * FROM milestones WHERE projectID = ?";
@@ -188,7 +185,7 @@ public class MilestoneDAO extends DAOBase {
      */
     public boolean deleteMilestoneById(int id) {
 
-        String DELETE_MILESTONE = "DELETE FROM projects WHERE id = ?";
+        String DELETE_MILESTONE = "DELETE FROM milestones WHERE id = ?";
 
         try(PreparedStatement ps = getConnection().prepareStatement(DELETE_MILESTONE)) {
 
