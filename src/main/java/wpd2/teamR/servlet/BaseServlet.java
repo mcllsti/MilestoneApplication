@@ -21,7 +21,7 @@ import java.util.Set;
 /**
  * BASE SERVLET FROM WHICH TO EXTEND ALL OTHER BEHAVIOUR
  */
-class BaseServlet extends HttpServlet {
+ class BaseServlet extends HttpServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
@@ -41,7 +41,7 @@ class BaseServlet extends HttpServlet {
     /**
      * Constructor for base servlet - initialises the mustache renderer
      */
-    BaseServlet() {
+     BaseServlet() {
         mustache = new MustacheRenderer();
     }
 

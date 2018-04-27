@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 
 public class MilestoneCreateServlet extends BaseServlet {
@@ -50,10 +54,13 @@ public class MilestoneCreateServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // BUILD THE NEW MILESTONE - TODO: SERVER SIDE VALIDATION - jQuery / html catching for now.
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm");
+
         Milestone m = new Milestone();
         m.setName(request.getParameter("name"));
         m.setDescription(request.getParameter("description"));
-        m.setDueDate(Timestamp.valueOf(request.getParameter("dueDate")));
+        m.setDueDate(new Timestamp(LocalDateTime.parse(request.getParameter("dueDate")).getLong()));
         m.setDateCompleted(Timestamp.valueOf(request.getParameter("dateCompleted")));
         m.setProjectID(Integer.parseInt(request.getParameter("projectID")));
 
