@@ -12,6 +12,8 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Adler32;
+import java.util.zip.Checksum;
 
 /**
  * LinkDAO Class - Retrieves all link data from DB
@@ -287,6 +289,16 @@ public class LinkDAO extends DAOBase {
 
         return link;
 
+    }
+
+    private String generateUriHash(String hashString){
+        String string = "Adler32 Checksum For Byte Array";
+        // Convert string to bytes
+        byte bytes[] = string.getBytes();
+        Checksum checksum = new Adler32();
+        checksum.update(bytes, 0, bytes.length);
+        long lngChecksum = checksum.getValue();
+        System.out.println("Adler32 checksum for byte array :" + lngChecksum);
     }
 
 
