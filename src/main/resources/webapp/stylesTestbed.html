@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,20 +10,22 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-        crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+            crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        $(function () {
+        $(function(){
 
-            $('#new-project').click(function (e) {
+            $('#new-project').click(function(e){
                 e.preventDefault();
                 console.log('This worked');
                 $('.modal').fadeIn(100);
             });
 
             // CLOSE OPEN FLASH MESSAGE
-            $('.flash .close').click(function (e) {
+            $('.flash .close').click(function(e){
                 console.log("Closed clicked on FlashMessage");
                 $(this).parent().slideUp('slow');
             });
@@ -30,7 +33,7 @@
             // FADE FLASH MESSAGE AFTER 5 SECS
             $(".flash").delay(5000).slideUp("slow");
 
-            $('.modal .close').click(function (e) {
+            $('.modal .close').click(function(e){
                 $('.modal').fadeOut(100);
             });
 
@@ -40,199 +43,146 @@
 
 <body>
 
-    <div class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
+<div class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
 
-            <!-- The above form looks like this -->
-            <h2>Create New Project</h2>
-            <p>Please enter the details below</p>
-            <hr>
+        <!-- The above form looks like this -->
+        <h2>Create New Project</h2>
+        <p>Please enter the details below</p>
+        <hr>
+
+
+    </div>
+</div>
+
+<div class="application">
+
+    <nav>
+
+        <div class="container">
+            <img src="/img/MilestoneLogo.svg" alt="Milestone Logo">
+            <ul>
+                <li>
+                    <a href="/">Dashboard</a>
+                </li>
+                <li>
+                    <a href="/projects">Projects</a>
+                </li>
+                <li>
+                    <a href="#">Manage Links</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-body">
+        <div class="container content-box">
+
+
+            <h1>Milestones</h1>
+            <p>Below are the current milestones</p>
+            <p><a href="#" id="new-project" class="button button-primary success"><i class="fas fa-calendar-plus"></i> New Milestone</a></p>
+
+
+            <div class="milestone-list">
+
+                <div class="milestone">
+
+                    <div class="header">
+
+                        <div class="due-date">
+                            <ul>
+                                <li>27</li>
+                                <li>3</li>
+                                <li>2018</li>
+                            </ul>
+                        </div>
+
+                        <div class="details">
+                            <h3>Brush up on C</h3>
+                            <p><i class="far fa-clock"></i> Updated 6 hours ago</p>
+
+                        </div>
+
+                        <div class="menu">
+                            <ul>
+                                <!-- <li><a href="#"><i class="fas fa-eye"></i><span>View</span></a></li> -->
+                                <li><a href="#"><i class="fas fa-edit"></i><span>Edit</span></a></li>
+                                <li><a href="#"><i class="fas fa-trash"></i><span>Delete</span></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <p>It&#39;s been a while, I can&#39;t remember<a href="#">Read more...</a></p>
+
+                </div>
+                <div class="milestone">
+
+                    <div class="header">
+
+                        <div class="due-date">
+                            <ul>
+                                <li>27</li>
+                                <li>3</li>
+                                <li>2018</li>
+                            </ul>
+                        </div>
+
+                        <div class="details">
+                            <h3>Look at pointers</h3>
+                            <div class="timestamps">
+                            <p><i class="far fa-clock"></i> Created 6 hours ago</p>
+                            <p><i class="far fa-clock"></i> Modified 6 hours ago</p>
+                            </div>
+
+                        </div>
+
+                        <div class="menu">
+                            <ul>
+                                <!-- <li><a href="#"><i class="fas fa-eye"></i><span>View</span></a></li> -->
+                                <li><a href="#"><i class="fas fa-edit"></i><span>Edit</span></a></li>
+                                <li><a href="#"><i class="fas fa-trash"></i><span>Delete</span></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <p>I cannot remember pointers for the life of me...&#9;<a href="#">Read more...</a></p>
+
+                </div>
+            </div>
 
 
         </div>
-    </div>
 
-    <div class="application">
+        <footer>
 
-        <nav>
+
 
             <div class="container">
-                <img src="/img/MilestoneLogo.svg" alt="Milestone Logo">
+
+
+
                 <ul>
                     <li>
-                        <a href="/">Dashboard</a>
+                        <a href="#">Dashboard</a>
                     </li>
                     <li>
-                        <a href="/projects">Projects</a>
+                        <a href="/project">Project</a>
                     </li>
                     <li>
                         <a href="#">Manage Links</a>
                     </li>
                 </ul>
-            </div>
-        </nav>
 
-        <div class="main-body">
-            <div class="container content-box">
-
-
-                <h1>Projects</h1>
-                <p>Below are the current projects</p>
-                <p>
-                    <a href="#" id="new-project" class="button button-primary success">
-                        <i class="fas fa-calendar-plus"></i> Add New Project</a>
-                </p>
-
-                <div class="flash error">
-                    <span class="close">&times;</span>
-                    <p class="heading">
-                        <strong>Project Could Not Be Deleted</strong>
-                    </p>
-                    <p class="message">The project was not deleted!</p>
-                </div>
-
-                <div class="panel warning">
-                    <div class="panel-heading"><i class="fas fa-exclamation-triangle"></i> Panel Heading</div>
-                    <div class="panel-content">
-                        <p>Are you sure you want to do this something or other?</p>
-
-                        <p class="button-row">
-                            <button class="button">Cancel</button>
-                            <button class="button danger"><i class="fas fa-trash-alt"></i> Delete</button>
-                        </p>
-
-                    </div>
-                </div>
-
-
-                <div class="project-list">
-
-                    <p>Showing 2 of 2 Projects</p>
-
-                    <!--THIS WILL BE LOOPED FOR EACH PROJECT IN LIST-->
-                    <!--TODO: NEEDS VARIABLES ADDED-->
-                    <div class="project">
-
-                        <div class="milestones">
-                            <span>15</span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__name">
-                                <a href="#">Niks Project</a>
-                            </p>
-                            <p>
-                                <i class="far fa-clock"></i> 2018-04-26 07:18:29.0</p>
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-link"></i>
-                                        <span>View</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-eye"></i>
-                                        <span>View</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-edit"></i>
-                                        <span>Edit</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/projects/delete/20">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="project">
-
-                        <div class="milestones">
-                            <span>15</span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__name">
-                                <a href="#">The new project?</a>
-                            </p>
-                            <p>
-                                <i class="far fa-clock"></i> 2018-04-26 07:18:59.0</p>
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-link"></i>
-                                        <span>View</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-eye"></i>
-                                        <span>View</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-edit"></i>
-                                        <span>Edit</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/projects/delete/21">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
+                <img src="img/MilestoneLogo.svg" alt="Milestone Logo">
             </div>
 
-            <footer>
+        </footer>
 
-
-
-                <div class="container">
-
-
-
-                    <ul>
-                        <li>
-                            <a href="#">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#">Projects</a>
-                        </li>
-                        <li>
-                            <a href="#">Manage Links</a>
-                        </li>
-                    </ul>
-
-                    <img src="img/MilestoneLogo.svg" alt="Milestone Logo">
-                </div>
-
-            </footer>
-
-        </div>
+    </div>
 
 </body>
 
