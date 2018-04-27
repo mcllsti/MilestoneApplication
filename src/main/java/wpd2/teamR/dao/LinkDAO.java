@@ -12,6 +12,8 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Adler32;
+import java.util.zip.Checksum;
 
 /**
  * LinkDAO Class - Retrieves all link data from DB
@@ -102,6 +104,33 @@ public class LinkDAO extends DAOBase {
     }
 
     /**
+     * Retrieve all links based on UserID
+     *
+     * @param email Email address of user
+     * @return List of links
+     * @throws SQLException
+     */
+    public List<Link> findAllByUserEmail(String email) throws SQLException {
+
+        final String query = "SELECT links.* FROM links JOIN projects ON links.projectID = projects.id WHERE projects.userID = (SELECT id FROM users WHERE email = ? LIMIT 1);";
+
+        try {
+
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            // PASS THROUGH THE id INTO THE PREPARED STATEMENT
+            ps.setString(1, email);
+
+            // RETRIEVE THE LINKS FROM THE DB
+            return this.retrieveLinks(ps);
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Retrieve all links from data base. TODO: Might not be required
      *
      * @return List of all links in DB
@@ -133,14 +162,17 @@ public class LinkDAO extends DAOBase {
      * @param projectId Id of project under which to save
      * @return true if successful
      */
-    public boolean save(Link link, int projectId) throws SQLException {
+    public boolean save(Link link, int projectId) {
 
-        String query = "INSERT INTO links (email, dateCreated, projectID) VALUES(?,NOW(),?)";
+        // GET HASH
+        String uriHash = this.generateUriHash(link);
+        String query = "INSERT INTO links (email, urlHash, dateCreated, projectID) VALUES(?,?,NOW(),?)";
 
         try (PreparedStatement ps = getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, link.getEmail());
-            ps.setInt(2, projectId);
+            ps.setString(2, uriHash);
+            ps.setInt(3, projectId);
 
             int count = ps.executeUpdate();
             LOG.debug("insert count = " + count);
@@ -259,7 +291,7 @@ public class LinkDAO extends DAOBase {
         while (rs.next()) {
             //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
             links.add(new Link(rs.getInt("id"), rs.getString("email")
-                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID")));
+                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID"),rs.getString("urlHash")));
         }
 
         return links;
@@ -282,10 +314,27 @@ public class LinkDAO extends DAOBase {
         while (rs.next()) {
             //ADD NEW PROJECT WITH CURRENT RESULTSET DETAILS
             link = new Link(rs.getInt("id"), rs.getString("email")
-                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID"));
+                    , rs.getTimestamp("dateCreated"), rs.getTimestamp("dateLastAccessed"), rs.getInt("projectID"),rs.getString("urlHash"));
         }
 
         return link;
+
+    }
+
+    /**
+     * Generate a short hash - like TinyURL or similar
+     * @param link
+     * @return
+     */
+    private String generateUriHash(Link link){
+
+        // Convert string to bytes
+        byte bytes[] = link.toString().getBytes();
+        Checksum checksum = new Adler32();
+        checksum.update(bytes, 0, bytes.length);
+        long lngChecksum = checksum.getValue();
+
+        return Long.toHexString(lngChecksum);
 
     }
 

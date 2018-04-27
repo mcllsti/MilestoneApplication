@@ -128,7 +128,7 @@ public class MilestoneDAO extends DAOBase {
                         )
                 );
             }
-            System.out.print(allMilestones); // Just put here to test SQL statement.
+
             return allMilestones;
 
 
