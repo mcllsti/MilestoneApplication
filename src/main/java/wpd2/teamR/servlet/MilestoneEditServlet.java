@@ -45,8 +45,6 @@ public class MilestoneEditServlet extends BaseServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(ProjectCreateServlet.class);
 
-    private final String LOGIN_TEMPLATE = "login.mustache";
-
     private MilestoneDAO milestones;
 
     public MilestoneEditServlet() {
@@ -68,13 +66,13 @@ public class MilestoneEditServlet extends BaseServlet {
 
         Milestone milestone = null;
 
-        //GETTING PROJECT TO BE DELETED
+
         milestone = milestones.getMilestoneByIdandUser(id, getCurrentUser(request));
 
-        // IF THE PROJECT EXISTS
+
         if (milestone != null) {
 
-            // SHOW THE EDIT FORM
+
             HashMap<String, Object> viewBag = new HashMap<String, Object>();
             FlashMessage message = SessionFunctions.getFlashMessage(request);
             viewBag.put("mode","Edit"); //MAY NEED DELETE DEPENDING ON APPROCH!!
@@ -98,7 +96,8 @@ public class MilestoneEditServlet extends BaseServlet {
 
         //GETTING ID FROM URL
         int milestoneID = Integer.parseInt(getUrlParamter(request.getRequestURI()));
-        int checkParameter = Integer.parseInt(request.getParameter("id-check"));
+        int checkParameter = Integer.parseInt(request.getParameter("id-check"));  //NEEDED?????
+
 
         // CHECK THE PARAMETER MATCHES WHAT WAS SUBMITTED
         if(milestoneID == checkParameter){
