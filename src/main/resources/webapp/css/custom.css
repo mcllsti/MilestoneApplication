@@ -467,6 +467,11 @@ h4 i {
   font-weight: bold;
   font-size:1.2em;
 }
+p.no-results {
+  font-size:1.3em;
+  text-align: center;
+  font-style: italic;
+}
 
 
 /* .milestone-list .milestone .header .menu ul {

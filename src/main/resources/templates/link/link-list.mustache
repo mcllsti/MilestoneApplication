@@ -6,10 +6,11 @@
 <p><a href="/links/create" class="button button-primary success"><i class="fas fa-link"></i> Create New Link</a></p>
 
 {{>../_partials/flash-message}}
+{{^links}}
+    <p class="no-results">There are currently no links. You can create a new one by clicking the link above.</p>
+{{/links}}
 
 <div class="link-list">
-
-    <p>Showing 3 of 3 Links</p>
 
     <!--THIS WILL BE LOOPED FOR EACH PROJECT IN LIST-->
     <!--TODO: NEEDS VARIABLES ADDED-->
@@ -35,7 +36,7 @@
             <ul>
                 <li><a href="#" class="copy-link" title="Copy Link"><i class="far fa-copy"></i><span>Copy Link</span></a></li>
                 <li><a href="#" title="Send Link"><i class="fas fa-envelope"></i><span>Link</span></a></li>
-                <li><a href="#" title="Delete Link"><i class="fas fa-trash-alt"></i><span>Delete</span></a></li>
+                <li><a href="/links/delete/{{id}}" title="Delete Link"><i class="fas fa-trash-alt"></i><span>Delete</span></a></li>
             </ul>
         </div>
 
