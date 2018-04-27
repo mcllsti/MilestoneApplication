@@ -68,7 +68,11 @@ public class ProjectListServlet extends BaseServlet {
             plist = projects.getProjectsbyUser(getCurrentUser(request));
 
             plist.forEach((v)->{
-                v.setMilestones(milestones.getAllMilestonesByProjectId(v.getId()));
+                try {
+                    v.setMilestones(milestones.getAllMilestonesByProjectId(v.getId()));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             });
 
         } catch (SQLException error) {

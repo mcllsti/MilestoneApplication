@@ -1,0 +1,39 @@
+{{>../_partials/site-header}}
+
+<link rel="stylesheet" href="/css/dateTimePicker/bootstrap/zebra_datepicker.min.css">
+
+<div class="six columns offset-by-three">
+
+    <h1>Create Milestone</h1>
+
+    <form id="create-milestone" method="post" action="/milestones/create">
+
+        {{>_partials/milestone-form}}
+
+    </form>
+
+
+
+</div>
+
+<script src="/js/zebra_datepicker.min.js"></script>
+{{>../_partials/jquery-validate}}
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // VALIDATE THE CREATE FORM
+        $("#create-milestone").validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                description: {
+                    required:true
+                }
+            }
+        });
+
+    });
+
+</script>
+{{>../_partials/site-footer}}
