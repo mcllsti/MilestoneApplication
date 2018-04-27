@@ -104,6 +104,33 @@ public class LinkDAO extends DAOBase {
     }
 
     /**
+     * Retrieve all links based on UserID
+     *
+     * @param email Email address of user
+     * @return List of links
+     * @throws SQLException
+     */
+    public List<Link> findAllByUserEmail(String email) throws SQLException {
+
+        final String query = "SELECT links.* FROM links JOIN projects ON links.projectID = projects.id WHERE projects.userID = (SELECT id FROM users WHERE email = ? LIMIT 1);";
+
+        try {
+
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            // PASS THROUGH THE id INTO THE PREPARED STATEMENT
+            ps.setString(1, email);
+
+            // RETRIEVE THE LINKS FROM THE DB
+            return this.retrieveLinks(ps);
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Retrieve all links from data base. TODO: Might not be required
      *
      * @return List of all links in DB
@@ -291,14 +318,17 @@ public class LinkDAO extends DAOBase {
 
     }
 
-    private String generateUriHash(String hashString){
+    private long generateUriHash(String hashString){
+
         String string = "Adler32 Checksum For Byte Array";
         // Convert string to bytes
         byte bytes[] = string.getBytes();
         Checksum checksum = new Adler32();
         checksum.update(bytes, 0, bytes.length);
         long lngChecksum = checksum.getValue();
-        System.out.println("Adler32 checksum for byte array :" + lngChecksum);
+
+        return lngChecksum;
+
     }
 
 
