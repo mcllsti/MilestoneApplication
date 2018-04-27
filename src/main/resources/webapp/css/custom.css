@@ -104,6 +104,13 @@ footer ul li a:hover {
   color:var(--blue);
 }
 
+h1 i,
+h2 i,
+h3 i,
+h4 i {
+  color:var(--blue);
+}
+
 /* PROJECT VIEW */
 /* .project-list {
   width:80%;

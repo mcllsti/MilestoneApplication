@@ -103,6 +103,27 @@ public class LinkDAO extends DAOBase {
         }
     }
 
+    public Link findByEmailAndHash(String email, String urlHash) throws SQLException {
+
+        final String query = "SELECT links.* FROM links WHERE email = ? AND urlHash = ? LIMIT 1;";
+
+        try {
+
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            // PASS THROUGH THE id INTO THE PREPARED STATEMENT
+            ps.setString(1, email);
+            ps.setString(2, urlHash);
+
+            // RETRIEVE THE LINKS FROM THE DB
+            return this.retrieveLink(ps);
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Retrieve all links based on UserID
      *

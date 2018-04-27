@@ -58,6 +58,9 @@ public class Runner {
         handler.addServlet(new ServletHolder(new LinkListServlet()), "/links");
         handler.addServlet(new ServletHolder(new LinkCreateServlet()), "/links/create");
 
+        // SHARED LINK ROUTES
+        handler.addServlet(new ServletHolder(new SharedLoginServlet()), "/shared/*");
+
         handler.addServlet(new ServletHolder(new PrivatePageServlet()), "/private");
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");

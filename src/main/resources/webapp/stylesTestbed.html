@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,27 +10,29 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-        crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+            crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        $(function () {
+        $(function(){
 
-            $('#new-project').click(function (e) {
+            $('#new-project').click(function(e){
                 e.preventDefault();
                 console.log('This worked');
                 $('.modal').fadeIn(100);
             });
 
             // CLOSE OPEN FLASH MESSAGE
-            $('.flash').find('.close').click(function (e) {
+            $('.flash').find('.close').click(function(e){
                 $(this).parent().slideUp('fast');
             });
 
             // FADE FLASH MESSAGE AFTER 5 SECS
             // $(".flash").delay(5000).slideUp("slow");
 
-            $('.modal .close').click(function (e) {
+            $('.modal .close').click(function(e){
                 $('.modal').fadeOut(100);
             });
 
@@ -39,482 +42,121 @@
 
 <body>
 
-    <div class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
+<div class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
 
-            <!-- The above form looks like this -->
-            <h2>Create New Project</h2>
-            <p>Please enter the details below</p>
-            <hr>
+        <!-- The above form looks like this -->
+        <h2>Create New Project</h2>
+        <p>Please enter the details below</p>
+        <hr>
 
 
-        </div>
     </div>
+</div>
 
-    <div class="application">
+<div class="application">
 
-        <nav>
+    <nav>
+
+        <div class="container">
+            <img src="/img/MilestoneLogo.svg" alt="Milestone Logo">
+            <ul>
+                <li>
+                    <a href="/">Dashboard</a>
+                </li>
+                <li>
+                    <a href="/projects">Projects</a>
+                </li>
+                <li>
+                    <a href="/links">Manage Links</a>
+                </li>
+                <li>
+                    <a href="/logout"><i class="far fa-signout-alt"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-body">
+        <div class="container content-box">
+
+            <div style="text-align:center">
+                <h1><i class="fas fa-link"></i> Shared Link Login</h1>
+                <p>Someone has shared their project timeline with you. To continue, please enter the email which you received this
+                    link on.</p>
+            </div>
+
+            <div class="flash blank">
+                <span class="close">&times;</span>
+                <p class="heading"><strong></strong></p>
+                <p class="message"></p>
+            </div>
+
+
+            <!-- {message&#61;FlashMessage(type&#61;blank, heading&#61;, message&#61;), hash&#61;654asd} -->
+
+            <div class="shared-login eight columns offset-by-two">
+                <form action="/login" method="post">
+
+
+                    
+                    <input type="email" class="u-full-width" name="email" value="" placeholder="john.smith@milestones.com" required>
+                    
+
+                    <button type="submit" ><i class="fas fa-sign-in-alt"></i>   Continue</button>
+
+                </form>
+            </div>
+
+
+            <script type="text/javascript"
+                    src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    // VALIDATE THE FORM - NOT WORRYING ABOUT AJAX WITH THIS YET
+                    // TODO: ADD AJAX CHECK TO SEE IF USERNAME EXISTS
+                    $("#login-form").validate({
+                        rules: {
+                            email: {
+                                required: true,
+                                email: true
+                            }
+                        }
+                    });
+
+                });
+            </script>
+        </div>
+
+        <footer>
+
+
 
             <div class="container">
-                <img src="/img/MilestoneLogo.svg" alt="Milestone Logo">
+
+
+
                 <ul>
                     <li>
-                        <a href="/">Dashboard</a>
+                        <a href="#">Dashboard</a>
                     </li>
                     <li>
-                        <a href="/projects">Projects</a>
+                        <a href="/project">Project</a>
                     </li>
                     <li>
-                        <a href="/links">Manage Links</a>
-                    </li>
-                    <li>
-                        <a href="/logout">
-                            <i class="far fa-signout-alt"></i> Logout</a>
+                        <a href="#">Manage Links</a>
                     </li>
                 </ul>
-            </div>
-        </nav>
 
-        <div class="main-body">
-            <div class="container content-box">
-
-
-                <h1>
-                    <i class="fas fa-link"></i> Shared Links</h1>
-                <p>Below are the current shared links</p>
-                <p>
-                    <a href="/links/create" class="button button-primary success">
-                        <i class="fas fa-link"></i> Create New Link</a>
-                </p>
-
-
-                <div class="link-list">
-
-                    <p>Showing 3 of 3 Links</p>
-
-                    <!--THIS WILL BE LOOPED FOR EACH PROJECT IN LIST-->
-                    <!--TODO: NEEDS VARIABLES ADDED-->
-                    <div class="link" data-id="81d129cb">
-
-                        <div class="link-icon">
-                            <span>
-                                <i class="fa fa-link"></i>
-                            </span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__email">laura@watson.com</p>
-                            <p class="details__project">Systems Programming</p>
-
-                            <!-- <div class="timestamps">
-                            <p><i class="far fa-clock"></i> Created </p>
-                            <p><i class="fas fa-pencil-alt"></i> Modified </p>
-                        </div> -->
-
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#" class="copy-link" title="Copy Link">
-                                        <i class="far fa-copy"></i>
-                                        <span>Copy Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Send Link">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Delete Link">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="link" data-id="4d7d2b5d">
-
-                        <div class="link-icon">
-                            <span>
-                                <i class="fa fa-link"></i>
-                            </span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__email">janet@homebrew.co.uk</p>
-                            <p class="details__project">Brave New Project</p>
-
-                            <!-- <div class="timestamps">
-                            <p><i class="far fa-clock"></i> Created </p>
-                            <p><i class="fas fa-pencil-alt"></i> Modified </p>
-                        </div> -->
-
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#" class="copy-link" title="Copy Link">
-                                        <i class="far fa-copy"></i>
-                                        <span>Copy Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Send Link">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Delete Link">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="link" data-id="b23d2586">
-
-                        <div class="link-icon">
-                            <span>
-                                <i class="fa fa-link"></i>
-                            </span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__email">chris</p>
-                            <p class="details__project">Systems Programming</p>
-
-                            <!-- <div class="timestamps">
-                            <p><i class="far fa-clock"></i> Created </p>
-                            <p><i class="fas fa-pencil-alt"></i> Modified </p>
-                        </div> -->
-
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#" class="copy-link" title="Copy Link">
-                                        <i class="far fa-copy"></i>
-                                        <span>Copy Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Send Link">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Delete Link">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="link" data-id="55592954">
-
-                        <div class="link-icon">
-                            <span>
-                                <i class="fa fa-link"></i>
-                            </span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__email">d.mcal@gmail.com</p>
-                            <p class="details__project">Web Design</p>
-
-                            <!-- <div class="timestamps">
-                            <p><i class="far fa-clock"></i> Created </p>
-                            <p><i class="fas fa-pencil-alt"></i> Modified </p>
-                        </div> -->
-
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#" class="copy-link" title="Copy Link">
-                                        <i class="far fa-copy"></i>
-                                        <span>Copy Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Send Link">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Delete Link">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="link" data-id="81d129cb">
-
-                        <div class="link-icon">
-                            <span>
-                                <i class="fa fa-link"></i>
-                            </span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__email">laura@watson.com</p>
-                            <p class="details__project">Systems Programming</p>
-
-                            <!-- <div class="timestamps">
-                            <p><i class="far fa-clock"></i> Created </p>
-                            <p><i class="fas fa-pencil-alt"></i> Modified </p>
-                        </div> -->
-
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#" class="copy-link" title="Copy Link">
-                                        <i class="far fa-copy"></i>
-                                        <span>Copy Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Send Link">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Delete Link">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="link" data-id="4d7d2b5d">
-
-                        <div class="link-icon">
-                            <span>
-                                <i class="fa fa-link"></i>
-                            </span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__email">janet@homebrew.co.uk</p>
-                            <p class="details__project">Brave New Project</p>
-
-                            <!-- <div class="timestamps">
-                            <p><i class="far fa-clock"></i> Created </p>
-                            <p><i class="fas fa-pencil-alt"></i> Modified </p>
-                        </div> -->
-
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#" class="copy-link" title="Copy Link">
-                                        <i class="far fa-copy"></i>
-                                        <span>Copy Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Send Link">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Delete Link">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="link" data-id="b23d2586">
-
-                        <div class="link-icon">
-                            <span>
-                                <i class="fa fa-link"></i>
-                            </span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__email">chris</p>
-                            <p class="details__project">Systems Programming</p>
-
-                            <!-- <div class="timestamps">
-                            <p><i class="far fa-clock"></i> Created </p>
-                            <p><i class="fas fa-pencil-alt"></i> Modified </p>
-                        </div> -->
-
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#" class="copy-link" title="Copy Link">
-                                        <i class="far fa-copy"></i>
-                                        <span>Copy Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Send Link">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Delete Link">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="link" data-id="55592954">
-
-                        <div class="link-icon">
-                            <span>
-                                <i class="fa fa-link"></i>
-                            </span>
-                        </div>
-
-                        <div class="details">
-                            <p class="details__email">d.mcal@gmail.com</p>
-                            <p class="details__project">Web Design</p>
-
-                            <!-- <div class="timestamps">
-                            <p><i class="far fa-clock"></i> Created </p>
-                            <p><i class="fas fa-pencil-alt"></i> Modified </p>
-                        </div> -->
-
-                        </div>
-
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a href="#" class="copy-link" title="Copy Link">
-                                        <i class="far fa-copy"></i>
-                                        <span>Copy Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Send Link">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>Link</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title="Delete Link">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-
-
-
-                </div>
-
+                <img src="img/MilestoneLogo.svg" alt="Milestone Logo">
             </div>
 
-            <footer>
+        </footer>
 
-
-
-                <div class="container">
-
-
-
-                    <ul>
-                        <li>
-                            <a href="#">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="/project">Project</a>
-                        </li>
-                        <li>
-                            <a href="#">Manage Links</a>
-                        </li>
-                    </ul>
-
-                    <img src="img/MilestoneLogo.svg" alt="Milestone Logo">
-                </div>
-
-            </footer>
-
-        </div>
+    </div>
 
 </body>
 
 </html>
-<script>
-    $(function () {
-
-        $(".copy-link").click(function (e) {
-            e.preventDefault();
-
-            var urlScheme = "http://localhost:9001/shared/";
-
-            // WIPE ANY EXISTING FLASH
-            $(document).find(".flash.success").not(".flash.blank").remove();
-
-
-            // CREATE A TEMP - PULL THE DATA-ID AND BUILD THE LINK
-            var $temp = $("<input>");
-            $(this).parent().append($temp);
-            $temp.val(urlScheme + $(this).closest(".link").data("id")).select();
-            document.execCommand("copy");
-            $temp.remove();
-
-            // CREATE THE FLASH OBJECT AND POPULATE
-            var templateString = '<div class="flash"><span class="close">&times;</span><p class="heading"><strong></strong></p><p class="message"></p></div>';
-            var flashObj = $($.parseHTML(templateString));
-            flashObj.addClass("success");
-            flashObj.css("display", "none");
-            flashObj.find(".heading strong").text(" Successfully Copied").prepend("<i class='far fa-copy'> ");
-            flashObj.find(".message").text("The link was successfully copied to your clipboard");
-
-            // WRITE TO DOM            
-            $(this).closest(".link-list").before(flashObj);
-
-            // DISPLAY IT - WAIT THEN HIDE
-            $(".flash").not(".flash.blank").slideDown().delay(3000).slideUp();
-
-            $('html, body').animate({
-                scrollTop: $(".flash.success").not(".flash.blank").offset().top - 100
-            }, 500);
-
-
-        })
-
-    });
-</script>
