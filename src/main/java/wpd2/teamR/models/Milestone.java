@@ -30,6 +30,16 @@ public class Milestone {
         this.dateCompleted = dateComplete;
     }
 
+    public Milestone(String name, String desc, Timestamp dateMod, Timestamp dateDue, Timestamp dateComplete, int projectID)
+    {
+        this.name = name;
+        this.description = desc;
+        this.dateModified = dateMod;
+        this.dueDate = dateDue;
+        this.dateCompleted = dateComplete;
+        this.projectID = projectID;
+    }
+
     public Milestone() {
 
     }

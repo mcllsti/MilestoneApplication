@@ -299,6 +299,7 @@ public class LinkDAO extends DAOBase {
         checksum.update(bytes, 0, bytes.length);
         long lngChecksum = checksum.getValue();
         System.out.println("Adler32 checksum for byte array :" + lngChecksum);
+        return null;
     }
 
 

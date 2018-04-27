@@ -3,13 +3,7 @@
     <h1>Create Milestone</h1>
     <form id="create-milestone" method="post" action="/milestones/create">
 
-        <label for="name">Milestone Name</label>
-        <input class="u-full-width" type="text" id="name" placeholder="Enter Milestone name" name="name" required>
-
-        <label for="description">Milestone Description</label>
-        <textarea class="u-full-width" placeholder="Please enter your project description" id="description" name="description" required></textarea>
-
-        <input class="button-primary success" type="submit" value="Create Milestone">
+        {{>_partials/milestone-form}}
 
     </form>
 </div>

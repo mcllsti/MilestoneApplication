@@ -43,7 +43,11 @@ public class MilestoneListServlet extends BaseServlet {
 
         List<Milestone> milestoneList = new ArrayList<>();
 //        try {
+        try {
             milestoneList = milestones.getAllMilestonesByProjectId(projectID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 //        }
 //        catch (SQLException error){}
 
