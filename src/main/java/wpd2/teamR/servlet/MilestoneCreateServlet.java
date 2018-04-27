@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -55,15 +58,14 @@ public class MilestoneCreateServlet extends BaseServlet {
 
         // BUILD THE NEW MILESTONE - TODO: SERVER SIDE VALIDATION - jQuery / html catching for now.
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm");
 
-
-
+        Instant instant = Instant.parse( request.getParameter("dueDate") );
+        Timestamp timestamp = Timestamp.from(instant);
 
         Milestone m = new Milestone();
         m.setName(request.getParameter("name"));
         m.setDescription(request.getParameter("description"));
-        m.setDueDate(new Timestamp(LocalDateTime.parse(request.getParameter("dueDate")).getLong())); //TODO: FIX THIS SHIT!!!
+        //m.setDueDate(new Timestamp(LocalDateTime.parse(request.getParameter("dueDate"))); //TODO: FIX THIS SHIT!!!
         m.setProjectID(Integer.parseInt(request.getParameter("projectID")));
 
         // IF IT WAS SUCCESSFULLY CREATED
