@@ -9,6 +9,7 @@ public class Link {
 
     private int id;
     private String email;
+    private String urlHash;
     private Timestamp dateCreated;
     private Timestamp dateLastAccessed;
     private int projectID; // DON'T KNOW IF WE NEED THIS? PROJECT BELOW MIGHT BE FINE
