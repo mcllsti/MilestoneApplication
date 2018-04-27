@@ -384,6 +384,29 @@ footer ul li a:hover {
 .milestone-list .milestone .menu ul li:nth-child(1) a {background:var(--green);}
 .milestone-list .milestone .menu ul li:nth-child(2) a {background:var(--red);}
 
+.timestamps {
+  position: relative;
+  transition: 0.25s;
+}
+.timestamps p {
+  position: absolute;
+  transition: 0.25s;
+}
+.timestamps p:nth-child(2) {
+  opacity: 0;
+  transform: translateX(50px);
+}
+.timestamps:hover {
+  background: #ccc;
+}
+.timestamps:hover p:nth-child(2) {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.timestamps:hover p:nth-child(1) {
+  opacity: 0;
+}
+
 /* .milestone-list .milestone .header .menu ul {
 list-style:none;
 }
