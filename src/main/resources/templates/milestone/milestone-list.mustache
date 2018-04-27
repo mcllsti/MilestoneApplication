@@ -5,7 +5,9 @@
 <p>Below are the current milestones</p>
 <p><a href="/milestones/create" class="button button-primary success"><i class="fas fa-calendar-plus"></i> New Milestone</a></p>
 
-
+{{^milestones}}
+    <p class="no-results">There are currently no milestones. You can create a new one by clicking the link above.</p>
+{{/milestones}}
 <div class="milestone-list">
 
 {{#milestones}}

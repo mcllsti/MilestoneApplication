@@ -103,6 +103,27 @@ public class LinkDAO extends DAOBase {
         }
     }
 
+    public Link findByUserAndId(String email, int linkId) throws SQLException {
+
+        final String query = "SELECT links.* FROM links JOIN projects on links.projectID = projects.id JOIN users ON projects.userID = users.id WHERE users.email = ? AND links.id = ?;";
+
+        try {
+
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            // PASS THROUGH THE id INTO THE PREPARED STATEMENT
+            ps.setString(1, email);
+            ps.setInt(2, linkId);
+
+            // RETRIEVE THE LINKS FROM THE DB
+            return this.retrieveLink(ps);
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Link findByEmailAndHash(String email, String urlHash) throws SQLException {
 
         final String query = "SELECT links.* FROM links WHERE email = ? AND urlHash = ? LIMIT 1;";
@@ -236,6 +257,37 @@ public class LinkDAO extends DAOBase {
 
             //PASS ID TO PREPARED STATEMENT
             ps.setInt(1, link.getId());
+
+            int count = ps.executeUpdate();
+            LOG.debug("insert count = " + count);
+
+            //RETURBNS TRUE OR FALSE DEPENDING ON COUNT RESULT
+            if (count == 1) {
+
+                return true;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (SQLException error) {
+            LOG.debug(error.toString());
+            return false;
+        }
+
+    }
+
+    public boolean deleteByIdAndUser(int linkId, String userEmail) {
+
+        String query = "DELETE FROM links WHERE id = (SELECT links.id FROM links JOIN projects on links.projectID = projects.id JOIN users ON projects.userID = users.id WHERE users.email = ? AND links.id = ? LIMIT 1) LIMIT 1";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+
+            //PASS ID TO PREPARED STATEMENT
+            ps.setString(1, userEmail);
+            ps.setInt(2, linkId);
 
             int count = ps.executeUpdate();
             LOG.debug("insert count = " + count);

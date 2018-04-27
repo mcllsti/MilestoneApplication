@@ -13,6 +13,9 @@
 
     <!--THIS WILL BE LOOPED FOR EACH PROJECT IN LIST-->
     <!--TODO: NEEDS VARIABLES ADDED-->
+    {{^projects}}
+        <p class="no-results">There are currently no projects. You can create a new one by clicking the link above.</p>
+    {{/projects}}
     {{#projects}}
     <div class="project">
 

@@ -1,20 +1,3 @@
-// Copyright (c) 2018 Cilogi. All Rights Reserved.
-//
-// File:        LoginServlet.java
-//
-// Copyright in the whole and every part of this source file belongs to
-// Cilogi (the Author) and may not be used, sold, licenced, 
-// transferred, copied or reproduced in whole or in part in 
-// any manner or form or in or on any media to any person other than 
-// in accordance with the terms of The Author's agreement
-// or otherwise without the prior written consent of The Author.  All
-// information contained in this source file is confidential information
-// belonging to The Author and as such may not be disclosed other
-// than in accordance with the terms of The Author's agreement, or
-// otherwise, without the prior written consent of The Author.  As
-// confidential information this source file must be kept fully and
-// effectively secure at all times.
-//
 
 
 package wpd2.teamR.servlet;
@@ -79,6 +62,7 @@ public class ProjectDeleteServlet extends BaseServlet {
 
             FlashMessage message = SessionFunctions.getFlashMessage(request);
             viewBag.put("project", projectToDelete);
+            viewBag.put("message",message);
 
             showView(response, "project/project-delete.mustache", viewBag);
         } else {
@@ -97,6 +81,17 @@ public class ProjectDeleteServlet extends BaseServlet {
 
         //GETTING ID FROM URL
         int parameter = Integer.parseInt(getUrlParamter(request.getRequestURI()));
+
+        String typedEmail = request.getParameter("email");
+        String email = getCurrentUser(request);
+
+        if(!email.equals(typedEmail)){
+
+            SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.ERROR,"No match","The email wasn't correct. Please try again."));
+            response.sendRedirect("/projects/delete/"+parameter);
+            return;
+
+        }
 
         //CHECKS IF DELETED OR NOT AND RETURNS CORRECT RESPONSE
         if (projects.deleteProjectById(parameter)) {
