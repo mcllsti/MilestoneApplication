@@ -1,8 +1,8 @@
 
 <label for="name">Milestone Name</label>
-<input class="u-full-width" type="text" id="name" placeholder="Enter Milestone name" name="name" required>
+<input class="u-full-width" type="text" id="name" placeholder="Enter Milestone name" name="name" value="{{milestone.name}}" required>
 
 <label for="description">Milestone Description</label>
-<textarea class="u-full-width" placeholder="Please enter your project description" id="description" name="description" required></textarea>
+<textarea class="u-full-width" placeholder="Please enter your project description" id="description" name="description" required>{{milestone.description}}</textarea>
 
 <input class="button-primary success" type="submit" value="Create Milestone">
