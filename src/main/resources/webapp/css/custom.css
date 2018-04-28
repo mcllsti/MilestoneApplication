@@ -217,7 +217,7 @@ h4 i {
 }
 .menu ul li:nth-child(1) a {  background: var(--gray);}
 .menu ul li:nth-child(2) a {  background: var(--green);}
-.menu ul li:nth-child(4) a {  background: var(--red);}
+.menu ul li:nth-child(3) a {  background: var(--red);}
 .menu ul li a i {
   width:40px;
   height:40px;
@@ -388,8 +388,8 @@ h4 i {
 .milestone-list .milestone .header .details {
   flex-grow: 1;
 }
-.milestone-list .milestone .menu ul li:nth-child(1) a {background:var(--green);}
-.milestone-list .milestone .menu ul li:nth-child(2) a {background:var(--red);}
+.milestone-list .milestone .menu ul li:nth-child(2) a {background:var(--green);}
+.milestone-list .milestone .menu ul li:nth-child(3) a {background:var(--red);}
 
 .timestamps {
   position: relative;
@@ -473,7 +473,10 @@ p.no-results {
   font-style: italic;
 }
 
-
+.header-button-row {
+  display:flex;
+  justify-content: space-between;
+}
 /* .milestone-list .milestone .header .menu ul {
 list-style:none;
 }
