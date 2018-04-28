@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.servlet.*;
 
+import java.util.TimeZone;
+
 public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
@@ -77,6 +79,9 @@ public class Runner {
     }
 
     public static void main(String[] args) {
+
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
+
         try {
 
             // START THE SERVER ABOVE
