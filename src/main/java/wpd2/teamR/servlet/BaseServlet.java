@@ -147,12 +147,28 @@ import java.util.Set;
     }
 
     protected int getCurrentProject(HttpServletRequest request) {
+
     HttpSession session = request.getSession(false);
+
         if (session == null) {
             return -1;
+        } else {
+
+            // TRY AND FETCH THE PROJECT ID - IF NOT SET - RETURN FALSE
+            try {
+
+                int val = (int) session.getAttribute("projectId");
+                return val;
+
+            } catch(NullPointerException error){
+
+                return -1;
+
+            }
+
+
         }
-        int val = (int) session.getAttribute("projectId");
-            return val == 0 ? -1 : val;
+
         }
 
     protected String getUrlParamter(String url)
