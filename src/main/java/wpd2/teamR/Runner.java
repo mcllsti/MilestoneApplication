@@ -81,6 +81,7 @@ public class Runner {
     public static void main(String[] args) {
 
         TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
+        System.out.println(System.currentTimeMillis());
 
         try {
 
