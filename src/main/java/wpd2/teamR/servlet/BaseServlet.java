@@ -91,14 +91,6 @@ import java.util.Set;
         }
         return true;
 
-
-        // TODO: remove this shiznit but keeping for reference
-//        if (PROTECTED_PAGES.contains(uri) && "".equals(userName)) {
-//            UserFuncs.setLoginRedirect(request);
-//            response.sendRedirect(response.encodeRedirectURL(LOGIN_PAGE));
-//            return false;
-//        }
-//        return true;
     }
 
     /**
@@ -147,12 +139,28 @@ import java.util.Set;
     }
 
     protected int getCurrentProject(HttpServletRequest request) {
+
     HttpSession session = request.getSession(false);
+
         if (session == null) {
             return -1;
+        } else {
+
+            // TRY AND FETCH THE PROJECT ID - IF NOT SET - RETURN FALSE
+            try {
+
+                int val = (int) session.getAttribute("projectId");
+                return val;
+
+            } catch(NullPointerException error){
+
+                return -1;
+
+            }
+
+
         }
-        int val = (int) session.getAttribute("projectId");
-            return val == 0 ? -1 : val;
+
         }
 
     protected String getUrlParamter(String url)

@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -77,6 +78,7 @@ public class MilestoneCreateServlet extends BaseServlet {
         m.setDescription(request.getParameter("description"));
         m.setDueDate(new Timestamp(date.getTime())); //TODO: FIX THIS SHIT!!!
         m.setProjectID(projectId);
+
 
         // IF IT WAS SUCCESSFULLY CREATED
         if (milestones.createMilestone(m, m.getProjectID())) {
