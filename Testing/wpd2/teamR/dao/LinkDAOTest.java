@@ -57,7 +57,7 @@ public class LinkDAOTest {
     public void findAll() throws SQLException{
         LinkDAO testingDAO = new LinkDAO();
         List<Link> links =  testingDAO.findAll();
-        assertEquals(links.size(), 7);
+        assertFalse(links.isEmpty()), 7);
     }
 
 
