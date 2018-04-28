@@ -32,6 +32,6 @@ public class LogoutServlet extends BaseServlet {
         }
 
 //        clearCurrentUser(request);
-        response.sendRedirect(response.encodeRedirectURL(UserFuncs.DEFAULT_LOGIN_REDIRECT));
+        response.sendRedirect(response.encodeRedirectURL("/login"));
     }
 }

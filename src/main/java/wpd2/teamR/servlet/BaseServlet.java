@@ -91,14 +91,6 @@ import java.util.Set;
         }
         return true;
 
-
-        // TODO: remove this shiznit but keeping for reference
-//        if (PROTECTED_PAGES.contains(uri) && "".equals(userName)) {
-//            UserFuncs.setLoginRedirect(request);
-//            response.sendRedirect(response.encodeRedirectURL(LOGIN_PAGE));
-//            return false;
-//        }
-//        return true;
     }
 
     /**
