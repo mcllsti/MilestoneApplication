@@ -7,6 +7,7 @@ import wpd2.teamR.models.Milestone;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -23,17 +24,42 @@ public class MilestoneDAOTest {
     @Test
     public void createMilestone() throws SQLException {
 
-
         MilestoneDAO milestones = new MilestoneDAO();
-        Milestone insetM = new Milestone("Test","Test",new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),6);
-        assertTrue(milestones.createMilestone(insetM,6));
+        Milestone insetM = new Milestone("Test", "Test", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 6);
+        assertTrue(milestones.createMilestone(insetM, 6));
+    }
+
+
+    @Test
+    public void getMilestonesById() throws SQLException {
+        MilestoneDAO milestones = new MilestoneDAO();
+        Milestone milestone = milestones.getMilestonesById(4);
+        assertFalse(milestone == null);
+
     }
 
     @Test
-    public void deleteMilestoneById() {
+    public void getMilestoneByIdandUser() {
+        MilestoneDAO milestones = new MilestoneDAO();
+        Milestone milestone = milestones.getMilestoneByIdandUser(4, "chris@chrisconnor.co.uk");
+        assertFalse(milestone == null);
     }
 
     @Test
-    public void updateMilestone() {
+    public void getAllMilestonesByProjectAndUser() throws SQLException {
+        MilestoneDAO milestones = new MilestoneDAO();
+        List<Milestone> milestone = milestones.getAllMilestonesByProjectAndUser(2, "chris@chrisconnor.co.uk");
+        assertFalse(milestone == null);
+    }
+
+
+    @Test
+    public void getAllMilestonesByProjectId() throws SQLException {
+        MilestoneDAO milestones = new MilestoneDAO();
+        List<Milestone> milestone = milestones.getAllMilestonesByProjectId(2);
+        assertFalse(milestone.isEmpty());
     }
 }
+
+
+

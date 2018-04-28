@@ -62,7 +62,7 @@ public class LinkDAOTest {
         List<Link> links =  testingDAO.findAll();
         assertFalse(links.isEmpty());
     }
-    
+
 
     @Test
     public void deleteByEmail() {
