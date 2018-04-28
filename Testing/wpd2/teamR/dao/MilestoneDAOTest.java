@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import wpd2.teamR.models.Milestone;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class MilestoneDAOTest {
     }
 
     @Test
-    public void createMilestone() {
+    public void createMilestone() throws SQLException {
 
 
         MilestoneDAO milestones = new MilestoneDAO();

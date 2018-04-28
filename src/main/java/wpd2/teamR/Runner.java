@@ -40,6 +40,8 @@ public class Runner {
         DefaultServlet ds = new DefaultServlet();
         handler.addServlet(new ServletHolder(ds), "/");
 
+        // MAKING PROJECT LIST THE ROUTE - BUT WILL REDIRECT TO LOGIN OTHERWISE
+//        handler.addServlet(new ServletHolder(new ProjectListServlet()), "/");
 
         // PROJECT ROUTES
         handler.addServlet(new ServletHolder(new ProjectListServlet()), "/projects");
