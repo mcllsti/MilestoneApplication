@@ -12,6 +12,11 @@
 {{^milestones}}
     <p class="no-results">There are currently no milestones. You can create a new one by clicking the link above.</p>
 {{/milestones}}
+
+
+    <button class="toggle-milestones"><span>Hide</span> Completed Milestones</button>
+
+
 <div class="milestone-list">
 
     {{#milestones}}
@@ -67,6 +72,15 @@
 
 <script>
     $(function () {
+
+        $(".toggle-milestones").click(function(e){
+            $(".milestone-complete").fadeToggle('fast');
+            if($(this).find("span").text()==="Hide") {
+                $(this).find("span").text("Show");
+            } else {
+                $(this).find("span").text("Hide");
+            }
+        });
 
         $(".complete-milestone-button").click(function (e) {
 
