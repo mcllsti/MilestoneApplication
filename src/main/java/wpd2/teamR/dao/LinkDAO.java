@@ -318,7 +318,7 @@ public class LinkDAO extends DAOBase {
      */
     public boolean deleteByEmail(String email) {
 
-        String query = "DELETE FROM links WHERE email = ? LIMIT 1";
+        String query = "DELETE FROM links WHERE email = ?  LIMIT 1";
 
         try (PreparedStatement ps = getConnection().prepareStatement(query)) {
 

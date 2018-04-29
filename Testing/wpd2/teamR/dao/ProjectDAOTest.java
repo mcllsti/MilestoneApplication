@@ -35,7 +35,6 @@ public class ProjectDAOTest {
         ps.setString(1, "Test");
 
         ps.executeUpdate();
-
     }
 
     @Test

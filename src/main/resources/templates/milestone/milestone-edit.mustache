@@ -1,6 +1,6 @@
 {{>../_partials/site-header}}
 
-<link rel="stylesheet" href="/css/dateTimePicker/default/zebra_datepicker.min.css">
+<link rel="stylesheet" href="/css/dateTimePicker/bootstrap/zebra_datepicker.min.css">
 <div class="six columns offset-by-three">
     <h1><i class="far fa-edit"></i> Edit Milestone</h1>
     <form id="edit-milestone" method="post">
@@ -11,6 +11,7 @@
     </form>
 </div>
 
+<script src="/js/zebra_datepicker.min.js"></script>
 {{>../_partials/jquery-validate}}
 <script type="text/javascript">
     $(document).ready(function() {
@@ -25,6 +26,7 @@
                 }
             }
         });
+
 
     });
 

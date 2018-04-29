@@ -63,20 +63,13 @@ public class MilestoneCreateServlet extends BaseServlet {
 
         int projectId = getCurrentProject(request);
 
-        String datetimeString =  request.getParameter("dueDate");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        Date date = null;
-        try {
-            date = sdf.parse(datetimeString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        Date date = convertDate(request);
 
         Milestone m = new Milestone();
+
         m.setName(request.getParameter("name"));
         m.setDescription(request.getParameter("description"));
-        m.setDueDate(new Timestamp(date.getTime())); //TODO: FIX THIS SHIT!!!
+        m.setDueDate(new Timestamp(date.getTime()));
         m.setProjectID(projectId);
 
 
@@ -93,8 +86,23 @@ public class MilestoneCreateServlet extends BaseServlet {
             // SOMETHING WENT WRONG - SEND THEM BACK TO FORM WITH ERROR
             SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR, "Uh oh...", "Sorry, something went wrong"));
             response.sendRedirect("/milestones/create");
+            return;
         }
 
+    }
+
+    private Date convertDate(HttpServletRequest request)
+    {
+        String datetimeString =  request.getParameter("dueDate");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date date = null;
+        try {
+            date = sdf.parse(datetimeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
     }
 
 
