@@ -144,6 +144,42 @@ public class MilestoneEditServlet extends BaseServlet {
 
     }
 
+    @Override
+    /**
+     * Response to the AJAX PUT request
+     */
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // CHECK IF USER IS LOGGED IN - IF NOT BOUNCE TO LOGIN
+        if (!authOK(request, response)) {
+            return;
+        }
+
+        // GET THE PROJECT FROM SESSION
+        int projectID = getCurrentProject(request);
+        int milestoneID = Integer.parseInt(request.getParameter("milestone"));
+        String action = request.getParameter("action");
+
+        System.out.println("THIS SHOULD BE DOING A" + action);
+
+        // EITHER UPDATE THE COMPLETE DATE - OR REVERT IT
+        if(action.equals("complete")){
+
+            // MARK AS COMPLETE
+            if(milestones.markAsComplete(milestoneID,projectID)){
+                System.out.println("THIS WAS COMPLETED");
+            }
+
+        } else if(action.equals("revert")){
+
+            // MARK AS INCOMPLETE
+            if(milestones.markAsIncomplete(milestoneID,projectID)){
+                System.out.println("THIS WAS REVERTED");
+            }
+        }
+
+    }
+
 
     private void returnNotFound(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR, "Project Could Not Be Found", "The project was not found, please refresh system!"));
