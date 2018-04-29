@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Current Database: `milestones`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `milestones` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `milestones`;
+
+--
 -- Table structure for table `links`
 --
 
@@ -148,4 +156,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-29 22:59:20
+-- Dump completed on 2018-04-29 23:02:46
