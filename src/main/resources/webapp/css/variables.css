@@ -10,3 +10,7 @@
     --flash-success:#E3EDD9;
     --flash-info:#DDEDF6;
   }
+
+.bg-red {
+    background: var(--red)!important;
+}
