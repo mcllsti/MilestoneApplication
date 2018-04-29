@@ -192,7 +192,7 @@ public class MilestoneDAO extends DAOBase {
 
     public List<Milestone> getAllMilestonesByProjectId(int id) throws SQLException{
 
-        final String GET_MILESTONES = "SELECT * FROM milestones WHERE projectID = ?";
+        final String GET_MILESTONES = "SELECT * FROM milestones WHERE projectID = ? ORDER BY dueDate ASC";
 
         try (PreparedStatement ps = connection.prepareStatement(GET_MILESTONES)) {
 
