@@ -22,11 +22,11 @@
     <div class="project">
 
         <div class="modal-template" style="display:none;">
-            <h1>{{name}}</h1>
-            <p>There are {{milestones.size}}</p>
-            <p>{{description}}</p>
-            <p>Created on {{dateCreated}}</p>
-            <p>Last Modified on {{dateModified}}</p>
+            <h1><i class="fas fa-th-list"></i> {{name}}</h1>
+            <p><strong><i class="fas fa-database"></i> Current Milestones</strong><br>There are currently <strong>{{milestones.size}}</strong> Milestones</p>
+            <p class="description"><strong><i class="far fa-comments"></i> Description</strong><br>{{description}}</p>
+            <p><strong><i class="far fa-calendar-alt"></i> Created On</strong><br> {{dateCreated}}</p>
+            <p><strong><i class="far fa-calendar-alt"></i> Modified On</strong><br>{{dateModified}}</p>
         </div>
 
         <div class="milestones">

@@ -1,8 +1,4 @@
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,10 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/styles.css">
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(function(){
@@ -40,20 +33,19 @@
     </script>
 </head>
 
-<body>
-
-<div class="modal">
+<body class="vsc-initialized">
+    <div class="modal" style="display: block;">
     <div class="modal-content">
-        <span class="close">&times;</span>
-
-        <!-- The above form looks like this -->
-        <h2>Create New Project</h2>
-        <p>Please enter the details below</p>
-        <hr>
-
-
+    <span class="close">×</span>
+    <div class="modal-body">
+    <h1><i class="fas fa-th-list"></i> Milestone Name</h1>
+    <p><strong>Current Milestones</strong><br>There are currently <strong>0</strong> Milestones</p>
+    <p class="description"><strong>Description</strong><br>sadoiasd asoufsadf dsids voiruvoaduvio dvruv oirvu sv vsoisdvuy sdv sdoivsdyv s vsoidsvysd vsoidsyv sdoi v</p>
+    <p><strong>Created On</strong><br>2018-04-29 13:55:36.0</p>
+    <p><strong>Modified On</strong><br>2018-04-29 13:55:36.0</p>
     </div>
-</div>
+    </div>
+    </div>
 
 <div class="application">
 
@@ -72,7 +64,7 @@
                     <a href="/links">Manage Links</a>
                 </li>
                 <li>
-                    <a href="/logout"><i class="far fa-signout-alt"></i> Logout</a>
+                    <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </li>
             </ul>
         </div>
@@ -81,53 +73,140 @@
     <div class="main-body">
         <div class="container content-box">
 
-            <div style="text-align:center">
-                <h1><i class="fas fa-link"></i> Shared Link Login</h1>
-                <p>Someone has shared their project timeline with you. To continue, please enter the email which you received this
-                    link on.</p>
-            </div>
+
+            <h1><i class="fas fa-th-list"></i> Projects</h1>
+            <p>Below are the current projects</p>
+            <p><a href="/projects/create" class="button button-primary success"><i class="fas fa-calendar-plus"></i> Add New Project</a></p>
 
             <div class="flash blank">
-                <span class="close">&times;</span>
+                <span class="close">×</span>
                 <p class="heading"><strong></strong></p>
                 <p class="message"></p>
             </div>
 
 
-            <!-- {message&#61;FlashMessage(type&#61;blank, heading&#61;, message&#61;), hash&#61;654asd} -->
-
-            <div class="shared-login eight columns offset-by-two">
-                <form action="/login" method="post">
 
 
-                    
-                    <input type="email" class="u-full-width" name="email" value="" placeholder="john.smith@milestones.com" required>
-                    
+            <div class="project-list">
 
-                    <button type="submit" ><i class="fas fa-sign-in-alt"></i>   Continue</button>
+                <p>Showing 2 of 2 Projects</p>
 
-                </form>
+                <!--THIS WILL BE LOOPED FOR EACH PROJECT IN LIST-->
+                <!--TODO: NEEDS VARIABLES ADDED-->
+                <div class="project">
+
+                    <div class="modal-template" style="display:none;">
+                        <h1>New One</h1>
+                        <p>There are 0</p>
+                        <p>Test things</p>
+                        <p>Created on 2018-04-29 13:55:36.0</p>
+                        <p>Last Modified on 2018-04-29 13:55:36.0</p>
+                    </div>
+
+                    <div class="milestones">
+                        <span>0</span>
+                    </div>
+
+                    <div class="details">
+                        <p class="details__name"><a href="milestones/project/13">New One</a></p>
+
+                        <div class="timestamps">
+                            <p><i class="far fa-clock"></i> Created 2018-04-29 13:55:36.0</p>
+                            <p><i class="fas fa-pencil-alt"></i> Modified 2018-04-29 13:55:36.0</p>
+                        </div>
+
+                    </div>
+
+                    <div class="menu">
+                        <ul>
+                            <!--<li><a href="#"><i class="fas fa-link"></i><span>Link</span></a></li>-->
+                            <li><a href="#" class="modal-button" title="View More Info"><i class="fas fa-eye"></i><span>View</span></a></li>
+                            <li><a href="/projects/edit/13" title="Edit Project"><i class="fas fa-edit"></i><span>Edit</span></a></li>
+                            <li><a href="/projects/delete/13" title="Delete Project"><i class="fas fa-trash-alt"></i><span>Delete</span></a></li>
+                            <li><a href="/milestones/project/13" title="Manage Project"><i class="fas fa-cog"></i><span>Manage</span></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="project">
+
+                    <div class="modal-template" style="display:none;">
+                        <h1>Web Platform Development</h1>
+                        <p>There are 1</p>
+                        <p>Testing</p>
+                        <p>Created on 2018-04-29 11:48:58.0</p>
+                        <p>Last Modified on 2018-04-29 11:48:58.0</p>
+                    </div>
+
+                    <div class="milestones">
+                        <span>1</span>
+                    </div>
+
+                    <div class="details">
+                        <p class="details__name"><a href="milestones/project/11">Web Platform Development</a></p>
+
+                        <div class="timestamps">
+                            <p><i class="far fa-clock"></i> Created 2018-04-29 11:48:58.0</p>
+                            <p><i class="fas fa-pencil-alt"></i> Modified 2018-04-29 11:48:58.0</p>
+                        </div>
+
+                    </div>
+
+                    <div class="menu">
+                        <ul>
+                            <!--<li><a href="#"><i class="fas fa-link"></i><span>Link</span></a></li>-->
+                            <li><a href="#" class="modal-button" title="View More Info"><i class="fas fa-eye"></i><span>View</span></a></li>
+                            <li><a href="/projects/edit/11" title="Edit Project"><i class="fas fa-edit"></i><span>Edit</span></a></li>
+                            <li><a href="/projects/delete/11" title="Delete Project"><i class="fas fa-trash-alt"></i><span>Delete</span></a></li>
+                            <li><a href="/milestones/project/11" title="Manage Project"><i class="fas fa-cog"></i><span>Manage</span></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
             </div>
 
+            <script>
+                $(function(){
 
-            <script type="text/javascript"
-                    src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
-            <script type="text/javascript">
-                $(document).ready(function () {
+                    var modalStructure = "<div class=\"modal\"><div class=\"modal-content\"><span class=\"close\">&times;</span><div class=\"modal-body\"></div></div></div>";
 
-                    // VALIDATE THE FORM - NOT WORRYING ABOUT AJAX WITH THIS YET
-                    // TODO: ADD AJAX CHECK TO SEE IF USERNAME EXISTS
-                    $("#login-form").validate({
-                        rules: {
-                            email: {
-                                required: true,
-                                email: true
-                            }
-                        }
+                    $(".modal-button").click(function(e){
+
+                        e.preventDefault();
+
+                        var modalObject = $($.parseHTML(modalStructure));
+                        var modalBody = modalObject.find('.modal-body');
+                        var modalTemplate = $(this).closest(".project").find('.modal-template').children().clone();
+                        console.log(modalTemplate);
+                        modalBody.append(modalTemplate);
+
+
+
+                        modalObject.prependTo("body").fadeIn(function(){
+
+                            $(this).find('.close').click(function(e){
+
+                                $(document).find('.modal').fadeOut("fast",function(e){
+                                    $(this).remove();
+                                })
+
+                            })
+
+                        });
+
+
+
+
                     });
+
+
 
                 });
             </script>
+
+
+
         </div>
 
         <footer>
@@ -143,20 +222,21 @@
                         <a href="#">Dashboard</a>
                     </li>
                     <li>
-                        <a href="/project">Project</a>
+                        <a href="/projects">Project</a>
                     </li>
                     <li>
-                        <a href="#">Manage Links</a>
+                        <a href="/links">Manage Links</a>
                     </li>
                 </ul>
 
-                <img src="img/MilestoneLogo.svg" alt="Milestone Logo">
+                <img src="/img/MilestoneLogo.svg" alt="Milestone Logo">
             </div>
 
         </footer>
 
     </div>
 
-</body>
 
-</html>
+
+
+</div></body></html>

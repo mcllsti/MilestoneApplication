@@ -263,6 +263,14 @@ h4 i {
   cursor: pointer;
 }
 
+.modal-body {
+  text-align: center;
+}
+.modal-body p.description {
+  width:50%;
+  margin:0 auto 1em auto;
+}
+
 /* MILESTONE LIST */
 
 .milestone-complete {
