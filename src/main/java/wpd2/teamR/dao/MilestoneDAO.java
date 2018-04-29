@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class MilestoneDAO extends DAOBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserDAO.class);
@@ -314,6 +316,60 @@ public class MilestoneDAO extends DAOBase {
             return false;
         }
 
+    }
+
+
+    /**
+     * Mark the milestone as complete
+     * @param milestoneId The milestone to mark
+     * @param projectId The project id of the milestone
+     * @return true if successful
+     */
+    public boolean markAsComplete(int milestoneId, int projectId) {
+
+        String query = "UPDATE milestones SET dateCompleted = NOW() WHERE id = ? AND projectID = ?; ";
+
+        return this.toggleUpdate(query, milestoneId,projectId);
+
+
+    }
+
+    /**
+     * Mark the milestone as incomplete
+     * @param milestoneId The milestone id
+     * @param projectId The project id
+     * @return true if successful
+     */
+    public boolean markAsIncomplete(int milestoneId, int projectId) {
+
+        String query = "UPDATE milestones SET dateCompleted = NULL WHERE id = ? AND projectID = ?; ";
+
+        return this.toggleUpdate(query, milestoneId,projectId);
+
+    }
+
+    /**
+     * Execute the update query depending on the query
+     * @param statement The query to execute
+     * @param milestoneId Milestone ID
+     * @param projectId The project ID
+     * @return True if success
+     */
+    private boolean toggleUpdate(String statement, int milestoneId, int projectId){
+        try (PreparedStatement ps = getConnection().prepareStatement(statement)) {
+
+            //PASS VARIABLES TO PREPARED STATEMENT
+            ps.setInt(1, milestoneId);
+            ps.setInt(2, projectId);
+            int count = ps.executeUpdate();
+            LOG.debug("insert count = " + count);
+
+            return determineTrueFalse(count);
+
+        } catch (SQLException error) {
+            LOG.debug(error.toString());
+            return false;
+        }
     }
 
 

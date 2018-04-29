@@ -108,7 +108,7 @@ public class SharedLoginServlet extends BaseServlet {
 
         } else {
             //TODO: THERE WAS AN ERROR DO SOMETHING
-            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.INFO, "Uh oh...", "Couldn't retrieve the link you were looking for."));
+            SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.INFO, "Uh oh...", "Couldn't retrieve the link you were looking for. It may have expired or been removed by the owner."));
             response.sendRedirect("/shared/" + urlHash);
         }
 

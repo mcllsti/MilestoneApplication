@@ -3,50 +3,106 @@
 
 <h1><i class="far fa-calendar-alt"></i> Milestones</h1>
 <p>Below are the current milestones</p>
-<p class="header-button-row"><a href="/milestones/create" class="button button-primary success"><i class="fas fa-calendar-plus"></i> New Milestone</a> <a href="/links" class="button button-primary"><i class="far fa-share-square"></i> Share Links</a></p>
+<p class="header-button-row"><a href="/milestones/create" class="button button-primary success"><i
+        class="fas fa-calendar-plus"></i> New Milestone</a> <a href="/links" class="button button-primary"><i
+        class="far fa-share-square"></i> Share Links</a></p>
+
+{{>../_partials/flash-message}}
 
 {{^milestones}}
     <p class="no-results">There are currently no milestones. You can create a new one by clicking the link above.</p>
 {{/milestones}}
 <div class="milestone-list">
 
-{{#milestones}}
-    <div class="milestone">
+    {{#milestones}}
 
-        <div class="header">
+        <div class="milestone {{#dateCompleted}}milestone-complete{{/dateCompleted}}">
 
-            <div class="due-date">
-                <ul>
-                    <li>{{dueDay}}</li>
-                    <li>{{dueMonth}}</li>
-                    <li>{{dueYear}}</li>
-                </ul>
-            </div>
+            <div class="header">
 
-            <div class="details">
-                <h3>{{name}}</h3>
-                <div class="timestamps">
-                <p><i class="far fa-clock"></i> Created {{prettyDateCreated}}</p>
-                <p><i class="fas fa-pencil-alt"></i> Modified {{prettyDateModified}}</p>
+                <div class="due-date">
+                    <ul>
+                        <li>{{dueDay}}</li>
+                        <li>{{dueMonth}}</li>
+                        <li>{{dueYear}}</li>
+                    </ul>
+                </div>
+
+                <div class="details">
+                    <h3>{{name}}</h3>
+                    <div class="timestamps">
+                        <p><i class="far fa-clock"></i> Created {{prettyDateCreated}}</p>
+                        <p><i class="fas fa-pencil-alt"></i> Modified {{prettyDateModified}}</p>
+                    </div>
+
+                </div>
+
+                <div class="menu">
+                    <ul>
+                        <!-- <li><a href="#"><i class="fas fa-eye"></i><span>View</span></a></li> -->
+                        <li><a href="/milestones/edit/{{id}}"><i class="fas fa-edit"></i><span>Edit</span></a></li>
+                        <li><a href="/milestones/delete/{{id}}"><i class="fas fa-trash"></i><span>Delete</span></a></li>
+                    </ul>
                 </div>
 
             </div>
 
-            <div class="menu">
-                <ul>
-                    <!-- <li><a href="#"><i class="fas fa-eye"></i><span>View</span></a></li> -->
-                    <li><a href="/milestones/edit/{{id}}"><i class="fas fa-edit"></i><span>Edit</span></a></li>
-                    <li><a href="/milestones/delete/{{id}}"><i class="fas fa-trash"></i><span>Delete</span></a></li>
-                </ul>
+            <div class="description-section">
+
+                <p class="complete-row"><a href="#" class="complete-milestone-button" data-id="{{id}}">
+                    {{#dateCompleted}}
+                        <i class="fas fa-undo"></i> <span>Revert to incomplete</span>
+                    {{/dateCompleted}}
+                    {{^dateCompleted}}
+                        <i class="fas fa-check"></i> <span>Mark as complete</span>
+                    {{/dateCompleted}}
+                </a></p>
+                <p>{{description}}</p>
+
             </div>
 
         </div>
-
-        <p>{{description}}<a href="#">Read more...</a></p>
-
-    </div>
-{{/milestones}}
+    {{/milestones}}
 </div>
 
+<script>
+    $(function () {
+
+        $(".complete-milestone-button").click(function (e) {
+
+            e.preventDefault();
+            // AJAX CALL TO PUT METHOD ON SERVLET EDIT
+            var milestoneId = $(this).data("id");
+            var formaction = "";
+
+            if($(this).find("span").text() ==="Revert to incomplete"){
+                $(this).find("span").text("Mark as complete");
+                formaction = "revert";
+            } else {
+                $(this).find("span").text("Revert to incomplete");
+                formaction = "complete"
+            }
+
+            $(this).closest(".milestone").toggleClass("milestone-complete");
+            $(this).find("i").toggleClass("fa-check").toggleClass("fa-undo");
+
+
+            $.ajax({
+                url: '/milestones/edit/' + milestoneId,
+                type: 'PUT',
+                data: {
+                    milestone: milestoneId,
+                    action: formaction
+                },
+                success: function (result) {
+                    console.log("PUT request worked was received.");
+                }
+            });
+
+
+        })
+
+    })
+</script>
 
 {{>../_partials/site-footer}}

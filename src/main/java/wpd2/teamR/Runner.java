@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.servlet.*;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 public class Runner {
@@ -71,7 +73,6 @@ public class Runner {
         // LOGIN / LOGOUT ROUTES
         handler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
-
 
         // START THE SERVER
         server.start();

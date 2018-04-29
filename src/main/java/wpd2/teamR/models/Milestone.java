@@ -4,6 +4,7 @@ import lombok.Data;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 @Data
@@ -54,6 +55,10 @@ public class Milestone {
     public String getPrettyDateModified(){
         PrettyTime p = new PrettyTime();
         return p.format(this.getDateModified());
+    }
+
+    public String getFormattedDueDate(){
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm").format(this.dueDate);
     }
 
 
