@@ -32,7 +32,9 @@ We have successfully managed to implement all functional requirements included i
 * User registration / login / logout
 ******
 # YouTube Video Walkthrough
+
 Below is a brief video walk through of our application
+
 [![YouTube Walkthrough](src/main/resources/webapp/img/youtube.jpg)](https://www.youtube.com/watch?v=zSgXbD4ZalE)
 ******
 # Installation Instructions
@@ -47,6 +49,9 @@ If the MySQL server is not using the default settings, you can update these in o
     private static final String pass = "";
     private static final String db = "milestones";
 ```
+
+Once setup and running - you can navigate to `http://localhost:9001/` to access the application.
+
 If you experience any issues, please contact cconno208@caledonian.ac.uk
 
 ******
