@@ -86,6 +86,10 @@ import java.util.Set;
         if (getCurrentUser(request).equals("")) {
             // SET A FLASH MESSAGE AND REDIRECT
             SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.ERROR, "Login Required", "You cannot access this section without being logged in to the system."));
+
+            // SAVE THE ROUTE THEY WERE TRYING TO ACCESS
+            setIntendedURI(request,request.getRequestURI());
+
             response.sendRedirect(response.encodeRedirectURL("/login")); //TODO: HARD CODED LOGIN
             return false;
         }
@@ -162,6 +166,29 @@ import java.util.Set;
         }
 
         }
+
+    protected void setIntendedURI(HttpServletRequest request, String intendedURI) {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("intendedURI", intendedURI);
+    }
+
+    protected String getIntendedURI(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+
+        String intendedURI = (String)session.getAttribute("intendedURI");
+        this.clearIntendedURI(request);
+        if(intendedURI == null){
+            return "";
+        } else {
+            return intendedURI;
+        }
+
+    }
+
+    private void clearIntendedURI(HttpServletRequest request){
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("intendedURI");
+    }
 
     protected String getUrlParamter(String url)
     {
