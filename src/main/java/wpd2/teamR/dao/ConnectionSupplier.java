@@ -6,9 +6,8 @@ import java.sql.SQLException;
 
 public class ConnectionSupplier {
 
-//    public static final String MEMORY = "jdbc:h2:mem:test";
-//    public static final String FILE = "jdbc:h2:~/test";
 
+    // EDIT HERE TO UPDATE YOUR DETAILS IF NECESSARY
     // CONNECTION DETAILS
     private static final String servername = "localhost";
     private static final int port = 3306;
