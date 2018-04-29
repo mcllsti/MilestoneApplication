@@ -5,12 +5,14 @@ import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.teamR.servlet.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimeZone;
 
 public class Runner {
@@ -83,8 +85,11 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
-        System.out.println(System.currentTimeMillis());
+        // ISSUES WITH TIMEZONE - TRYING TO FIX
+//        TimeZone.setDefault(TimeZone.getTimeZone("Europe/London"));
+//        System.out.println(System.currentTimeMillis());
+//        System.out.println(new SimpleDateFormat("DD MM YY H:m").format(System.currentTimeMillis()));
+
 
         try {
 

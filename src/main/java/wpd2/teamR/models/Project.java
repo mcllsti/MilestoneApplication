@@ -4,7 +4,7 @@ import lombok.Data;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Data
@@ -13,8 +13,8 @@ public class Project {
     private int id;
     private String name;
     private String description;
-    private java.sql.Timestamp dateCreated;
-    private java.sql.Timestamp dateModified;
+    private Timestamp dateCreated;
+    private Timestamp dateModified;
     private List<Milestone> milestones; // NOT SURE WHATS GOING ON HERE. MAKE THIS A HASHMAP TO RETRIEVE SINGLE Milestones? Dunno ¯\_(ツ)_/¯
 
     //private List<Milestone> milestones;  <= NAV VARIABLE / UNSURE
@@ -42,7 +42,11 @@ public class Project {
      */
     public String getPrettyDateCreated(){
         PrettyTime p = new PrettyTime();
-        return p.format(this.getDateCreated());
+//        return p.format(this.getDateCreated());
+
+            return new SimpleDateFormat("dd-MM-yyyy HH:mm").format(this.getDateCreated());
+
+
     }
 
     /**

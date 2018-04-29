@@ -64,11 +64,11 @@ public class Milestone {
 
     public String getDueDay(){
 
-        long timestamp = this.dueDate.getTime();
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(timestamp);
+//        long timestamp = this.dueDate.getTime();
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTimeInMillis(timestamp);
 
-        return String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+        return new SimpleDateFormat("dd").format(this.dueDate);
 
     }
 
@@ -85,12 +85,11 @@ public class Milestone {
 
     public String getDueYear(){
 
-        long timestamp = this.dueDate.getTime();
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(timestamp);
+//        long timestamp = this.dueDate.getTime();
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTimeInMillis(timestamp);
 
-        return String.valueOf(cal.get(Calendar.YEAR));
-
+        return new SimpleDateFormat("yyyy").format(this.dueDate);
     }
 
 }
