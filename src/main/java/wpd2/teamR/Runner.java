@@ -83,21 +83,8 @@ public class Runner {
 
     public static void main(String[] args) {
 
-
-
-
-//        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
-//        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
-        // TRY SET TIMEZONE?
-        System.out.println(System.getProperty("user.timezone"));
-
-        System.setProperty("user.timezone","Europe/London");
-        System.out.println(System.getProperty("user.timezone"));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-
-        System.out.println(System.getProperty("user.timezone"));
-
-        System.out.println(sdf.format(System.currentTimeMillis()));
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
+        System.out.println(System.currentTimeMillis());
 
         try {
 

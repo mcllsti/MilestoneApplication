@@ -7,11 +7,7 @@ import wpd2.teamR.models.Project;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
-
-
 
 
 public class ProjectDAO extends DAOBase {
@@ -229,7 +225,6 @@ public class ProjectDAO extends DAOBase {
      * @throws SQLException
      */
     private List<Project> addListProjects(ResultSet rs) throws SQLException {
-
 
         // LOOP THROUGH RESULTS
         List<Project> projectList = new ArrayList<Project>();
