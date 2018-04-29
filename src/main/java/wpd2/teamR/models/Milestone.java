@@ -72,13 +72,15 @@ public class Milestone {
 
     }
 
-    public int getDueMonth(){
+    public String getDueMonth(){
 
-        long timestamp = this.dueDate.getTime();
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(timestamp);
+//        long timestamp = this.dueDate.getTime();
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTimeInMillis(timestamp);
 
-        return cal.get(Calendar.MONTH);
+        return new SimpleDateFormat("MMMM").format(this.dueDate).toUpperCase().substring(0,3);
+
+//        return cal.get(Calendar.MONTH);
     }
 
     public String getDueYear(){
