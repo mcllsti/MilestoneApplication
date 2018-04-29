@@ -52,7 +52,8 @@ public class MilestoneDispatcherServlet extends BaseServlet {
         // UPDATE THE SESSION VARIABLE AND REDIRECT TO THE ACTUAL MILESTONE VIEW
         setCurrentProject(request,projectID);
 
-        SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.INFO,"WROTE TO THE SESSION","SESSION ID WAS WRITTEn - PROJECT IS "+projectID));
+        // FOR DEBUGGING
+//        SessionFunctions.setFlashMessage(request,new FlashMessage(FlashMessage.FlashType.INFO,"WROTE TO THE SESSION","SESSION ID WAS WRITTEn - PROJECT IS "+projectID));
         response.sendRedirect("/milestones");
 
     }
