@@ -35,7 +35,7 @@
         <div class="menu">
             <ul>
                 <li><a href="#" class="copy-link" title="Copy Link"><i class="far fa-copy"></i><span>Copy Link</span></a></li>
-                <li><a href="#" title="Send Link"><i class="fas fa-envelope"></i><span>Link</span></a></li>
+                <li><a href="#" title="Send Link" class="send-email"><i class="fas fa-envelope"></i><span>Link</span></a></li>
                 <li><a href="/links/delete/{{id}}" title="Delete Link"><i class="fas fa-trash-alt"></i><span>Delete</span></a></li>
             </ul>
         </div>
@@ -49,6 +49,37 @@
 <script>
     $(function () {
 
+        /**
+         * SPOOF SENDING EMAIL TO RECIPIENT
+         */
+        $(".send-email").click(function(e){
+
+            // CREATE THE FLASH OBJECT AND POPULATE
+            var templateString = '<div class="flash"><span class="close">&times;</span><p class="heading"><strong></strong></p><p class="message"></p></div>';
+            var flashObj = $($.parseHTML(templateString));
+            flashObj.addClass("success");
+            flashObj.css("display", "none");
+            flashObj.find(".heading strong").text(" Link Sent").prepend("<i class='far fa-envelope'> ");
+            flashObj.find(".message").html("<strong>[NOT IMPLMENTED]</strong><br>The link was successfully sent to the receipient.");
+
+            // WRITE TO DOM
+            $(this).closest(".link-list").before(flashObj);
+
+            // DISPLAY IT - WAIT THEN HIDE
+            $(".flash").not(".flash.blank").slideDown().delay(3000).slideUp(function(){
+                $(this).remove();
+            });
+
+            $('html, body').animate({
+                scrollTop: $(".flash.success").not(".flash.blank").offset().top - 100
+            }, 500);
+
+
+        });
+
+        /**
+         * COPY LINK TO CLIPBOARD
+         */
         $(".copy-link").click(function (e) {
             e.preventDefault();
 
@@ -77,7 +108,9 @@
             $(this).closest(".link-list").before(flashObj);
 
             // DISPLAY IT - WAIT THEN HIDE
-            $(".flash").not(".flash.blank").slideDown().delay(3000).slideUp();
+            $(".flash").not(".flash.blank").slideDown().delay(3000).slideUp(function(){
+                $(this).remove();
+            });
 
             $('html, body').animate({
                 scrollTop: $(".flash.success").not(".flash.blank").offset().top - 100

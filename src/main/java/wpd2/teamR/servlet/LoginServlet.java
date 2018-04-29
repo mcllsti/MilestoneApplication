@@ -109,7 +109,13 @@ public class LoginServlet extends BaseServlet {
                 // TRUE, SO SET SESSION AND REDIRECT TO PAGE
                 setCurrentUser(request, result);
                 SessionFunctions.setFlashMessage(request, new FlashMessage(FlashMessage.FlashType.SUCCESS, "Successfully logged in", "Welcome back :)"));
-                response.sendRedirect(SUCCESS_REDIRECT);
+                String intendedURI = getIntendedURI(request);
+
+                if(intendedURI.equals("")) {
+                    response.sendRedirect(SUCCESS_REDIRECT);
+                } else {
+                    response.sendRedirect(intendedURI);
+                }
 
             } else {
 
