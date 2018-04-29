@@ -1,5 +1,7 @@
 # Milestone Application #
 
+![Image of Application](src/main/resources/webapp/img/screen-shot.png)
+
 This will be the repo for our WPD2 Coursework.
 The application itself is a milestone application that allows users to have different projects that are made up of milestones. Users can only see their own projects and must log in to do so but can share them if they wish. 
 
@@ -29,7 +31,10 @@ We have successfully managed to implement all functional requirements included i
 * Shared Link Functionality
 * User registration / login / logout
 ******
-
+# YouTube Video Walkthrough
+Below is a brief video walk through of our application
+![Image of Application](src/main/resources/webapp/img/youtube.jpg)
+******
 # Installation Instructions
 To get the application running, you will need to have a MySQL database instance running. On the GCU lab machines, this can be done easily by running MySQL from XAMPP. Once running, simply install the `LATEST_DUMP.sql` script on the project root folder.
 
