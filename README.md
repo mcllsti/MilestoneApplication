@@ -1,14 +1,13 @@
 # Milestone Application #
 
+This is intended as a reference project only and is missing key files. 
+
 ![Image of Application](src/main/resources/webapp/img/screen-shot.png)
 
 This will be the repo for our WPD2 Coursework.
-The application itself is a milestone application that allows users to have different projects that are made up of milestones. Users can only see their own projects and must log in to do so but can share them if they wish. 
+The application itself is a milestone application that allows users to have different projects that are made up of milestones. Users can only see their own projects and must log in to do so but can share them if they wish.  This was developed for Web Platform Development 2 Module in university
 
-## GROUP ID
-```
-GROUP ID: R
-```
+
 
 ******
 
@@ -17,10 +16,10 @@ Below are the current team members
 
 |Team Member |	Student ID	|	Email Address|
 | --- | :---: | ---: |
-|Christopher Connor	|	S1715477	|	Cconno208@caledonian.ac.uk|
-|Daryl McAllister	|	S1222204	|	Dmcall200@caledonian.ac.uk|
-|Gavin Macleod	|	S1715408	|	Gmacle204@caledonian.ac.uk|
-|Niklas Olsson	|	S1434184	|	Nolsso200@caledonian.ac.uk|
+|Christopher Connor	|	SANITIZED	|	SANITIZED|
+|Daryl McAllister	|	SANITIZED	|	SANITIZED|
+|Gavin Macleod	|	SANITIZED	|	SANITIZED|
+|Niklas Olsson	|	SANITIZED	|	SANITIZED|
 
 ******
 
